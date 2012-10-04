@@ -1,5 +1,6 @@
 package de.jdsoft.gesetze;
 
+import us.feras.mdv.MarkdownView;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -56,8 +57,8 @@ public class BookDetailFragment extends SherlockFragment {
 
 		// Show the dummy content as text in a TextView.
 		if (mItem != null) {
-			((TextView) rootView.findViewById(R.id.book_detail))
-					.setText(mItem.content);
+			((MarkdownView) rootView.findViewById(R.id.book_detail))
+					.loadMarkdownUrl("file:///android_asset/a.md");
 		}
 
 		return rootView;
