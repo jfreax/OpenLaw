@@ -1,3 +1,5 @@
+*.*~
+
 # built application files
 *.apk
 *.ap_
@@ -19,3 +21,4 @@ local.properties
 .classpath
 .project
 
+.settings/org.eclipse.ltk.core.refactoring.prefs
