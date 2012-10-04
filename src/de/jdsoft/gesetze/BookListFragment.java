@@ -3,6 +3,7 @@ package de.jdsoft.gesetze;
 import java.util.List;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Pair;
@@ -99,6 +100,12 @@ public class BookListFragment extends SherlockListFragment {
 			setActivatedPosition(savedInstanceState
 					.getInt(STATE_ACTIVATED_POSITION));
 		}
+		
+		final ListView listView = getListView();
+	    listView.setSelector(android.R.color.transparent);
+	    listView.setCacheColorHint(Color.WHITE);
+	    listView.setFastScrollEnabled(true);
+	    listView.setFastScrollAlwaysVisible(true);
 	}
 
 	@Override
