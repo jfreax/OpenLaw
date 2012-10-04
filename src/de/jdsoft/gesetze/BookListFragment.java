@@ -101,6 +101,7 @@ public class BookListFragment extends SherlockListFragment {
 	    listView.setFastScrollEnabled(true);
 	    listView.setFastScrollAlwaysVisible(true);
 	    listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+	    listView.setScrollBarStyle(ListView.SCROLLBARS_OUTSIDE_INSET);
 	}
 
 	@Override
