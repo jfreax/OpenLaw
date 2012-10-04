@@ -8,7 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import de.jdsoft.gesetze.dummy.DummyContent;
+
+import de.jdsoft.gesetze.data.DummyContent;
 
 /**
  * A fragment representing a single Book detail screen. This fragment is either

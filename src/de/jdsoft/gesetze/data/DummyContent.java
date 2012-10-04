@@ -1,4 +1,4 @@
-package de.jdsoft.gesetze.dummy;
+package de.jdsoft.gesetze.data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
