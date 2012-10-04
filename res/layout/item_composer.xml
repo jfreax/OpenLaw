@@ -5,14 +5,16 @@
     	    android:layout_width="fill_parent"
     	    android:layout_height="wrap_content"
     	    android:divider="@color/light_blue"
-    	    android:dividerPadding="4dp"
+    	    android:dividerPadding="0dp"
     	    android:orientation="vertical"
-    	    android:padding="6dp"
+    	    android:padding="1dp"
     	    android:showDividers="end" >
 
-		<include layout="@layout/item_composer_header" android:layout_width="fill_parent" android:layout_height="wrap_content" />
-
-	</LinearLayout>
+			<include
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    layout="@layout/item_composer_header" />
+	    </LinearLayout>
 	
 
 	<LinearLayout
@@ -21,8 +23,21 @@
 	    android:orientation="vertical"
 	    android:padding="6dp">
 
-		<TextView android:textStyle="bold" android:text="Short name" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/shortName" android:textColor="#000" />
-		<TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/fullName" android:text="Full name" />
+		<TextView
+		    android:id="@+id/shortName"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:maxLines="1"
+		    android:text="Short name"
+		    android:textColor="#000"
+		    android:textStyle="bold" />
+
+		<TextView
+		    android:id="@+id/fullName"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:maxLines="1"
+		    android:text="Full name" />
 
 	</LinearLayout>
 
