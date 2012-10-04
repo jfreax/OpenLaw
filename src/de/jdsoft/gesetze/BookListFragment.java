@@ -3,8 +3,6 @@ package de.jdsoft.gesetze;
 import java.util.List;
 
 import android.app.Activity;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
@@ -81,12 +79,6 @@ public class BookListFragment extends SherlockListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		// TODO: replace with a real list adapter.
-		int layout = (Build.VERSION.SDK_INT >= 11) ? android.R.layout.simple_list_item_activated_1
-				: android.R.layout.simple_list_item_1;
-		//setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-		//		layout, android.R.id.text1, DummyContent.ITEMS));
 		setListAdapter(adapter = new SectionComposerAdapter());
 	}
 
@@ -102,10 +94,13 @@ public class BookListFragment extends SherlockListFragment {
 		}
 		
 		final ListView listView = getListView();
-	    listView.setSelector(android.R.color.transparent);
-	    listView.setCacheColorHint(Color.WHITE);
+	    //listView.setSelector(android.R.color.transparent);
+	    //listView.setCacheColorHint(Color.WHITE);
+		
+		// Enable fast scroll
 	    listView.setFastScrollEnabled(true);
 	    listView.setFastScrollAlwaysVisible(true);
+	    listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 	}
 
 	@Override
@@ -119,6 +114,7 @@ public class BookListFragment extends SherlockListFragment {
 		}
 
 		mCallbacks = (Callbacks) activity;
+		
 	}
 
 	@Override
@@ -220,12 +216,12 @@ public class BookListFragment extends SherlockListFragment {
 			View res = convertView;
 			if (res == null) res = getActivity().getLayoutInflater().inflate(R.layout.item_composer, null);
 
-			TextView lName = (TextView) res.findViewById(R.id.shortName);
-			TextView lYear = (TextView) res.findViewById(R.id.fullName);
+			TextView shortName = (TextView) res.findViewById(R.id.shortName);
+			TextView fullName = (TextView) res.findViewById(R.id.fullName);
 
 			Composer composer = getItem(position);
-			lName.setText(composer.name);
-			lYear.setText(composer.year);
+			shortName.setText(composer.name);
+			fullName.setText(composer.year);
 			
 			return res;
 		}
@@ -274,4 +270,5 @@ public class BookListFragment extends SherlockListFragment {
 		}
 
 	}
+
 }

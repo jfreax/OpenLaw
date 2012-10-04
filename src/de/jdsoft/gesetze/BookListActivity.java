@@ -4,6 +4,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 /**
  * An activity representing a list of Books. This activity has different
@@ -40,11 +41,12 @@ public class BookListActivity extends SherlockFragmentActivity implements
 			// res/values-sw600dp). If this view is present, then the
 			// activity should be in two-pane mode.
 			mTwoPane = true;
-
 			// In two-pane mode, list items should be given the
 			// 'activated' state when touched.
-			((BookListFragment) getSupportFragmentManager().findFragmentById(
-					R.id.book_list)).setActivateOnItemClick(true);
+			BookListFragment bookListFragment = ((BookListFragment) getSupportFragmentManager().findFragmentById(
+					R.id.book_list));
+			bookListFragment.setActivateOnItemClick(true);
+			bookListFragment.getListView().setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
 		}
 
 		// TODO: If exposing deep links into your app, handle intents here.
