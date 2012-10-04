@@ -1,6 +1,5 @@
 package de.jdsoft.gesetze.data;
 
-import android.os.*;
 import android.util.*;
 
 import java.util.*;
@@ -34,7 +33,6 @@ public class Cached {
 		if (page == 1) {
 			return new Pair<Boolean, List<Composer>>(true, flattenedData.subList(0, 5));
 		} else {
-			SystemClock.sleep(2000); // simulate loading
 			return new Pair<Boolean, List<Composer>>(page * 5 < flattenedData.size(), flattenedData.subList((page - 1) * 5, Math.min(page * 5, flattenedData.size())));
 		}
 	}
