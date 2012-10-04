@@ -213,8 +213,8 @@ public class BookListFragment extends SherlockListFragment {
 			View res = convertView;
 			if (res == null) res = getActivity().getLayoutInflater().inflate(R.layout.item_composer, null);
 
-			TextView lName = (TextView) res.findViewById(R.id.lName);
-			TextView lYear = (TextView) res.findViewById(R.id.lYear);
+			TextView lName = (TextView) res.findViewById(R.id.shortName);
+			TextView lYear = (TextView) res.findViewById(R.id.fullName);
 
 			Composer composer = getItem(position);
 			lName.setText(composer.name);
