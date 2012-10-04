@@ -2,5 +2,6 @@
 
     <string name="app_name">Gesetze</string>
     <string name="title_book_detail">Book Detail</string>
+    <color name="light_blue">#37b3f3</color>
 
 </resources>

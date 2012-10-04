@@ -219,7 +219,7 @@ public class BookListFragment extends SherlockListFragment {
 			Composer composer = getItem(position);
 			lName.setText(composer.name);
 			lYear.setText(composer.year);
-
+			
 			return res;
 		}
 
