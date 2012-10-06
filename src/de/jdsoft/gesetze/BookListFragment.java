@@ -3,6 +3,7 @@ package de.jdsoft.gesetze;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
@@ -13,9 +14,9 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.foound.widget.AmazingAdapter;
 
-import de.jdsoft.gesetze.data.Cached;
+import de.jdsoft.gesetze.data.Database;
 import de.jdsoft.gesetze.data.DummyContent;
-import de.jdsoft.gesetze.data.helper.Composer;
+import de.jdsoft.gesetze.data.helper.Law;
 
 /**
  * A list fragment representing a list of Books. This fragment also supports
@@ -64,7 +65,6 @@ public class BookListFragment extends SherlockListFragment {
 	 * nothing. Used only when this fragment is not attached to an activity.
 	 */
 	private static Callbacks sDummyCallbacks = new Callbacks() {
-		@Override
 		public void onItemSelected(String id) {
 		}
 	};
@@ -76,13 +76,12 @@ public class BookListFragment extends SherlockListFragment {
 	public BookListFragment() {
 	}
 
-	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setListAdapter(adapter = new SectionComposerAdapter());
+		adapter = new SectionComposerAdapter();
+		//setListAdapter(adapter = new SectionComposerAdapter());
 	}
 
-	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
@@ -92,19 +91,18 @@ public class BookListFragment extends SherlockListFragment {
 			setActivatedPosition(savedInstanceState
 					.getInt(STATE_ACTIVATED_POSITION));
 		}
-		
+
 		final ListView listView = getListView();
-	    //listView.setSelector(android.R.color.transparent);
-	    //listView.setCacheColorHint(Color.WHITE);
-		
+		//listView.setSelector(android.R.color.transparent);
+		//listView.setCacheColorHint(Color.WHITE);
+
 		// Enable fast scroll
-	    listView.setFastScrollEnabled(true);
-	    listView.setFastScrollAlwaysVisible(true);
-	    listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-	    listView.setScrollBarStyle(ListView.SCROLLBARS_OUTSIDE_INSET);
+		listView.setFastScrollEnabled(true);
+		listView.setFastScrollAlwaysVisible(true);
+		listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		listView.setScrollBarStyle(ListView.SCROLLBARS_OUTSIDE_INSET);
 	}
 
-	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 
@@ -115,7 +113,7 @@ public class BookListFragment extends SherlockListFragment {
 		}
 
 		mCallbacks = (Callbacks) activity;
-		
+
 	}
 
 	@Override
@@ -167,9 +165,28 @@ public class BookListFragment extends SherlockListFragment {
 		mActivatedPosition = position;
 	}
 
+	/**
+	 * Section Composer... 
+	 * @author jens
+	 *
+	 */
+	public class SectionComposerAdapter extends AmazingAdapter {
+		Database db = null;
+		List<Pair<String, List<Law>>> all = null;
 
-	class SectionComposerAdapter extends AmazingAdapter {
-		List<Pair<String, List<Composer>>> all = Cached.getAllData();
+		public SectionComposerAdapter() {
+			db = new Database();
+			db.execute(this);
+		}
+
+		public void onReadyAddListAdapter(List<Pair<String, List<Law>>> result) {
+			this.all = result;
+			setListAdapter(this);
+		}
+
+		public Context getContext() {
+			return getActivity().getApplicationContext();
+		}
 
 		public int getCount() {
 			int res = 0;
@@ -179,7 +196,7 @@ public class BookListFragment extends SherlockListFragment {
 			return res;
 		}
 
-		public Composer getItem(int position) {
+		public Law getItem(int position) {
 			int c = 0;
 			for (int i = 0; i < all.size(); i++) {
 				if (position >= c && position < c + all.get(i).second.size()) {
@@ -214,10 +231,10 @@ public class BookListFragment extends SherlockListFragment {
 			TextView shortName = (TextView) res.findViewById(R.id.shortName);
 			TextView fullName = (TextView) res.findViewById(R.id.fullName);
 
-			Composer composer = getItem(position);
-			shortName.setText(composer.shortName);
-			fullName.setText(composer.longName);
-			
+			Law law = getItem(position);
+			shortName.setText(law.getShortName());
+			fullName.setText(law.getLongName());
+
 			return res;
 		}
 

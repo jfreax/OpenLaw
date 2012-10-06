@@ -1,6 +1,5 @@
 package de.jdsoft.gesetze.data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.jdsoft.gesetze.data.helper.Law;
@@ -8,18 +7,17 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 	private static final String DATABASE_NAME = "gesetze";
 	private static final String TABLE_LAWS = "gesetze";
 
 	private static final String KEY_ID = "id";
-	private static final String KEY_SHORT_NAME = "short_name";
-	private static final String KEY_LONG_NAME = "long_name";
+	private static final String KEY_SHORT_NAME = "shortname";
+	private static final String KEY_LONG_NAME = "longname";
 	private static final String KEY_TEXT = "text";
 
 
@@ -85,35 +83,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		return law;
 	}
 
-	public List<Law> getAllLaws() {
-		List<Law> lawList = new ArrayList<Law>();
-		String selectQuery = "SELECT  * FROM " + TABLE_LAWS;
-
+	public Cursor getAllLaws() {
+		String selectQuery = "SELECT  * FROM " + TABLE_LAWS + " ORDER BY " + KEY_SHORT_NAME + " ASC";
 		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor cursor = db.rawQuery(selectQuery, null);
 
-		if (cursor.moveToFirst()) {
-			do {
-				Law law = new Law();
-				law.setID(Integer.parseInt(cursor.getString(0)));
-				law.setShortName(cursor.getString(1));
-				law.setLongName(cursor.getString(2));
-				law.setText(cursor.getString(2));
-
-				lawList.add(law);
-			} while (cursor.moveToNext());
-		}
-
-		return lawList;
+		return db.rawQuery(selectQuery, null);
 	}
 
 	public int getLawsCount() {
 		String countQuery = "SELECT  * FROM " + TABLE_LAWS;
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(countQuery, null);
+		
+		int count = cursor.getCount();
 		cursor.close();
 
-		return cursor.getCount();
+		return count;
 	}
 
 	public int updateLaw(Law law) {

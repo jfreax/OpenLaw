@@ -5,7 +5,6 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ListView;
 
 /**
  * An activity representing a list of Books. This activity has different
