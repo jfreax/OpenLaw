@@ -85,7 +85,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	public Cursor getAllLaws() {
 		String selectQuery = "SELECT  * FROM " + TABLE_LAWS + " ORDER BY " + KEY_SHORT_NAME + " ASC";
-		SQLiteDatabase db = this.getWritableDatabase();
+		SQLiteDatabase db = this.getReadableDatabase();
 
 		return db.rawQuery(selectQuery, null);
 	}
