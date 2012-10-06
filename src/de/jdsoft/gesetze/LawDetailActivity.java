@@ -10,17 +10,17 @@ import android.support.v4.app.NavUtils;
 /**
  * An activity representing a single Book detail screen. This activity is only
  * used on handset devices. On tablet-size devices, item details are presented
- * side-by-side with a list of items in a {@link BookListActivity}.
+ * side-by-side with a list of items in a {@link LawListActivity}.
  * <p>
  * This activity is mostly just a 'shell' activity containing nothing more than
- * a {@link BookDetailFragment}.
+ * a {@link LawDetailFragment}.
  */
-public class BookDetailActivity extends SherlockFragmentActivity {
+public class LawDetailActivity extends SherlockFragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_book_detail);
+		setContentView(R.layout.activity_law_detail);
 
 		// Show the Up button in the action bar.
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -38,12 +38,12 @@ public class BookDetailActivity extends SherlockFragmentActivity {
 			// Create the detail fragment and add it to the activity
 			// using a fragment transaction.
 			Bundle arguments = new Bundle();
-			arguments.putString(BookDetailFragment.ARG_ITEM_ID, getIntent()
-					.getStringExtra(BookDetailFragment.ARG_ITEM_ID));
-			BookDetailFragment fragment = new BookDetailFragment();
+			arguments.putString(LawDetailFragment.ARG_ITEM_ID, getIntent()
+					.getStringExtra(LawDetailFragment.ARG_ITEM_ID));
+			LawDetailFragment fragment = new LawDetailFragment();
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.book_detail_container, fragment).commit();
+					.add(R.id.law_detail_container, fragment).commit();
 		}
 	}
 
@@ -59,7 +59,7 @@ public class BookDetailActivity extends SherlockFragmentActivity {
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
 			//
 			NavUtils.navigateUpTo(this,
-					new Intent(this, BookListActivity.class));
+					new Intent(this, LawListActivity.class));
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

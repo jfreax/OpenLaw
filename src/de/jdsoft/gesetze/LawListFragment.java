@@ -18,15 +18,15 @@ import de.jdsoft.gesetze.data.Database;
 import de.jdsoft.gesetze.data.helper.Law;
 
 /**
- * A list fragment representing a list of Books. This fragment also supports
+ * A list fragment representing a list of Laws. This fragment also supports
  * tablet devices by allowing list items to be given an 'activated' state upon
  * selection. This helps indicate which item is currently being viewed in a
- * {@link BookDetailFragment}.
+ * {@link LawDetailFragment}.
  * <p>
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.
  */
-public class BookListFragment extends SherlockListFragment {
+public class LawListFragment extends SherlockListFragment {
 
 	SectionComposerAdapter adapter;
 
@@ -72,7 +72,7 @@ public class BookListFragment extends SherlockListFragment {
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
 	 */
-	public BookListFragment() {
+	public LawListFragment() {
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -176,7 +176,7 @@ public class BookListFragment extends SherlockListFragment {
 			db.execute(this);
 		}
 
-		public void onReadyAddListAdapter(List<Pair<String, List<Law>>> result) {
+		public void onReady(List<Pair<String, List<Law>>> result) {
 			this.all = result;
 			setListAdapter(this);
 		}

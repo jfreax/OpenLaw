@@ -6,7 +6,7 @@ import java.util.List;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.util.Pair;
-import de.jdsoft.gesetze.BookListFragment.SectionComposerAdapter;
+import de.jdsoft.gesetze.LawListFragment.SectionComposerAdapter;
 import de.jdsoft.gesetze.data.helper.Law;
 
 public class Database extends AsyncTask<SectionComposerAdapter, Integer, List<Pair<String, List<Law>>>> {
@@ -52,7 +52,7 @@ public class Database extends AsyncTask<SectionComposerAdapter, Integer, List<Pa
 	}
 
 	protected void onPostExecute(List<Pair<String, List<Law>>> result) {
-		mCallback.onReadyAddListAdapter(result);
+		mCallback.onReady(result);
 	}
 
 }

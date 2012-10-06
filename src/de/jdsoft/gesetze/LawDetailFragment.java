@@ -15,10 +15,10 @@ import de.jdsoft.gesetze.data.helper.Law;
 
 /**
  * A fragment representing a single Book detail screen. This fragment is either
- * contained in a {@link BookListActivity} in two-pane mode (on tablets) or a
- * {@link BookDetailActivity} on handsets.
+ * contained in a {@link LawListActivity} in two-pane mode (on tablets) or a
+ * {@link LawDetailActivity} on handsets.
  */
-public class BookDetailFragment extends SherlockFragment {
+public class LawDetailFragment extends SherlockFragment {
 	/**
 	 * The fragment argument representing the item ID that this fragment
 	 * represents.
@@ -34,7 +34,7 @@ public class BookDetailFragment extends SherlockFragment {
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
 	 */
-	public BookDetailFragment() {
+	public LawDetailFragment() {
 	}
 
 	@Override
@@ -51,12 +51,12 @@ public class BookDetailFragment extends SherlockFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_book_detail,
+		View rootView = inflater.inflate(R.layout.fragment_law_detail,
 				container, false);
 
 		// Show the dummy content as text in a TextView.
 		if (law != null) {
-			((TextView) rootView.findViewById(R.id.book_detail)).setText(law.getText());
+			((TextView) rootView.findViewById(R.id.law_detail)).setText(law.getText());
 		}
 
 		return rootView;

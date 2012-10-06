@@ -10,19 +10,19 @@ import android.view.View;
  * An activity representing a list of Books. This activity has different
  * presentations for handset and tablet-size devices. On handsets, the activity
  * presents a list of items, which when touched, lead to a
- * {@link BookDetailActivity} representing item details. On tablets, the
+ * {@link LawDetailActivity} representing item details. On tablets, the
  * activity presents the list of items and item details side-by-side using two
  * vertical panes.
  * <p>
  * The activity makes heavy use of fragments. The list of items is a
- * {@link BookListFragment} and the item details (if present) is a
- * {@link BookDetailFragment}.
+ * {@link LawListFragment} and the item details (if present) is a
+ * {@link LawDetailFragment}.
  * <p>
- * This activity also implements the required {@link BookListFragment.Callbacks}
+ * This activity also implements the required {@link LawListFragment.Callbacks}
  * interface to listen for item selections.
  */
-public class BookListActivity extends SherlockFragmentActivity implements
-		BookListFragment.Callbacks {
+public class LawListActivity extends SherlockFragmentActivity implements
+		LawListFragment.Callbacks {
 
 	/**
 	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -33,9 +33,9 @@ public class BookListActivity extends SherlockFragmentActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_book_list);
+		setContentView(R.layout.activity_law_list);
 
-		if (findViewById(R.id.book_detail_container) != null) {
+		if (findViewById(R.id.law_detail_container) != null) {
 			// The detail container view will be present only in the
 			// large-screen layouts (res/values-large and
 			// res/values-sw600dp). If this view is present, then the
@@ -43,17 +43,17 @@ public class BookListActivity extends SherlockFragmentActivity implements
 			mTwoPane = true;
 			// In two-pane mode, list items should be given the
 			// 'activated' state when touched.
-			BookListFragment bookListFragment = ((BookListFragment) getSupportFragmentManager().findFragmentById(
-					R.id.book_list));
-			bookListFragment.setActivateOnItemClick(true);
-			bookListFragment.getListView().setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
+			LawListFragment lawListFragment = ((LawListFragment) getSupportFragmentManager().findFragmentById(
+					R.id.law_list));
+			lawListFragment.setActivateOnItemClick(true);
+			lawListFragment.getListView().setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
 		}
 
 		// TODO: If exposing deep links into your app, handle intents here.
 	}
 
 	/**
-	 * Callback method from {@link BookListFragment.Callbacks} indicating that
+	 * Callback method from {@link LawListFragment.Callbacks} indicating that
 	 * the item with the given ID was selected.
 	 */
 	@Override
@@ -63,17 +63,17 @@ public class BookListActivity extends SherlockFragmentActivity implements
 			// adding or replacing the detail fragment using a
 			// fragment transaction.
 			Bundle arguments = new Bundle();
-			arguments.putString(BookDetailFragment.ARG_ITEM_ID, id);
-			BookDetailFragment fragment = new BookDetailFragment();
+			arguments.putString(LawDetailFragment.ARG_ITEM_ID, id);
+			LawDetailFragment fragment = new LawDetailFragment();
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.book_detail_container, fragment).commit();
+					.replace(R.id.law_detail_container, fragment).commit();
 
 		} else {
 			// In single-pane mode, simply start the detail activity
 			// for the selected item ID.
-			Intent detailIntent = new Intent(this, BookDetailActivity.class);
-			detailIntent.putExtra(BookDetailFragment.ARG_ITEM_ID, id);
+			Intent detailIntent = new Intent(this, LawDetailActivity.class);
+			detailIntent.putExtra(LawDetailFragment.ARG_ITEM_ID, id);
 			startActivity(detailIntent);
 		}
 	}

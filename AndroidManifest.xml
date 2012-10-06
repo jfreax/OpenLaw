@@ -13,7 +13,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".BookListActivity"
+            android:name=".LawListActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,12 +22,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BookDetailActivity"
-            android:label="@string/title_book_detail"
-            android:parentActivityName=".BookListActivity" >
+            android:name=".LawDetailActivity"
+            android:label="@string/title_law_detail"
+            android:parentActivityName=".LawListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".BookListActivity" />
+                android:value=".LawListActivity" />
         </activity>
     </application>
 
