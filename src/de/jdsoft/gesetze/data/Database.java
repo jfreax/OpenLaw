@@ -10,7 +10,7 @@ import de.jdsoft.gesetze.BookListFragment.SectionComposerAdapter;
 import de.jdsoft.gesetze.data.helper.Law;
 
 public class Database extends AsyncTask<SectionComposerAdapter, Integer, List<Pair<String, List<Law>>>> {
-	public static final String TAG = Cached.class.getSimpleName();
+	public static final String TAG = Database.class.getSimpleName();
 	private static SectionComposerAdapter mCallback = null;
 
 	protected List<Pair<String, List<Law>>> doInBackground(SectionComposerAdapter... params) {

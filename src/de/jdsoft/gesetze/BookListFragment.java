@@ -15,7 +15,6 @@ import com.actionbarsherlock.app.SherlockListFragment;
 import com.foound.widget.AmazingAdapter;
 
 import de.jdsoft.gesetze.data.Database;
-import de.jdsoft.gesetze.data.DummyContent;
 import de.jdsoft.gesetze.data.helper.Law;
 
 /**
@@ -124,17 +123,15 @@ public class BookListFragment extends SherlockListFragment {
 		mCallbacks = sDummyCallbacks;
 	}
 
-	@Override
 	public void onListItemClick(ListView listView, View view, int position,
 			long id) {
 		super.onListItemClick(listView, view, position, id);
 
 		// Notify the active callbacks interface (the activity, if the
-		// fragment is attached to one) that an item has been selected.
-		mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id); // TODO new data structure
+		// fragment is attached to one) that an item has been selected.	
+		mCallbacks.onItemSelected(String.valueOf(position)); // TODO is this really correct?
 	}
 
-	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		if (mActivatedPosition != ListView.INVALID_POSITION) {

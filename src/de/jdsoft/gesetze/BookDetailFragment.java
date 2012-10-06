@@ -2,6 +2,7 @@ package de.jdsoft.gesetze;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,8 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
-import de.jdsoft.gesetze.data.DummyContent;
+import de.jdsoft.gesetze.data.DatabaseHandler;
+import de.jdsoft.gesetze.data.helper.Law;
 
 /**
  * A fragment representing a single Book detail screen. This fragment is either
@@ -24,9 +26,9 @@ public class BookDetailFragment extends SherlockFragment {
 	public static final String ARG_ITEM_ID = "item_id";
 
 	/**
-	 * The dummy content this fragment is presenting.
+	 * This fragment is presenting.
 	 */
-	private DummyContent.DummyItem mItem;
+	private Law law = null;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -40,11 +42,9 @@ public class BookDetailFragment extends SherlockFragment {
 		super.onCreate(savedInstanceState);
 
 		if (getArguments().containsKey(ARG_ITEM_ID)) {
-			// Load the dummy content specified by the fragment
-			// arguments. In a real-world scenario, use a Loader
-			// to load content from a content provider.
-			mItem = DummyContent.ITEM_MAP.get(getArguments().getString(
-					ARG_ITEM_ID));
+			DatabaseHandler dbHandler = new DatabaseHandler(this.getActivity().getApplicationContext());
+			law = dbHandler.getLaw(Integer.parseInt(getArguments().getString(ARG_ITEM_ID)));
+
 		}
 	}
 
@@ -55,8 +55,8 @@ public class BookDetailFragment extends SherlockFragment {
 				container, false);
 
 		// Show the dummy content as text in a TextView.
-		if (mItem != null) {
-			((TextView) rootView.findViewById(R.id.book_detail)).setText("Hello");
+		if (law != null) {
+			((TextView) rootView.findViewById(R.id.book_detail)).setText(law.getText());
 		}
 
 		return rootView;

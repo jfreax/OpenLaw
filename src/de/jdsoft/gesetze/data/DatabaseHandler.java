@@ -8,6 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -21,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String KEY_TEXT = "text";
 
 
-	DatabaseHandler(Context context) {
+	public DatabaseHandler(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
@@ -69,11 +70,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 
 	public Law getLaw(int id) {
+		Log.w("DBHandler", "Here i am!");
+		
 		SQLiteDatabase db = this.getReadableDatabase();
-
 		Cursor cursor = db.query(TABLE_LAWS, new String[] { KEY_ID,
 				KEY_SHORT_NAME, KEY_LONG_NAME, KEY_TEXT }, KEY_ID + "=?",
 						new String[] { String.valueOf(id) }, null, null, null, null);
+		if (cursor != null)
+			cursor.moveToFirst();
+
+		Law law = new Law(Integer.parseInt(cursor.getString(0)),
+				cursor.getString(1), cursor.getString(2), cursor.getString(3));
+
+		return law;
+	}
+	
+
+	public Law getLaw(String shortName) {	
+		SQLiteDatabase db = this.getReadableDatabase();
+
+		Cursor cursor = db.query(TABLE_LAWS, new String[] { KEY_ID,
+				KEY_SHORT_NAME, KEY_LONG_NAME, KEY_TEXT }, KEY_SHORT_NAME + "=?",
+						new String[] { shortName }, null, null, null, null);
 		if (cursor != null)
 			cursor.moveToFirst();
 
@@ -122,4 +140,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				new String[] { String.valueOf(law.getID()) });
 		db.close();
 	}
+
+
 }
