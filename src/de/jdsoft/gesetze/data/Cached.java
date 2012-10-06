@@ -4,6 +4,8 @@ import android.util.*;
 
 import java.util.*;
 
+import de.jdsoft.gesetze.data.helper.Composer;
+
 
 public class Cached {
 	public static final String TAG = Cached.class.getSimpleName();

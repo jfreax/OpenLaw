@@ -14,8 +14,8 @@ import com.actionbarsherlock.app.SherlockListFragment;
 import com.foound.widget.AmazingAdapter;
 
 import de.jdsoft.gesetze.data.Cached;
-import de.jdsoft.gesetze.data.Composer;
 import de.jdsoft.gesetze.data.DummyContent;
+import de.jdsoft.gesetze.data.helper.Composer;
 
 /**
  * A list fragment representing a list of Books. This fragment also supports
@@ -171,7 +171,6 @@ public class BookListFragment extends SherlockListFragment {
 	class SectionComposerAdapter extends AmazingAdapter {
 		List<Pair<String, List<Composer>>> all = Cached.getAllData();
 
-		@Override
 		public int getCount() {
 			int res = 0;
 			for (int i = 0; i < all.size(); i++) {
@@ -180,7 +179,6 @@ public class BookListFragment extends SherlockListFragment {
 			return res;
 		}
 
-		@Override
 		public Composer getItem(int position) {
 			int c = 0;
 			for (int i = 0; i < all.size(); i++) {
@@ -192,16 +190,13 @@ public class BookListFragment extends SherlockListFragment {
 			return null;
 		}
 
-		@Override
 		public long getItemId(int position) {
 			return position;
 		}
 
-		@Override
 		protected void onNextPageRequested(int page) {
 		}
 
-		@Override
 		protected void bindSectionHeader(View view, int position, boolean displaySectionHeader) {
 			if (displaySectionHeader) {
 				view.findViewById(R.id.header).setVisibility(View.VISIBLE);
@@ -212,7 +207,6 @@ public class BookListFragment extends SherlockListFragment {
 			}
 		}
 
-		@Override
 		public View getAmazingView(int position, View convertView, ViewGroup parent) {
 			View res = convertView;
 			if (res == null) res = getActivity().getLayoutInflater().inflate(R.layout.item_composer, null);
@@ -221,13 +215,12 @@ public class BookListFragment extends SherlockListFragment {
 			TextView fullName = (TextView) res.findViewById(R.id.fullName);
 
 			Composer composer = getItem(position);
-			shortName.setText(composer.name);
-			fullName.setText(composer.year);
+			shortName.setText(composer.shortName);
+			fullName.setText(composer.longName);
 			
 			return res;
 		}
 
-		@Override
 		public void configurePinnedHeader(View header, int position, int alpha) {
 			TextView lSectionHeader = (TextView)header;
 			lSectionHeader.setText(getSections()[getSectionForPosition(position)]);
@@ -235,7 +228,6 @@ public class BookListFragment extends SherlockListFragment {
 			lSectionHeader.setTextColor(alpha << 24 | (0x000000));
 		}
 
-		@Override
 		public int getPositionForSection(int section) {
 			if (section < 0) section = 0;
 			if (section >= all.size()) section = all.size() - 1;
@@ -249,7 +241,6 @@ public class BookListFragment extends SherlockListFragment {
 			return 0;
 		}
 
-		@Override
 		public int getSectionForPosition(int position) {
 			int c = 0;
 			for (int i = 0; i < all.size(); i++) {
@@ -261,7 +252,6 @@ public class BookListFragment extends SherlockListFragment {
 			return -1;
 		}
 
-		@Override
 		public String[] getSections() {
 			String[] res = new String[all.size()];
 			for (int i = 0; i < all.size(); i++) {
