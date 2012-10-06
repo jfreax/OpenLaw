@@ -109,8 +109,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(KEY_LONG_NAME, law.getLongName());
 		values.put(KEY_TEXT, law.getText());
 
-		return db.update(TABLE_LAWS, values, KEY_ID + " = ?",
+		int ret =  db.update(TABLE_LAWS, values, KEY_ID + " = ?",
 				new String[] { String.valueOf(law.getID()) });
+		db.close();
+		
+		return ret;
 	}
 
 	public void deleteLaw(Law law) {
