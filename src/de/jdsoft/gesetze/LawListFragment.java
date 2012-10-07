@@ -1,10 +1,12 @@
 package de.jdsoft.gesetze;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +16,8 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.foound.widget.AmazingAdapter;
 
-import de.jdsoft.gesetze.data.Database;
 import de.jdsoft.gesetze.data.helper.Law;
+import de.jdsoft.gesetze.database.LawSectionList;
 
 /**
  * A list fragment representing a list of Laws. This fragment also supports
@@ -78,7 +80,9 @@ public class LawListFragment extends SherlockListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		adapter = new SectionComposerAdapter();
-		//setListAdapter(adapter = new SectionComposerAdapter());
+		
+		LawSectionList db = new LawSectionList();
+		db.execute(adapter);
 	}
 
 	public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -167,17 +171,22 @@ public class LawListFragment extends SherlockListFragment {
 	 * @author jens
 	 *
 	 */
-	public class SectionComposerAdapter extends AmazingAdapter {
-		Database db = null;
+	public class SectionComposerAdapter extends AmazingAdapter implements CallbackInterface {
 		List<Pair<String, List<Law>>> all = null;
 
 		public SectionComposerAdapter() {
-			db = new Database();
-			db.execute(this);
 		}
 
-		public void onReady(List<Pair<String, List<Law>>> result) {
-			this.all = result;
+		public void onFinish(CallerInterface caller) {
+			try {
+				this.all = ((LawSectionList)caller).get();
+			} catch (InterruptedException e) {
+				// INFO Thrown when a waiting thread is activated before the condition it was waiting for has been satisfied.
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				Log.e(SectionComposerAdapter.class.getName(), e.getCause().getMessage());
+				e.printStackTrace();
+			}
 			setListAdapter(this);
 		}
 

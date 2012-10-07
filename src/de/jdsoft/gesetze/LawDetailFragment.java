@@ -1,8 +1,6 @@
 package de.jdsoft.gesetze;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +8,8 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
-import de.jdsoft.gesetze.data.DatabaseHandler;
 import de.jdsoft.gesetze.data.helper.Law;
+import de.jdsoft.gesetze.database.DatabaseHandler;
 
 /**
  * A fragment representing a single Book detail screen. This fragment is either
@@ -37,7 +35,6 @@ public class LawDetailFragment extends SherlockFragment {
 	public LawDetailFragment() {
 	}
 
-	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
@@ -48,13 +45,11 @@ public class LawDetailFragment extends SherlockFragment {
 		}
 	}
 
-	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_law_detail,
 				container, false);
 
-		// Show the dummy content as text in a TextView.
 		if (law != null) {
 			((TextView) rootView.findViewById(R.id.law_detail)).setText(law.getText());
 		}
