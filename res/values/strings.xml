@@ -3,5 +3,7 @@
     <string name="app_name">Gesetze</string>
     <string name="title_law_detail">Gesetzestext</string>
     <color name="light_blue">#37b3f3</color>
+    <string name="settings">Einstellungen</string>
+    <string name="search">Suchen</string>
 
 </resources>
