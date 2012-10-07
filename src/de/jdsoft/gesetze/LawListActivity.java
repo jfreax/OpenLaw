@@ -37,7 +37,6 @@ public class LawListActivity extends SherlockFragmentActivity implements
 	private boolean mTwoPane;
 
 	@SuppressLint("NewApi")
-	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_law_list);
@@ -56,14 +55,18 @@ public class LawListActivity extends SherlockFragmentActivity implements
 			lawListFragment.getListView().setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
 		}
 		
+		// Hide title
+		getSupportActionBar().setDisplayShowTitleEnabled(false);
+		
+		// Show list menu
         Context context = getSupportActionBar().getThemedContext();
         ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.locations, R.layout.sherlock_spinner_item);
         list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
 
         getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         getSupportActionBar().setListNavigationCallbacks(list, this);
-
-		// TODO: If exposing deep links into your app, handle intents here.
+        
+		// If exposing deep links into your app, handle intents here.
 	}
 	
 	
