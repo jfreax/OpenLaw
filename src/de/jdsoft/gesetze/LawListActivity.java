@@ -5,7 +5,6 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
-import android.R.menu;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -79,7 +78,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
     	// Search button
         menu.add(R.string.search)
             .setIcon(isLight ? R.drawable.ic_search_inverse : R.drawable.ic_search)
-            .setActionView(R.layout.collapsible_edittext)
+            .setActionView(R.layout.collapsible_search)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
         
         // Settings button

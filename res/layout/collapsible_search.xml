@@ -3,5 +3,5 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:inputType="textFilter"
-    android:hint="Volltextsuche" />
+    android:hint="@string/search" />
 
