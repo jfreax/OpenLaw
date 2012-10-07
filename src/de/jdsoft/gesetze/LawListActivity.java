@@ -1,10 +1,16 @@
 package de.jdsoft.gesetze;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 
 /**
  * An activity representing a list of Books. This activity has different
@@ -22,7 +28,7 @@ import android.view.View;
  * interface to listen for item selections.
  */
 public class LawListActivity extends SherlockFragmentActivity implements
-		LawListFragment.Callbacks {
+		LawListFragment.Callbacks, ActionBar.OnNavigationListener {
 
 	/**
 	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -30,6 +36,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
 	 */
 	private boolean mTwoPane;
 
+	@SuppressLint("NewApi")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,9 +55,30 @@ public class LawListActivity extends SherlockFragmentActivity implements
 			lawListFragment.setActivateOnItemClick(true);
 			lawListFragment.getListView().setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
 		}
+		
+        Context context = getSupportActionBar().getThemedContext();
+        ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.locations, R.layout.sherlock_spinner_item);
+        list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
+
+        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+        getSupportActionBar().setListNavigationCallbacks(list, this);
 
 		// TODO: If exposing deep links into your app, handle intents here.
 	}
+	
+	
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //Used to put dark icons on light action bar
+        //boolean isLight = SampleList.THEME == R.style.Theme_Sherlock_Light;
+    	boolean isLight = true;
+
+        menu.add("Suchen")
+            .setIcon(isLight ? R.drawable.ic_search_inverse : R.drawable.ic_search)
+            .setActionView(R.layout.collapsible_edittext)
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+
+        return true;
+    }
 
 	/**
 	 * Callback method from {@link LawListFragment.Callbacks} indicating that
@@ -76,5 +104,11 @@ public class LawListActivity extends SherlockFragmentActivity implements
 			detailIntent.putExtra(LawDetailFragment.ARG_ITEM_ID, id);
 			startActivity(detailIntent);
 		}
+	}
+
+	@Override
+	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+		// TODO Auto-generated method stub
+		return true;
 	}
 }
