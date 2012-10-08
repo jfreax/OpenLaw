@@ -17,7 +17,7 @@ public class LawSectionList extends AsyncTask<SectionComposerAdapter, Integer, L
 	protected List<Pair<String, List<Law>>> doInBackground(SectionComposerAdapter... params) {
 		mCallback = params[0];
 
-		DatabaseHandler dbHandler = new DatabaseHandler(mCallback.getContext());
+		LawDb dbHandler = new LawDb(mCallback.getContext());
 		List<Law> allLaws = dbHandler.getAllLaws();
 
 		String sectionName = null;

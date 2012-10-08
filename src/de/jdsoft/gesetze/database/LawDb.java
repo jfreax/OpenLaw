@@ -9,9 +9,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
-public class DatabaseHandler extends SQLiteOpenHelper {
+public class LawDb extends SQLiteOpenHelper {
 
 	private static final int DATABASE_VERSION = 2;
 	private static final String DATABASE_NAME = "gesetze";
@@ -23,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String KEY_TEXT = "text";
 
 
-	public DatabaseHandler(Context context) {
+	public LawDb(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
@@ -71,8 +70,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 
 	public Law getLaw(int id) {
-		Log.w("DBHandler", "Here i am!");
-
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.query(TABLE_LAWS, new String[] { KEY_ID,
 				KEY_SHORT_NAME, KEY_LONG_NAME, KEY_TEXT }, KEY_ID + "=?",
