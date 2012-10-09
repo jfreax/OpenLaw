@@ -1,12 +1,10 @@
 package de.jdsoft.gesetze;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
@@ -186,11 +184,7 @@ public class LawListFragment extends SherlockListFragment {
 		public void onFinish(CallerInterface caller) {
 			this.all = ((LawSectionList)caller).getResult();
 
-			
-			Log.w("Law", String.valueOf( all.size()));
-			Log.w("Law2", String.valueOf(this.getCount()));
-			if ( all.size() > 1 ) { // This is correct,
-									// althrou i don't know exactly why
+			if ( this.getCount() > 0 ) {
 				setListAdapter(this);
 			}
 		}

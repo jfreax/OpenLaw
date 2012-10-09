@@ -5,12 +5,10 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import android.os.AsyncTask;
-import android.util.Log;
 import de.jdsoft.gesetze.CallerInterface;
 import de.jdsoft.gesetze.LawListFragment.SectionComposerAdapter;
 import de.jdsoft.gesetze.data.helper.Law;
@@ -32,17 +30,15 @@ public class UpdateLawList extends AsyncTask<SectionComposerAdapter, Integer, Bo
 	
 	
     public void getLawNames() {
-    	Log.e("law", "Get log names");
         RestClient.get("laws", null, new JsonHttpResponseHandler() {   	
             public void onSuccess(JSONArray response) {
 				try {
 					// Build list of all laws
 					List<Law> laws = new ArrayList<Law>();
 					for( int i = 0; i < response.length(); ++i) {
-						JSONObject jsonLaw = (JSONObject) response.get(i);
+						JSONArray jsonLaw = (JSONArray) response.get(i);
 						
-						Log.w("Testausgabe", jsonLaw.optString("n"));
-						Law law = new Law(jsonLaw.optString("n"), jsonLaw.optString("l"), "empty");
+						Law law = new Law(jsonLaw.getString(0), jsonLaw.getString(1), "empty");
 						laws.add(law);
 					}
 					
@@ -62,11 +58,6 @@ public class UpdateLawList extends AsyncTask<SectionComposerAdapter, Integer, Bo
 					// TODO Catch it!
 					e.printStackTrace();
 				}
-            }
-            public void onFailure(Throwable e, JSONObject errorResponse) {
-            }
-            
-            public void onFailure(Throwable e, JSONArray errorResponse) {
             }
         });
     }

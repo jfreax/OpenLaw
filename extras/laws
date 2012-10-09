@@ -1,5 +1,3 @@
-[ 
-  {"n": "123", "l": "Looong text" },
-  {"n": "4321","l": "ij" },
-  {"n": "blabla", "l": "huhuhu" }
+[
+  ["123","Looong text"]
 ]
