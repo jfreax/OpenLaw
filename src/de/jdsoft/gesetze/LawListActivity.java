@@ -70,7 +70,8 @@ public class LawListActivity extends SherlockFragmentActivity implements
 	}
 	
 	
-    public boolean onCreateOptionsMenu(Menu menu) {
+    @SuppressLint("AlwaysShowAction")
+	public boolean onCreateOptionsMenu(Menu menu) {
         //Used to put dark icons on light action bar
         //boolean isLight = SampleList.THEME == R.style.Theme_Sherlock_Light;
     	boolean isLight = true;

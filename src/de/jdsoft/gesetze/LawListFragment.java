@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.foound.widget.AmazingAdapter;
 
+import de.jdsoft.gesetze.data.UpdateLawList;
 import de.jdsoft.gesetze.data.helper.Law;
 import de.jdsoft.gesetze.database.LawSectionList;
 
@@ -81,8 +82,13 @@ public class LawListFragment extends SherlockListFragment {
 		super.onCreate(savedInstanceState);
 		adapter = new SectionComposerAdapter();
 		
+		// Load actual list
 		LawSectionList db = new LawSectionList();
 		db.execute(adapter);
+		
+		// And parallel update the list from network
+		UpdateLawList updater = new UpdateLawList();
+		updater.execute(adapter);
 	}
 
 	public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -101,7 +107,7 @@ public class LawListFragment extends SherlockListFragment {
 
 		// Enable fast scroll
 		listView.setFastScrollEnabled(true);
-		listView.setFastScrollAlwaysVisible(true);
+		//listView.setFastScrollAlwaysVisible(true);
 		listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		listView.setScrollBarStyle(ListView.SCROLLBARS_OUTSIDE_INSET);
 	}
@@ -178,16 +184,15 @@ public class LawListFragment extends SherlockListFragment {
 		}
 
 		public void onFinish(CallerInterface caller) {
-			try {
-				this.all = ((LawSectionList)caller).get();
-			} catch (InterruptedException e) {
-				// INFO Thrown when a waiting thread is activated before the condition it was waiting for has been satisfied.
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				Log.e(SectionComposerAdapter.class.getName(), e.getCause().getMessage());
-				e.printStackTrace();
+			this.all = ((LawSectionList)caller).getResult();
+
+			
+			Log.w("Law", String.valueOf( all.size()));
+			Log.w("Law2", String.valueOf(this.getCount()));
+			if ( all.size() > 1 ) { // This is correct,
+									// althrou i don't know exactly why
+				setListAdapter(this);
 			}
-			setListAdapter(this);
 		}
 
 		public Context getContext() {
@@ -284,5 +289,4 @@ public class LawListFragment extends SherlockListFragment {
 		}
 
 	}
-
 }

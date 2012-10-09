@@ -9,6 +9,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class LawDb extends SQLiteOpenHelper {
 
@@ -40,12 +41,17 @@ public class LawDb extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_LAWS);
 		onCreate(db);
 	}
+	
+	public void clear() {
+		SQLiteDatabase db = this.getWritableDatabase();
+		this.onUpgrade(db, 0, DATABASE_VERSION);
+	}
 
 
 	public void addLaw(Law law) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
-
+		
 		values.put(KEY_SHORT_NAME, law.getShortName());
 		values.put(KEY_LONG_NAME, law.getLongName());
 		values.put(KEY_TEXT, law.getText());
@@ -55,28 +61,23 @@ public class LawDb extends SQLiteOpenHelper {
 	}
 
 	public void addLaws(List<Law> laws) {
-		SQLiteDatabase db = this.getWritableDatabase();
-		ContentValues values = new ContentValues();
-
 		for( Law law : laws) {
-			values.put(KEY_SHORT_NAME, law.getShortName());
-			values.put(KEY_LONG_NAME, law.getLongName());
-			values.put(KEY_TEXT, law.getText());
-
-			db.insert(TABLE_LAWS, null, values);
+			this.addLaw(law);
 		}
-
-		db.close();
 	}
 
 	public Law getLaw(int id) {
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.query(TABLE_LAWS, new String[] { KEY_ID,
 				KEY_SHORT_NAME, KEY_LONG_NAME, KEY_TEXT }, KEY_ID + "=?",
-				new String[] { String.valueOf(id) }, null, null, null, null);
+				new String[] { String.valueOf(id+1) }, null, null, null, null);
+		if (cursor.getCount() == 0 ) {
+			Log.e(LawDb.class.getName(), "No db entry for id "+(id+1));
+			return null;
+		}
+		
 		if (cursor != null)
 			cursor.moveToFirst();
-
 		Law law = new Law(Integer.parseInt(cursor.getString(0)),
 				cursor.getString(1), cursor.getString(2), cursor.getString(3));
 

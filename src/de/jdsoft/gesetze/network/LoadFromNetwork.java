@@ -18,7 +18,7 @@ public class LoadFromNetwork {
 	                String bla = firstEvent.getString("text");
 	                
 	                // Do something with the response
-	                Log.w(LoadFromNetwork.class.getName() ,bla);
+	                Log.w(LoadFromNetwork.class.getName(), bla);
 
 				} catch (JSONException e) {
 					// TODO Catch it!

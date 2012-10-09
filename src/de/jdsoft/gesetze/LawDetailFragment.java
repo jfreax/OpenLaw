@@ -41,7 +41,6 @@ public class LawDetailFragment extends SherlockFragment {
 		if (getArguments().containsKey(ARG_ITEM_ID)) {
 			LawDb dbHandler = new LawDb(this.getActivity().getApplicationContext());
 			law = dbHandler.getLaw(Integer.parseInt(getArguments().getString(ARG_ITEM_ID)));
-
 		}
 	}
 

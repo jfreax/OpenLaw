@@ -4,11 +4,12 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
     tools:context=".LawListActivity" >
 
+    <!--     android:divider="?android:attr/dividerHorizontal" -->
+    
     <!--
     This layout is a two-pane layout for the Books
     master/detail flow. See res/values-large/refs.xml and
@@ -25,8 +26,8 @@
         android:name="de.jdsoft.gesetze.LawListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        tools:layout="@android:layout/list_content" />
+        android:layout_weight="1" />
+<!--         tools:layout="@android:layout/list_content" /> -->
 
     <FrameLayout
         android:id="@+id/law_detail_container"
