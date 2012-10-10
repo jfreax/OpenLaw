@@ -22,3 +22,6 @@ local.properties
 .project
 
 .settings/org.eclipse.ltk.core.refactoring.prefs
+
+
+*.lint.xml
