@@ -34,7 +34,6 @@ public class UpdateLawList extends AsyncTask<SectionComposerAdapter, Integer, Bo
     	Log.e("LawDb", "update!!!");
         RestClient.get("laws", null, new JsonHttpResponseHandler() {   	
             public void onSuccess(JSONArray response) {
-            	Log.e("LawDb", "succes!!!");
 				try {
 					// Build list of all laws
 					List<Law> laws = new ArrayList<Law>();
@@ -49,7 +48,7 @@ public class UpdateLawList extends AsyncTask<SectionComposerAdapter, Integer, Bo
 					// Clear db
 					LawDb db = new LawDb(mCallback.getContext());
 					db.clear();
-					
+
 					// Add new law list to db
 					db.addLaws(laws);
 					

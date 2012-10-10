@@ -61,9 +61,22 @@ public class LawDb extends SQLiteOpenHelper {
 	}
 
 	public void addLaws(List<Law> laws) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		
+		db.beginTransaction();
 		for( Law law : laws) {
-			this.addLaw(law);
+			ContentValues values = new ContentValues();
+
+			values.put(KEY_SHORT_NAME, law.getShortName());
+			values.put(KEY_LONG_NAME, law.getLongName());
+			values.put(KEY_TEXT, law.getText());
+			
+			db.insert(TABLE_LAWS, null, values);
 		}
+		db.setTransactionSuccessful();
+		db.endTransaction();	
+		
+		db.close();
 	}
 
 	public Law getLaw(int id) {
