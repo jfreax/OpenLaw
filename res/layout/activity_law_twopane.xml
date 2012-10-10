@@ -6,6 +6,7 @@
     android:layout_marginRight="8dp"
     android:orientation="horizontal"
     android:showDividers="middle"
+    android:background="#e2e2e2"
     tools:context=".LawListActivity" >
 
     <!--     android:divider="?android:attr/dividerHorizontal" -->
