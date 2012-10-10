@@ -4,8 +4,10 @@
           android:drawable="@drawable/list_arrow_pressed_holo" />
     <item android:state_focused="true"
           android:drawable="@drawable/list_arrow_focused_holo" />
-    <item android:state_activated="true"
+    <item android:state_selected="true"
           android:drawable="@drawable/list_arrow_selected_holo" />
+    <item android:state_activated="true"
+          android:drawable="@drawable/list_arrow_activated_holo" />
     <item android:drawable="@drawable/list_read_holo" />
 </selector>
 
