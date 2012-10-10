@@ -54,10 +54,10 @@ public class LawListActivity extends SherlockFragmentActivity implements
 					R.id.law_list));
 			lawListFragment.setActivateOnItemClick(true);
 			
-			//lawListFragment.getListView().setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
-			//lawListFragment.getListView().setScrollBarStyle(ScrollView.SCROLLBARS_INSIDE_INSET);
-			//lawListFragment.getListView().setFastScrollAlwaysVisible(true);
-			lawListFragment.getListView().setPadding(0, 0, 0, 0);
+			lawListFragment.getListView().setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
+			lawListFragment.getListView().setScrollBarStyle(ScrollView.SCROLLBARS_INSIDE_INSET);
+			lawListFragment.getListView().setFastScrollAlwaysVisible(true);
+			//lawListFragment.getListView().setPadding(16, 0, 0, 0);
 		}
 		
 		// Hide title
