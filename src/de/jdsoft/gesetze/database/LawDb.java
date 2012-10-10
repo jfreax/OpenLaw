@@ -7,6 +7,7 @@ import de.jdsoft.gesetze.data.helper.Law;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils.InsertHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -62,20 +63,33 @@ public class LawDb extends SQLiteOpenHelper {
 
 	public void addLaws(List<Law> laws) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		
-		db.beginTransaction();
-		for( Law law : laws) {
-			ContentValues values = new ContentValues();
+		InsertHelper iHelp = new InsertHelper(db, TABLE_LAWS);
 
-			values.put(KEY_SHORT_NAME, law.getShortName());
-			values.put(KEY_LONG_NAME, law.getLongName());
-			values.put(KEY_TEXT, law.getText());
-			
-			db.insert(TABLE_LAWS, null, values);
+		// Get the indices you need to bind data to
+		// Similar to Cursor.getColumnIndex("col_name");                 
+		int shortIndex = iHelp.getColumnIndex(KEY_SHORT_NAME);
+		int longIndex = iHelp.getColumnIndex(KEY_LONG_NAME);
+		int textIndex = iHelp.getColumnIndex(KEY_TEXT);
+
+		try {
+			db.beginTransaction();
+			for( Law law : laws) {
+				// Need to tell the helper you are inserting (rather than replacing)
+				iHelp.prepareForInsert();
+
+				// Equivalent to ContentValues.put("field","value") 
+				iHelp.bind(shortIndex, law.getShortName());
+				iHelp.bind(longIndex, law.getLongName());
+				iHelp.bind(textIndex, law.getText());
+
+				// The db.insert() equivalent
+				iHelp.execute();
+			}
+			db.setTransactionSuccessful();
 		}
-		db.setTransactionSuccessful();
-		db.endTransaction();	
-		
+		finally {
+			db.endTransaction();
+		}
 		db.close();
 	}
 
