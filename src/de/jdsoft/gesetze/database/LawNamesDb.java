@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class LawDb extends SQLiteOpenHelper {
+public class LawNamesDb extends SQLiteOpenHelper {
 
 	private static final int DATABASE_VERSION = 2;
 	private static final String DATABASE_NAME = "gesetze";
@@ -24,7 +24,7 @@ public class LawDb extends SQLiteOpenHelper {
 	private static final String KEY_SLUG = "text";
 
 
-	public LawDb(Context context) {
+	public LawNamesDb(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
@@ -99,7 +99,7 @@ public class LawDb extends SQLiteOpenHelper {
 				KEY_SHORT_NAME, KEY_LONG_NAME, KEY_SLUG }, KEY_ID + "=?",
 				new String[] { String.valueOf(id) }, null, null, null, null);
 		if (cursor.getCount() == 0 ) {
-			Log.e(LawDb.class.getName(), "No db entry for id "+id);
+			Log.e(LawNamesDb.class.getName(), "No db entry for id "+id);
 			return null;
 		}
 		

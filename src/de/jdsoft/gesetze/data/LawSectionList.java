@@ -1,4 +1,4 @@
-package de.jdsoft.gesetze.database;
+package de.jdsoft.gesetze.data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,7 @@ import android.util.Pair;
 import de.jdsoft.gesetze.CallerInterface;
 import de.jdsoft.gesetze.LawListFragment.SectionComposerAdapter;
 import de.jdsoft.gesetze.data.helper.Law;
+import de.jdsoft.gesetze.database.LawNamesDb;
 
 public class LawSectionList extends AsyncTask<SectionComposerAdapter, Integer, List<Pair<String, List<Law>>>> implements CallerInterface {
 	public static final String TAG = LawSectionList.class.getSimpleName();
@@ -18,7 +19,7 @@ public class LawSectionList extends AsyncTask<SectionComposerAdapter, Integer, L
 	protected List<Pair<String, List<Law>>> doInBackground(SectionComposerAdapter... params) {
 		mCallback = params[0];
 
-		LawDb dbHandler = new LawDb(mCallback.getContext());
+		LawNamesDb dbHandler = new LawNamesDb(mCallback.getContext());
 		List<Law> allLaws = dbHandler.getAllLaws();
 
 		String sectionName = null;

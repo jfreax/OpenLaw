@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
@@ -15,9 +16,9 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.foound.widget.AmazingAdapter;
 
+import de.jdsoft.gesetze.data.LawSectionList;
 import de.jdsoft.gesetze.data.UpdateLawList;
 import de.jdsoft.gesetze.data.helper.Law;
-import de.jdsoft.gesetze.database.LawSectionList;
 
 /**
  * A list fragment representing a list of Laws. This fragment also supports
@@ -76,7 +77,7 @@ public class LawListFragment extends SherlockListFragment {
 	 */
 	public LawListFragment() {
 	}
-
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		adapter = new SectionComposerAdapter();

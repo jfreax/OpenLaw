@@ -13,8 +13,7 @@ import android.util.Log;
 import de.jdsoft.gesetze.CallerInterface;
 import de.jdsoft.gesetze.LawListFragment.SectionComposerAdapter;
 import de.jdsoft.gesetze.data.helper.Law;
-import de.jdsoft.gesetze.database.LawDb;
-import de.jdsoft.gesetze.database.LawSectionList;
+import de.jdsoft.gesetze.database.LawNamesDb;
 import de.jdsoft.gesetze.network.RestClient;
 
 public class UpdateLawList extends AsyncTask<SectionComposerAdapter, Integer, Boolean> implements CallerInterface {
@@ -46,7 +45,7 @@ public class UpdateLawList extends AsyncTask<SectionComposerAdapter, Integer, Bo
 					}
 					
 					// Clear db
-					LawDb db = new LawDb(mCallback.getContext());
+					LawNamesDb db = new LawNamesDb(mCallback.getContext());
 					db.clear();
 
 					// Add new law list to db

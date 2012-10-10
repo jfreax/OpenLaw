@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
 
 import de.jdsoft.gesetze.data.helper.Law;
-import de.jdsoft.gesetze.database.LawDb;
+import de.jdsoft.gesetze.database.LawNamesDb;
 
 /**
  * A fragment representing a single Book detail screen. This fragment is either
@@ -39,7 +39,7 @@ public class LawHeadlineFragment extends SherlockFragment {
 		super.onCreate(savedInstanceState);
 
 		if (getArguments().containsKey(ARG_ITEM_ID)) {
-			LawDb dbHandler = new LawDb(this.getActivity().getApplicationContext());
+			LawNamesDb dbHandler = new LawNamesDb(this.getActivity().getApplicationContext());
 			law = dbHandler.getLaw(Integer.parseInt(getArguments().getString(ARG_ITEM_ID)));
 		}
 	}
