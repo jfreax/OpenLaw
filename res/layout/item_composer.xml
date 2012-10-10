@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/arrow_style">
     
     	<LinearLayout
     	    android:layout_width="fill_parent"
@@ -30,6 +35,7 @@
 		    android:maxLines="1"
 		    android:text="Short name"
 		    android:textColor="#000"
+		    android:icon="@drawable/arrow_style"
 		    android:textStyle="bold" />
 
 		<TextView

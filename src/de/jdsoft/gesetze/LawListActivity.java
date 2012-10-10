@@ -114,6 +114,8 @@ public class LawListActivity extends SherlockFragmentActivity implements
 			detailIntent.putExtra(LawDetailFragment.ARG_ITEM_ID, id);
 			startActivity(detailIntent);
 		}
+		
+		
 	}
 
 	@Override

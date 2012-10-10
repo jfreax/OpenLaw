@@ -123,7 +123,6 @@ public class LawListFragment extends SherlockListFragment {
 
 	}
 
-	@Override
 	public void onDetach() {
 		super.onDetach();
 
@@ -158,6 +157,7 @@ public class LawListFragment extends SherlockListFragment {
 		getListView().setChoiceMode(
 				activateOnItemClick ? ListView.CHOICE_MODE_SINGLE
 						: ListView.CHOICE_MODE_NONE);
+		
 	}
 
 	private void setActivatedPosition(int position) {
@@ -168,7 +168,7 @@ public class LawListFragment extends SherlockListFragment {
 		}
 
 		mActivatedPosition = position;
-	}
+			}
 
 	/**
 	 * Section Composer... 
