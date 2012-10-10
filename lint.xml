@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<lint>
-    <issue id="AlwaysShowAction">
-        <ignore path="src/de/jdsoft/gesetze/LawListActivity.java" />
-    </issue>
-</lint>

@@ -9,6 +9,7 @@ import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
@@ -105,9 +106,7 @@ public class LawListFragment extends SherlockListFragment {
 
 		// Enable fast scroll
 		listView.setFastScrollEnabled(true);
-		//listView.setFastScrollAlwaysVisible(true);
-		listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-		listView.setScrollBarStyle(ListView.SCROLLBARS_OUTSIDE_INSET);
+		listView.setScrollBarStyle(ScrollView.SCROLLBARS_OUTSIDE_OVERLAY);
 	}
 
 	public void onAttach(Activity activity) {
