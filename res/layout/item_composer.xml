@@ -27,7 +27,7 @@
 	    android:layout_height="wrap_content"
 	    android:orientation="vertical"
 	    android:padding="6dp"
-    	android:background="@drawable/arrow_style">
+    	android:background="@drawable/list_item_background">
 
 		<TextView
 		    android:id="@+id/shortName"
@@ -36,7 +36,6 @@
 		    android:maxLines="1"
 		    android:text="Short name"
 		    android:textColor="#000"
-		    android:icon="@drawable/arrow_style"
 		    android:textStyle="bold" />
 
 		<TextView

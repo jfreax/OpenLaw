@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ScrollView;
 
 /**
  * An activity representing a list of Books. This activity has different
@@ -53,6 +54,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
 					R.id.law_list));
 			lawListFragment.setActivateOnItemClick(true);
 			lawListFragment.getListView().setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
+			//lawListFragment.getListView().setScrollBarStyle(ScrollView.SCROLLBARS_OUTSIDE_OVERLAY);
 		}
 		
 		// Hide title
