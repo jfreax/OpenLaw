@@ -17,13 +17,13 @@ import android.widget.ScrollView;
  * An activity representing a list of Books. This activity has different
  * presentations for handset and tablet-size devices. On handsets, the activity
  * presents a list of items, which when touched, lead to a
- * {@link LawDetailActivity} representing item details. On tablets, the
+ * {@link LawHeadlineActivity} representing item details. On tablets, the
  * activity presents the list of items and item details side-by-side using two
  * vertical panes.
  * <p>
  * The activity makes heavy use of fragments. The list of items is a
  * {@link LawListFragment} and the item details (if present) is a
- * {@link LawDetailFragment}.
+ * {@link LawHeadlineFragment}.
  * <p>
  * This activity also implements the required {@link LawListFragment.Callbacks}
  * interface to listen for item selections.
@@ -106,8 +106,8 @@ public class LawListActivity extends SherlockFragmentActivity implements
 			// adding or replacing the detail fragment using a
 			// fragment transaction.
 			Bundle arguments = new Bundle();
-			arguments.putString(LawDetailFragment.ARG_ITEM_ID, id);
-			LawDetailFragment fragment = new LawDetailFragment();
+			arguments.putString(LawHeadlineFragment.ARG_ITEM_ID, id);
+			LawHeadlineFragment fragment = new LawHeadlineFragment();
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.law_detail_container, fragment).commit();
@@ -115,8 +115,8 @@ public class LawListActivity extends SherlockFragmentActivity implements
 		} else {
 			// In single-pane mode, simply start the detail activity
 			// for the selected item ID.
-			Intent detailIntent = new Intent(this, LawDetailActivity.class);
-			detailIntent.putExtra(LawDetailFragment.ARG_ITEM_ID, id);
+			Intent detailIntent = new Intent(this, LawHeadlineActivity.class);
+			detailIntent.putExtra(LawHeadlineFragment.ARG_ITEM_ID, id);
 			startActivity(detailIntent);
 		}
 		
