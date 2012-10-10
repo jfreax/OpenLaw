@@ -21,7 +21,7 @@ public class LawDb extends SQLiteOpenHelper {
 	private static final String KEY_ID = "id";
 	private static final String KEY_SHORT_NAME = "shortname";
 	private static final String KEY_LONG_NAME = "longname";
-	private static final String KEY_TEXT = "text";
+	private static final String KEY_SLUG = "text";
 
 
 	public LawDb(Context context) {
@@ -34,7 +34,7 @@ public class LawDb extends SQLiteOpenHelper {
 				+ KEY_ID + " INTEGER PRIMARY KEY," 
 				+ KEY_SHORT_NAME + " TEXT,"
 				+ KEY_LONG_NAME + " TEXT,"
-				+ KEY_TEXT + " TEXT" + ")";
+				+ KEY_SLUG + " TEXT" + ")";
 		db.execSQL(CREATE_LAW_TABLE);
 	}
 
@@ -55,7 +55,7 @@ public class LawDb extends SQLiteOpenHelper {
 		
 		values.put(KEY_SHORT_NAME, law.getShortName());
 		values.put(KEY_LONG_NAME, law.getLongName());
-		values.put(KEY_TEXT, law.getText());
+		values.put(KEY_SLUG, law.getSlug());
 
 		db.insert(TABLE_LAWS, null, values);
 		db.close();
@@ -69,7 +69,7 @@ public class LawDb extends SQLiteOpenHelper {
 		// Similar to Cursor.getColumnIndex("col_name");                 
 		int shortIndex = iHelp.getColumnIndex(KEY_SHORT_NAME);
 		int longIndex = iHelp.getColumnIndex(KEY_LONG_NAME);
-		int textIndex = iHelp.getColumnIndex(KEY_TEXT);
+		int slugIndex = iHelp.getColumnIndex(KEY_SLUG);
 
 		try {
 			db.beginTransaction();
@@ -80,7 +80,7 @@ public class LawDb extends SQLiteOpenHelper {
 				// Equivalent to ContentValues.put("field","value") 
 				iHelp.bind(shortIndex, law.getShortName());
 				iHelp.bind(longIndex, law.getLongName());
-				iHelp.bind(textIndex, law.getText());
+				iHelp.bind(slugIndex, law.getSlug());
 
 				// The db.insert() equivalent
 				iHelp.execute();
@@ -96,17 +96,17 @@ public class LawDb extends SQLiteOpenHelper {
 	public Law getLaw(int id) {
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.query(TABLE_LAWS, new String[] { KEY_ID,
-				KEY_SHORT_NAME, KEY_LONG_NAME, KEY_TEXT }, KEY_ID + "=?",
-				new String[] { String.valueOf(id+1) }, null, null, null, null);
+				KEY_SHORT_NAME, KEY_LONG_NAME, KEY_SLUG }, KEY_ID + "=?",
+				new String[] { String.valueOf(id) }, null, null, null, null);
 		if (cursor.getCount() == 0 ) {
-			Log.e(LawDb.class.getName(), "No db entry for id "+(id+1));
+			Log.e(LawDb.class.getName(), "No db entry for id "+id);
 			return null;
 		}
 		
 		if (cursor != null)
 			cursor.moveToFirst();
 		Law law = new Law(Integer.parseInt(cursor.getString(0)),
-				cursor.getString(1), cursor.getString(2), cursor.getString(3));
+				cursor.getString(1), cursor.getString(3), cursor.getString(2));
 
 		cursor.close();
 		db.close();
@@ -118,13 +118,13 @@ public class LawDb extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor cursor = db.query(TABLE_LAWS, new String[] { KEY_ID,
-				KEY_SHORT_NAME, KEY_LONG_NAME, KEY_TEXT }, KEY_SHORT_NAME + "=?",
+				KEY_SHORT_NAME, KEY_LONG_NAME, KEY_SLUG }, KEY_SHORT_NAME + "=?",
 				new String[] { shortName }, null, null, null, null);
 		if (cursor != null)
 			cursor.moveToFirst();
 
 		Law law = new Law(Integer.parseInt(cursor.getString(0)),
-				cursor.getString(1), cursor.getString(2), cursor.getString(3));
+				cursor.getString(1), cursor.getString(3), cursor.getString(2));
 
 		cursor.close();
 		db.close();
@@ -136,7 +136,7 @@ public class LawDb extends SQLiteOpenHelper {
 	 * @return
 	 */
 	public List<Law> getAllLaws() {
-		String selectQuery = "SELECT  * FROM " + TABLE_LAWS + " ORDER BY " + KEY_SHORT_NAME + " ASC";
+		String selectQuery = "SELECT * FROM " + TABLE_LAWS + " ORDER BY " + KEY_SHORT_NAME + " ASC";
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor cursor = db.rawQuery(selectQuery, null);
@@ -148,7 +148,7 @@ public class LawDb extends SQLiteOpenHelper {
 				law.setID(Integer.parseInt(cursor.getString(0)));
 				law.setShortName(cursor.getString(1));
 				law.setLongName(cursor.getString(2));
-				law.setText(cursor.getString(2));
+				law.setSlug(cursor.getString(3));
 
 				result.add(law);
 			} while (cursor.moveToNext());
@@ -178,7 +178,7 @@ public class LawDb extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		values.put(KEY_SHORT_NAME, law.getShortName());
 		values.put(KEY_LONG_NAME, law.getLongName());
-		values.put(KEY_TEXT, law.getText());
+		values.put(KEY_SLUG, law.getSlug());
 
 		int ret =  db.update(TABLE_LAWS, values, KEY_ID + " = ?",
 				new String[] { String.valueOf(law.getID()) });

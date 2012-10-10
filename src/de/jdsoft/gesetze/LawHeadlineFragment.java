@@ -50,7 +50,7 @@ public class LawHeadlineFragment extends SherlockFragment {
 				container, false);
 
 		if (law != null) {
-			((TextView) rootView.findViewById(R.id.law_detail)).setText(law.getText());
+			((TextView) rootView.findViewById(R.id.law_detail)).setText(law.getSlug());
 		}
 
 		return rootView;

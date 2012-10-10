@@ -41,7 +41,7 @@ public class UpdateLawList extends AsyncTask<SectionComposerAdapter, Integer, Bo
 					for( int i = 0; i < response.length(); ++i) {
 						JSONArray jsonLaw = (JSONArray) response.get(i);
 						
-						Law law = new Law(jsonLaw.getString(0), jsonLaw.getString(1), "empty");
+						Law law = new Law(jsonLaw.getString(0), jsonLaw.getString(1) , jsonLaw.getString(2));
 						laws.add(law);
 					}
 					

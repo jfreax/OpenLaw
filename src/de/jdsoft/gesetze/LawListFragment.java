@@ -135,7 +135,8 @@ public class LawListFragment extends SherlockListFragment {
 
 		// Notify the active callbacks interface (the activity, if the
 		// fragment is attached to one) that an item has been selected.	
-		mCallbacks.onItemSelected(String.valueOf(position)); // TODO is this really correct?
+		int dbid = ((SectionComposerAdapter)listView.getAdapter()).getItem(position).getID();
+		mCallbacks.onItemSelected(String.valueOf(dbid)); // TODO is this really correct?
 	}
 
 	public void onSaveInstanceState(Bundle outState) {

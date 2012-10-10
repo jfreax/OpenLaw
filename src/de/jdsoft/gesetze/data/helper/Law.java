@@ -4,22 +4,22 @@ public class Law {
 	int id;
 	String shortname;
 	String longname;
-	String text;
+	String slug;
 
 	public Law(){
 
 	}
-	public Law(int id, String shortname, String longname, String text) {
+	public Law(int id, String shortname, String slug, String longname) {
 		this.id = id;
 		this.shortname = shortname;
 		this.longname = longname;
-		this.text = text;
+		this.slug = slug;
 	}
 
-	public Law(String shortname, String longname, String text) {
+	public Law(String shortname, String slug, String longname) {
 		this.shortname = shortname;
 		this.longname = longname;
-		this.text = text;
+		this.slug = slug;
 	}
 
 	public int getID() {
@@ -46,11 +46,11 @@ public class Law {
 		this.longname = longname;
 	}
 	
-	public String getText() {
-		return this.text;
+	public String getSlug() {
+		return this.slug;
 	}
 	
-	public void setText(String text) {
-		this.text = text;
+	public void setSlug(String slug) {
+		this.slug = slug;
 	}
 }
