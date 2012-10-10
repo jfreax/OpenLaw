@@ -9,6 +9,7 @@ import org.json.JSONException;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import android.os.AsyncTask;
+import android.util.Log;
 import de.jdsoft.gesetze.CallerInterface;
 import de.jdsoft.gesetze.LawListFragment.SectionComposerAdapter;
 import de.jdsoft.gesetze.data.helper.Law;
@@ -30,11 +31,14 @@ public class UpdateLawList extends AsyncTask<SectionComposerAdapter, Integer, Bo
 	
 	
     public void getLawNames() {
+    	Log.e("LawDb", "update!!!");
         RestClient.get("laws", null, new JsonHttpResponseHandler() {   	
             public void onSuccess(JSONArray response) {
+            	Log.e("LawDb", "succes!!!");
 				try {
 					// Build list of all laws
 					List<Law> laws = new ArrayList<Law>();
+					Log.e("LawDb", "okaaay "+response.length());
 					for( int i = 0; i < response.length(); ++i) {
 						JSONArray jsonLaw = (JSONArray) response.get(i);
 						

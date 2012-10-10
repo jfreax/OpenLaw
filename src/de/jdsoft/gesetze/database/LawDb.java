@@ -114,6 +114,7 @@ public class LawDb extends SQLiteOpenHelper {
 
 		Cursor cursor = db.rawQuery(selectQuery, null);
 		List<Law> result = new ArrayList<Law>();
+		Log.e("LawDb", "size "+cursor.getCount());
 		if (cursor.moveToFirst()) { 
 			do {
 				Law law = new Law();
