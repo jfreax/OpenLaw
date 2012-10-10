@@ -30,6 +30,7 @@
 
     <FrameLayout
         android:id="@+id/law_detail_container"
+        android:background="#fff"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3" />
