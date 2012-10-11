@@ -100,7 +100,6 @@ public class LawListActivity extends SherlockFragmentActivity implements
 	 * Callback method from {@link LawListFragment.Callbacks} indicating that
 	 * the item with the given ID was selected.
 	 */
-	@Override
 	public void onItemSelected(String id) {
 		if (mTwoPane) {
 			// In two-pane mode, show the detail view in this activity by
@@ -120,11 +119,8 @@ public class LawListActivity extends SherlockFragmentActivity implements
 			detailIntent.putExtra(LawHeadlineFragment.ARG_ITEM_ID, id);
 			startActivity(detailIntent);
 		}
-		
-		
 	}
 
-	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 		// TODO Auto-generated method stub
 		return true;

@@ -4,11 +4,11 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -169,14 +169,14 @@ public class LawListFragment extends SherlockListFragment {
 		}
 
 		mActivatedPosition = position;
-			}
+	}
 
 	/**
 	 * Section Composer... 
-	 * @author jens
+	 * @author Jens Dieskau
 	 *
 	 */
-	public class SectionComposerAdapter extends AmazingAdapter implements CallbackInterface {
+	public class SectionComposerAdapter extends AmazingAdapter implements CallbackInterface, OnScrollListener {
 		List<Pair<String, List<Law>>> all = null;
 
 		public SectionComposerAdapter() {

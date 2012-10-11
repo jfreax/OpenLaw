@@ -1,7 +1,10 @@
 package de.jdsoft.gesetze;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
+
+import de.jdsoft.gesetze.LawListFragment.Callbacks;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,12 +18,12 @@ import android.support.v4.app.NavUtils;
  * This activity is mostly just a 'shell' activity containing nothing more than
  * a {@link LawHeadlineFragment}.
  */
-public class LawHeadlineActivity extends SherlockFragmentActivity {
+public class LawHeadlineActivity extends SherlockFragmentActivity implements Callbacks, ActionBar.OnNavigationListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_law_detail);
+		setContentView(R.layout.activity_law_headline);
 
 		// Show the Up button in the action bar.
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -47,7 +50,6 @@ public class LawHeadlineActivity extends SherlockFragmentActivity {
 		}
 	}
 
-	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
@@ -63,5 +65,12 @@ public class LawHeadlineActivity extends SherlockFragmentActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	public void onItemSelected(String id) {		
+	}
+	
+	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+		return true;
 	}
 }
