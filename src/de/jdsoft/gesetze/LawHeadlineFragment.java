@@ -1,8 +1,12 @@
 package de.jdsoft.gesetze;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -16,7 +20,6 @@ import com.actionbarsherlock.app.SherlockListFragment;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import de.jdsoft.gesetze.LawListFragment.Callbacks;
-import de.jdsoft.gesetze.LawListFragment.SectionComposerAdapter;
 import de.jdsoft.gesetze.data.helper.Law;
 import de.jdsoft.gesetze.data.helper.LawHeadline;
 import de.jdsoft.gesetze.database.LawNamesDb;
@@ -79,7 +82,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 		
 		Log.w("HeadlineFragment", "onCreate");
 
-		if (getArguments().containsKey(ARG_ITEM_ID)) {
+		if ( getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)) {
 			Log.w("HeadlineFragment", "onCreate2");
 			LawNamesDb dbHandler = new LawNamesDb(this.getActivity().getApplicationContext());
 			law = dbHandler.getLaw(Integer.parseInt(getArguments().getString(ARG_ITEM_ID)));
@@ -125,11 +128,32 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	public void onListItemClick(ListView listView, View view, int position,
 			long id) {
 		super.onListItemClick(listView, view, position, id);
+		
+		Log.e("onItemSelected", "???");
+		
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		
+		ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+		ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_in_left, android.R.anim.slide_in_left, android.R.anim.slide_in_left);
+		//ft.replace(R.id.law_list, new LawListFragment());
+		ft.hide(getFragmentManager().findFragmentById(R.id.law_list));
+		ft.addToBackStack(null);
+
+		//ft.setCustomAnimations(android.R.animator.fade_in,   android.R.animator.fade_out);
+		//ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
+		//ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+		//ft.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out,android.R.anim.fade_in,android.R.anim.fade_out);
+
+
+
+		//ft.hide(getFragmentManager().findFragmentById(R.id.law_list)); 
+		ft.commit(); 
 
 		// Notify the active callbacks interface (the activity, if the
 		// fragment is attached to one) that an item has been selected.	
-		int dbid = ((SectionComposerAdapter)listView.getAdapter()).getItem(position).getID();
-		mCallbacks.onItemSelected(String.valueOf(dbid)); // TODO is this really correct?
+		//int dbid = ((HeadlineComposerAdapter)listView.getAdapter()).getItem(position).getID();
+		//mCallbacks.onItemSelected("1");
+
 	}
 
 	public void onSaveInstanceState(Bundle outState) {
@@ -160,7 +184,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	 *
 	 */
 	public class HeadlineComposerAdapter extends BaseAdapter {
-		private LawHeadline headlines = null;
+		private List<Pair<Integer,String>> headlines = null;
 		
 		
 		public HeadlineComposerAdapter() {
@@ -176,12 +200,11 @@ public class LawHeadlineFragment extends SherlockListFragment {
 						return;
 					}
 					
-					headlines = new LawHeadline();
+					headlines = new ArrayList<Pair<Integer,String>>();
 					for ( String line : response.split("\\r?\\n")) {
-						Log.e("getHeadlines einzeln", line);
 						if ( line.contains(":") ) {
 							String[] depthAndText = line.split(":");
-							headlines.headlines.add(new Pair<Integer, String>(Integer.parseInt(depthAndText[0]), depthAndText[1]));
+							headlines.add(new Pair<Integer, String>(Integer.parseInt(depthAndText[0]), depthAndText[1]));
 						}
 					}
 					notifyDataSetChanged();
@@ -199,12 +222,12 @@ public class LawHeadlineFragment extends SherlockListFragment {
 			if ( headlines == null ) {
 				return 0;
 			}
-			return headlines.headlines.size();
+			return headlines.size();
 		}
 
-		public String getItem(int position) {
+		public LawHeadline getItem(int position) {
 			try {
-				return headlines.headlines.get(position).second;
+				return new LawHeadline(headlines.get(position).first, headlines.get(position).second);
 			} catch(IndexOutOfBoundsException e){
 				return null;
 			}
@@ -216,15 +239,36 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View res = convertView;
-			if (res == null) res = getActivity().getLayoutInflater().inflate(R.layout.item_composer, parent, false);
+			//if (res == null) res = getActivity().getLayoutInflater().inflate(R.layout.item_headline1, parent, false);
 
+			LawHeadline lineObj = getItem(position);
+			
+			switch (lineObj.depth) {
+			case 1:
+				res = getActivity().getLayoutInflater().inflate(R.layout.item_headline1, parent, false);
+				break;
+			case 2:
+				res = getActivity().getLayoutInflater().inflate(R.layout.item_headline2, parent, false);
+				break;
+			case 3:
+				res = getActivity().getLayoutInflater().inflate(R.layout.item_headline3, parent, false);
+				break;
+			case 4:
+				res = getActivity().getLayoutInflater().inflate(R.layout.item_headline4, parent, false);
+				break;
+			case 5:
+				res = getActivity().getLayoutInflater().inflate(R.layout.item_headline5, parent, false);
+				break;
+			case 6:
+				res = getActivity().getLayoutInflater().inflate(R.layout.item_headline6, parent, false);
+				break;
 
-			TextView shortName = (TextView) res.findViewById(R.id.shortName);
-			TextView fullName = (TextView) res.findViewById(R.id.fullName);
-
-			//String text = getItem(position);
-			shortName.setText(getItem(position));
-			fullName.setText("ryrweaewa");
+			default:
+				break;
+			}
+			
+			TextView headline = (TextView) res.findViewById(R.id.headline);
+			headline.setText(lineObj.headline);
 
 			return res;
 		}

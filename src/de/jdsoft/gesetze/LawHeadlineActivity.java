@@ -6,9 +6,12 @@ import com.actionbarsherlock.view.MenuItem;
 
 import de.jdsoft.gesetze.LawListFragment.Callbacks;
 
+import android.annotation.SuppressLint;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 
 /**
  * An activity representing a single Book detail screen. This activity is only
@@ -67,7 +70,14 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void onItemSelected(String id) {		
+	@SuppressLint("NewApi")
+	public void onItemSelected(String id) {
+		Log.e("onItemSelected", id);
+
+		
+		FragmentTransaction ft = getFragmentManager().beginTransaction();  
+		ft.hide(getFragmentManager().getFragment(null, "test")); 
+		ft.commit(); 
 	}
 	
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
