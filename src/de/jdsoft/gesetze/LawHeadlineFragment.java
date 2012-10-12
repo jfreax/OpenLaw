@@ -86,10 +86,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		Log.w("HeadlineFragment", "onCreate");
-
 		if ( getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)) {
-			Log.w("HeadlineFragment", "onCreate2");
 			LawNamesDb dbHandler = new LawNamesDb(this.getActivity().getApplicationContext());
 			law = dbHandler.getLaw(Integer.parseInt(getArguments().getString(ARG_ITEM_ID)));
 			
@@ -150,8 +147,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
 		//ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 		//ft.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out,android.R.anim.fade_in,android.R.anim.fade_out);
 
-
-
 		//ft.hide(getFragmentManager().findFragmentById(R.id.law_list)); 
 		ft.commit(); 
 
@@ -195,7 +190,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 		private DiskLruCache cache = null;
 		private static final int DISK_CACHE_SIZE = 1024 * 1024 * 10; // 10MB
 																	 // TODO this should be a property!
-		private static final String DISK_CACHE_SUBDIR = "headlines";
+		private static final String DISK_CACHE_SUBDIR = "Gesetze";
 		private static final int DISK_CACHE_VERSION = 2;
 		
 		
@@ -234,8 +229,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
 				if ( snapshot != null ) {
 					makeHeadlines(snapshot.getString(0));
 					return;
-				} else {
-					Log.e("NOT FOUND", slug);
 				}
 			} catch (IOException e) {
 				Log.e(HeadlineComposerAdapter.class.getName(), "Error while reading cache1 " + DISK_CACHE_SUBDIR + "!");
@@ -253,7 +246,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
 					
 					// Save to cache
 			    	try {
-			    		Log.e("get", "add to cache " + slug);
 			    		if ( cache == null || cache.isClosed() ) {
 			    			openCache();
 			    		}
@@ -316,21 +308,27 @@ public class LawHeadlineFragment extends SherlockListFragment {
 			switch (lineObj.depth) {
 			case 1:
 				headline.setTextAppearance(getContext(), R.style.Headline1);
+				headline.setPadding(12, 0, 0, 0);
 				break;
 			case 2:
 				headline.setTextAppearance(getContext(), R.style.Headline2);
+				headline.setPadding(16, 0, 0, 0);
 				break;
 			case 3:
 				headline.setTextAppearance(getContext(), R.style.Headline3);
+				headline.setPadding(20, 0, 0, 0);
 				break;
 			case 4:
 				headline.setTextAppearance(getContext(), R.style.Headline4);
+				headline.setPadding(24, 0, 0, 0);
 				break;
 			case 5:
 				headline.setTextAppearance(getContext(), R.style.Headline5);
+				headline.setPadding(28, 0, 0, 0);
 				break;
 			case 6:
 				headline.setTextAppearance(getContext(), R.style.Headline6);
+				headline.setPadding(32, 0, 0, 0);
 				break;
 			default:
 				break;
