@@ -1,6 +1,7 @@
 package de.jdsoft.gesetze;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.app.Activity;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.util.Pair;
+import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -239,35 +241,36 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View res = convertView;
+
 			//if (res == null) res = getActivity().getLayoutInflater().inflate(R.layout.item_headline1, parent, false);
 
 			LawHeadline lineObj = getItem(position);
+			res = getActivity().getLayoutInflater().inflate(R.layout.item_headline, parent, false);
+			TextView headline = (TextView) res.findViewById(R.id.headline);
 			
 			switch (lineObj.depth) {
 			case 1:
-				res = getActivity().getLayoutInflater().inflate(R.layout.item_headline1, parent, false);
+				headline.setTextAppearance(getContext(), R.style.Headline1);
 				break;
 			case 2:
-				res = getActivity().getLayoutInflater().inflate(R.layout.item_headline2, parent, false);
+				headline.setTextAppearance(getContext(), R.style.Headline2);
 				break;
 			case 3:
-				res = getActivity().getLayoutInflater().inflate(R.layout.item_headline3, parent, false);
+				headline.setTextAppearance(getContext(), R.style.Headline3);
 				break;
 			case 4:
-				res = getActivity().getLayoutInflater().inflate(R.layout.item_headline4, parent, false);
+				headline.setTextAppearance(getContext(), R.style.Headline4);
 				break;
 			case 5:
-				res = getActivity().getLayoutInflater().inflate(R.layout.item_headline5, parent, false);
+				headline.setTextAppearance(getContext(), R.style.Headline5);
 				break;
 			case 6:
-				res = getActivity().getLayoutInflater().inflate(R.layout.item_headline6, parent, false);
+				headline.setTextAppearance(getContext(), R.style.Headline6);
 				break;
-
 			default:
 				break;
 			}
-			
-			TextView headline = (TextView) res.findViewById(R.id.headline);
+		
 			headline.setText(lineObj.headline);
 
 			return res;

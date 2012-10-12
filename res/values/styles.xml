@@ -15,7 +15,39 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-        <item name="android:background">#e2e2e2</item>
+<!--         <item name="android:background">#e2e2e2</item> -->
+    </style>
+    
+    <style name="Headline1" parent="AppTheme">
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+    <style name="Headline2" parent="AppTheme">
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+    <style name="Headline3" parent="AppTheme">
+        <item name="android:paddingLeft">24dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    
+    <style name="Headline4" parent="AppTheme">
+        <item name="android:paddingLeft">28dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Headline5" parent="AppTheme">
+        <item name="android:paddingLeft">32dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    
+    <style name="Headline6" parent="AppTheme">
+        <item name="android:paddingLeft">36dp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
 </resources>
