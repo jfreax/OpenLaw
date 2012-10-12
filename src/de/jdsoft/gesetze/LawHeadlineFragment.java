@@ -192,7 +192,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 		}
 		
 	    public void getHeadlines() {
-	        RestClient.get("law/"+slug, null, new AsyncHttpResponseHandler() {   	
+	        RestClient.get(getContext(), "law/"+slug, null, new AsyncHttpResponseHandler() {   	
 	            public void onSuccess(String response) {
 	            	Log.i("GetLawHeadlines", "onSuccess() Response size: "+response.length());
 					if ( response.length() == 0 ) {

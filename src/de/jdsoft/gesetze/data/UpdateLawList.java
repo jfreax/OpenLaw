@@ -27,7 +27,7 @@ public class UpdateLawList extends AsyncTask<SectionComposerAdapter, Integer, Bo
 	
 	
     public void getLawNames() {
-        RestClient.get("laws", null, new JsonHttpResponseHandler() {   	
+        RestClient.get(mCallback.getContext(), "laws", null, new JsonHttpResponseHandler() {   	
             public void onSuccess(JSONArray response) {
 				try {
 					// Build list of all laws
