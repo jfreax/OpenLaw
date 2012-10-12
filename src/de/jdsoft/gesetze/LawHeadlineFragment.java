@@ -1,5 +1,7 @@
 package de.jdsoft.gesetze;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +21,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
+import com.jakewharton.DiskLruCache;
+import com.jakewharton.DiskLruCache.Snapshot;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import de.jdsoft.gesetze.LawListFragment.Callbacks;
@@ -188,12 +192,57 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	public class HeadlineComposerAdapter extends BaseAdapter {
 		private List<Pair<Integer,String>> headlines = null;
 		
+		private DiskLruCache cache = null;
+		private static final int DISK_CACHE_SIZE = 1024 * 1024 * 10; // 10MB
+																	 // TODO this should be a property!
+		private static final String DISK_CACHE_SUBDIR = "headlines";
+		private static final int DISK_CACHE_VERSION = 2;
 		
-		public HeadlineComposerAdapter() {
-			getHeadlines();
+		
+		public HeadlineComposerAdapter() {		
+			try {
+				this.openCache();
+			} catch (IOException e) {
+				// Okay, so we can't use it :(
+				Log.e(HeadlineComposerAdapter.class.getName(), "Can't open cache " + DISK_CACHE_SUBDIR + "!");
+				e.printStackTrace();
+			}
+			getHeadlinesRaw();
 		}
 		
-	    public void getHeadlines() {
+		protected void finalize() throws Throwable {
+			super.finalize();
+			
+			try {
+				if ( !cache.isClosed() ) {
+					cache.close();
+					cache = null;
+				}
+			} catch (IOException e) {
+				// Thats bad
+				e.printStackTrace();
+			}
+		}
+		
+	    private void getHeadlinesRaw() {
+	    	// Try to read from cache
+	    	try {
+	    		if ( cache == null || cache.isClosed() ) {
+	    			openCache();
+	    		}
+				Snapshot snapshot = cache.get(slug);
+				if ( snapshot != null ) {
+					makeHeadlines(snapshot.getString(0));
+					return;
+				} else {
+					Log.e("NOT FOUND", slug);
+				}
+			} catch (IOException e) {
+				Log.e(HeadlineComposerAdapter.class.getName(), "Error while reading cache1 " + DISK_CACHE_SUBDIR + "!");
+				Log.e(HeadlineComposerAdapter.class.getName(), e.getCause().getMessage());
+			}
+
+	    	// Not in cache, try to read from network
 	        RestClient.get(getContext(), "law/"+slug, null, new AsyncHttpResponseHandler() {   	
 	            public void onSuccess(String response) {
 	            	Log.i("GetLawHeadlines", "onSuccess() Response size: "+response.length());
@@ -202,17 +251,35 @@ public class LawHeadlineFragment extends SherlockListFragment {
 						return;
 					}
 					
-					headlines = new ArrayList<Pair<Integer,String>>();
-					for ( String line : response.split("\\r?\\n")) {
-						if ( line.contains(":") ) {
-							String[] depthAndText = line.split(":");
-							headlines.add(new Pair<Integer, String>(Integer.parseInt(depthAndText[0]), depthAndText[1]));
-						}
+					// Save to cache
+			    	try {
+			    		Log.e("get", "add to cache " + slug);
+			    		if ( cache == null || cache.isClosed() ) {
+			    			openCache();
+			    		}
+						DiskLruCache.Editor creator = cache.edit(slug);
+						creator.set(0, response);
+						creator.commit();
+						cache.flush();
+					} catch (IOException e) {
+						Log.e(HeadlineComposerAdapter.class.getName(), "Error while reading cache " + DISK_CACHE_SUBDIR + "!");
 					}
-					notifyDataSetChanged();
+					
+					makeHeadlines(response);
 	            }
 	            // TODO on failure!
 	        });
+	    }
+	    
+	    private void makeHeadlines(String raw) {
+			headlines = new ArrayList<Pair<Integer,String>>();
+			for ( String line : raw.split("\\r?\\n")) {
+				if ( line.contains(":") ) {
+					String[] depthAndText = line.split(":");
+					headlines.add(new Pair<Integer, String>(Integer.parseInt(depthAndText[0]), depthAndText[1]));
+				}
+			}
+			notifyDataSetChanged();
 	    }
 
 
@@ -241,8 +308,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View res = convertView;
-
-			//if (res == null) res = getActivity().getLayoutInflater().inflate(R.layout.item_headline1, parent, false);
 
 			LawHeadline lineObj = getItem(position);
 			res = getActivity().getLayoutInflater().inflate(R.layout.item_headline, parent, false);
@@ -279,6 +344,13 @@ public class LawHeadlineFragment extends SherlockListFragment {
 		public String getSlug() {
 			return slug;
 		}
-
+		
+		public void openCache() throws IOException {
+	        String javaTmpDir = System.getProperty("java.io.tmpdir");
+	        File cacheDir = new File(javaTmpDir, DISK_CACHE_SUBDIR);
+	        cacheDir.mkdir();
+	        
+	        cache = DiskLruCache.open(cacheDir, DISK_CACHE_VERSION, 1, DISK_CACHE_SIZE);
+		}
 	}
 }
