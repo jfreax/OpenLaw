@@ -3,7 +3,6 @@ package de.jdsoft.gesetze;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import android.app.Activity;
@@ -12,7 +11,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.util.Pair;
-import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,28 +130,28 @@ public class LawHeadlineFragment extends SherlockListFragment {
 			long id) {
 		super.onListItemClick(listView, view, position, id);
 		
-		Log.e("onItemSelected", "???");
-		
-		FragmentTransaction ft = getFragmentManager().beginTransaction();
-		
-		ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-		ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_in_left, android.R.anim.slide_in_left, android.R.anim.slide_in_left);
-		//ft.replace(R.id.law_list, new LawListFragment());
-		ft.hide(getFragmentManager().findFragmentById(R.id.law_list));
-		ft.addToBackStack(null);
-
-		//ft.setCustomAnimations(android.R.animator.fade_in,   android.R.animator.fade_out);
-		//ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
-		//ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-		//ft.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out,android.R.anim.fade_in,android.R.anim.fade_out);
-
-		//ft.hide(getFragmentManager().findFragmentById(R.id.law_list)); 
-		ft.commit(); 
-
-		// Notify the active callbacks interface (the activity, if the
-		// fragment is attached to one) that an item has been selected.	
-		//int dbid = ((HeadlineComposerAdapter)listView.getAdapter()).getItem(position).getID();
-		//mCallbacks.onItemSelected("1");
+		if ( getActivity() instanceof LawListActivity && ((LawListActivity)getActivity()).isTwoPane() ) {
+			FragmentTransaction ft = getFragmentManager().beginTransaction();
+			
+			ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+			ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_in_left, android.R.anim.slide_in_left, android.R.anim.slide_in_left);
+			//ft.replace(R.id.law_list, new LawListFragment());
+			//ft.hide(getFragmentManager().findFragmentById(R.id.law_list));
+			ft.addToBackStack(null);
+	
+			//ft.setCustomAnimations(android.R.animator.fade_in,   android.R.animator.fade_out);
+			//ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
+			//ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+			//ft.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out,android.R.anim.fade_in,android.R.anim.fade_out);
+	
+			//ft.hide(getFragmentManager().findFragmentById(R.id.law_list)); 
+			ft.commit(); 
+	
+			// Notify the active callbacks interface (the activity, if the
+			// fragment is attached to one) that an item has been selected.	
+			//int dbid = ((HeadlineComposerAdapter)listView.getAdapter()).getItem(position).getID();
+			//mCallbacks.onItemSelected("1");
+		}
 
 	}
 
@@ -190,7 +188,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 		private DiskLruCache cache = null;
 		private static final int DISK_CACHE_SIZE = 1024 * 1024 * 10; // 10MB
 																	 // TODO this should be a property!
-		private static final String DISK_CACHE_SUBDIR = "Gesetze";
+		private static final String DISK_CACHE_SUBDIR = ".Gesetze";
 		private static final int DISK_CACHE_VERSION = 2;
 		
 		
@@ -209,7 +207,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 			super.finalize();
 			
 			try {
-				if ( !cache.isClosed() ) {
+				if ( cache != null && !cache.isClosed() ) {
 					cache.close();
 					cache = null;
 				}
@@ -308,27 +306,27 @@ public class LawHeadlineFragment extends SherlockListFragment {
 			switch (lineObj.depth) {
 			case 1:
 				headline.setTextAppearance(getContext(), R.style.Headline1);
-				headline.setPadding(12, 0, 0, 0);
+				headline.setPadding(6, 0, 0, 0);
 				break;
 			case 2:
 				headline.setTextAppearance(getContext(), R.style.Headline2);
-				headline.setPadding(16, 0, 0, 0);
+				headline.setPadding(12, 0, 0, 0);
 				break;
 			case 3:
 				headline.setTextAppearance(getContext(), R.style.Headline3);
-				headline.setPadding(20, 0, 0, 0);
+				headline.setPadding(16, 0, 0, 0);
 				break;
 			case 4:
 				headline.setTextAppearance(getContext(), R.style.Headline4);
-				headline.setPadding(24, 0, 0, 0);
+				headline.setPadding(20, 0, 0, 0);
 				break;
 			case 5:
 				headline.setTextAppearance(getContext(), R.style.Headline5);
-				headline.setPadding(28, 0, 0, 0);
+				headline.setPadding(24, 0, 0, 0);
 				break;
 			case 6:
 				headline.setTextAppearance(getContext(), R.style.Headline6);
-				headline.setPadding(32, 0, 0, 0);
+				headline.setPadding(28, 0, 0, 0);
 				break;
 			default:
 				break;
