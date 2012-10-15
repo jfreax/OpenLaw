@@ -41,7 +41,15 @@ public class MainActivity extends SherlockActivity {
 		//getSupportMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}
-
+	
+    public void onConfigurationChanged(Configuration newConfig) {
+    	super.onConfigurationChanged(newConfig);
+    	
+    	// TODO save and restore position (if possible)
+    	GridView gridview = (GridView) findViewById(R.id.flagview);
+    	gridview.setAdapter(new FlagAdapter(this));
+    	
+    }
 	
 	private int getRowWidth() {
 	  int iDisplayWidth = getResources().getDisplayMetrics().widthPixels ;
