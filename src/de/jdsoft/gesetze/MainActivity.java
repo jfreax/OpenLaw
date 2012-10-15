@@ -53,7 +53,7 @@ public class MainActivity extends SherlockActivity {
 	
 	private int getRowWidth() {
 	  int iDisplayWidth = getResources().getDisplayMetrics().widthPixels ;
-      int iImageWidth = iDisplayWidth / 3; 
+      int iImageWidth = iDisplayWidth / 2; 
       
       if ( iImageWidth > 400 ) {
     	  iImageWidth = 400;
@@ -97,7 +97,7 @@ public class MainActivity extends SherlockActivity {
 			TextView text = (TextView) view.findViewById(R.id.flag_text);
 
 	        imageView.setImageResource(mFlags[position]); 
-	        text.setText("Halloooooooooo");
+	        text.setText(mFlagNames[position]);
 
 	        return view;
 	    }
@@ -113,5 +113,7 @@ public class MainActivity extends SherlockActivity {
 	            R.drawable.flag_of_saxony, R.drawable.flag_of_saxony_anhalt,
 	            R.drawable.flag_of_schleswig_holstein, R.drawable.flag_of_thuringia
 	    };
+	    
+	    private String[] mFlagNames = getResources().getStringArray(R.array.LanderNames);
 	}
 }

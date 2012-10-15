@@ -11,5 +11,23 @@
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">AndroidGesetze</string>
     <string name="flag">Flagge</string>
+    <string-array name="LanderNames">
+        <item >Baden-Württemberg</item>
+        <item >Bayern</item>
+        <item >Berlin</item>
+        <item >Brandenburg</item>
+        <item >Bremen</item>
+        <item >Hamburg </item>
+        <item >Hessen</item>
+        <item >Mecklenburg-Vorpommern</item>
+        <item >Niedersachsen</item>
+        <item >Nordrhein-Westfalen</item>
+        <item >Rheinland-Pfalz </item>
+        <item >Saarland</item>
+        <item >Sachsen </item>
+        <item >Sachsen-Anhalt</item>
+        <item >Schleswig-Holstein</item>
+        <item >Thüringen</item>
+    </string-array>
 
 </resources>
