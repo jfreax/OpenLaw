@@ -3,6 +3,7 @@ package de.jdsoft.gesetze;
 import com.actionbarsherlock.app.SherlockActivity;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
@@ -30,7 +33,6 @@ public class MainActivity extends SherlockActivity {
 	        }
 	    });
 	    
-        
         gridview.setColumnWidth( getRowWidth() );
 	}
 
@@ -39,6 +41,7 @@ public class MainActivity extends SherlockActivity {
 		//getSupportMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}
+
 	
 	private int getRowWidth() {
 	  int iDisplayWidth = getResources().getDisplayMetrics().widthPixels ;
@@ -72,19 +75,23 @@ public class MainActivity extends SherlockActivity {
 
 	    // create a new ImageView for each item referenced by the Adapter
 	    public View getView(int position, View convertView, ViewGroup parent) {
-	        ImageView imageView;
-	        if (convertView == null) {  // if it's not recycled, initialize some attributes
-	            imageView = new ImageView(mContext);
-	            imageView.setLayoutParams(new GridView.LayoutParams(getRowWidth(), (getRowWidth()*3) / 5));
+	        View view = convertView;
+	        if (view == null) {
+	        	view = getLayoutInflater().inflate(R.layout.item_flags, null);
+	        	
+	        	ImageView imageView = (ImageView) view.findViewById(R.id.flag_image);
+	            imageView.setLayoutParams(new LinearLayout.LayoutParams(getRowWidth(), (getRowWidth()*3) / 5));
 	            imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 	            imageView.setPadding(8, 8, 8, 8);
-	        } else {
-	            imageView = (ImageView) convertView;
 	        }
+	        
+	        ImageView imageView = (ImageView) view.findViewById(R.id.flag_image);
+			TextView text = (TextView) view.findViewById(R.id.flag_text);
 
 	        imageView.setImageResource(mFlags[position]); 
+	        text.setText("Halloooooooooo");
 
-	        return imageView;
+	        return view;
 	    }
 
 	    // references to all flags
