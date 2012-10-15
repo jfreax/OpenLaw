@@ -12,6 +12,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.ScrollView;
 
 /**
@@ -55,22 +56,25 @@ public class LawListActivity extends SherlockFragmentActivity implements
 					R.id.law_list));
 			lawListFragment.setActivateOnItemClick(true);
 			
-			lawListFragment.getListView().setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
-			lawListFragment.getListView().setScrollBarStyle(ScrollView.SCROLLBARS_INSIDE_INSET);
-			lawListFragment.getListView().setFastScrollAlwaysVisible(true);
-			//lawListFragment.getListView().setPadding(16, 0, 0, 0);
+			ListView listview = lawListFragment.getListView();
+			
+			listview.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
+			listview.setScrollBarStyle(ScrollView.SCROLLBARS_INSIDE_INSET);
+			listview.setFastScrollAlwaysVisible(true);
 		}
 		
+		com.actionbarsherlock.app.ActionBar actionbar = getSupportActionBar();
+		
 		// Hide title
-		getSupportActionBar().setDisplayShowTitleEnabled(false);
+		actionbar.setDisplayShowTitleEnabled(false);
 		
 		// Show list menu
         Context context = getSupportActionBar().getThemedContext();
         ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.locations, R.layout.sherlock_spinner_item);
         list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
 
-        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-        getSupportActionBar().setListNavigationCallbacks(list, this);
+        actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+        actionbar.setListNavigationCallbacks(list, this);
         
 		// If exposing deep links into your app, handle intents here.
 	}
@@ -90,8 +94,8 @@ public class LawListActivity extends SherlockFragmentActivity implements
         
         // Settings button
         menu.add(R.string.settings)
-        .setIcon(isLight ? R.drawable.ic_action_settings : R.drawable.ic_action_settings_inverse)
-        .setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+        	.setIcon(isLight ? R.drawable.ic_action_settings : R.drawable.ic_action_settings_inverse)
+        	.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
         return true;
     }
@@ -128,5 +132,9 @@ public class LawListActivity extends SherlockFragmentActivity implements
 	
 	public void onConfigurationChanged(Configuration newConfig) {
 	    super.onConfigurationChanged(newConfig);
+	}
+	
+	public boolean isTwoPane() {
+		return mTwoPane;
 	}
 }
