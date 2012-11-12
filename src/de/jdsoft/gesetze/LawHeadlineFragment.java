@@ -18,6 +18,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.jakewharton.DiskLruCache;
 import com.jakewharton.DiskLruCache.Snapshot;
@@ -270,7 +271,11 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	    }
 	    
 	    private void makeHeadlines(String raw) {
-            getSherlockActivity().setSupportProgressBarIndeterminateVisibility(false);
+	    	SherlockFragmentActivity activity = getSherlockActivity();
+	    	if( activity == null )
+	    		return;
+	    	
+	    	activity.setSupportProgressBarIndeterminateVisibility(false);
 	    	
 	    	headlines = new ArrayList<Pair<Integer,String>>();
 	    	
