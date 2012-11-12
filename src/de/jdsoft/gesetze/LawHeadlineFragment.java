@@ -82,6 +82,8 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
+		getSherlockActivity().setSupportProgressBarIndeterminateVisibility(true);
+		
 		super.onCreate(savedInstanceState);
 		
 		if ( getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)) {
@@ -257,19 +259,34 @@ public class LawHeadlineFragment extends SherlockListFragment {
 					
 					makeHeadlines(response);
 	            }
-	            // TODO on failure!
+	            
+	            public void onFailure(Throwable error, String content) {
+	            	makeHeadlines("");
+	            }
+	            
+	            
+	            
 	        });
 	    }
 	    
 	    private void makeHeadlines(String raw) {
-			headlines = new ArrayList<Pair<Integer,String>>();
-			for ( String line : raw.split("\\r?\\n")) {
-				if ( line.contains(":") ) {
-					String[] depthAndText = line.split(":");
-					headlines.add(new Pair<Integer, String>(Integer.parseInt(depthAndText[0]), depthAndText[1]));
+            getSherlockActivity().setSupportProgressBarIndeterminateVisibility(false);
+	    	
+	    	headlines = new ArrayList<Pair<Integer,String>>();
+	    	
+	    	if( raw.equals("") ) { // Error while downloading
+	    		headlines.add(new Pair<Integer, String>(0, getString(R.string.error_downloading)));
+	    	} else {
+				for ( String line : raw.split("\\r?\\n")) {
+					if ( line.contains(":") ) {
+						String[] depthAndText = line.split(":");
+						headlines.add(new Pair<Integer, String>(Integer.parseInt(depthAndText[0]), depthAndText[1]));
+					}
 				}
-			}
+	    	}
+	    	
 			notifyDataSetChanged();
+
 	    }
 
 

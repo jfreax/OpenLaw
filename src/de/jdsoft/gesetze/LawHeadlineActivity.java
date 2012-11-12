@@ -3,6 +3,7 @@ package de.jdsoft.gesetze;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.Window;
 
 import de.jdsoft.gesetze.LawListFragment.Callbacks;
 
@@ -26,6 +27,9 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+		
 		setContentView(R.layout.activity_law_headline);
 
 		// Show the Up button in the action bar.
@@ -51,6 +55,7 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.law_detail_container, fragment).commit();
 		}
+
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -72,12 +77,12 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 
 	@SuppressLint("NewApi")
 	public void onItemSelected(String id) {
-		Log.e("onItemSelected", id);
+//		Log.e("onItemSelected", id);
 
 		
-		FragmentTransaction ft = getFragmentManager().beginTransaction();  
-		ft.hide(getFragmentManager().getFragment(null, "test")); 
-		ft.commit(); 
+//		FragmentTransaction ft = getFragmentManager().beginTransaction();  
+//		ft.hide(getFragmentManager().getFragment(null, "test")); 
+//		ft.commit(); 
 	}
 	
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {

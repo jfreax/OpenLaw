@@ -29,5 +29,5 @@
         <item >Schleswig-Holstein</item>
         <item >Thüringen</item>
     </string-array>
-
+    <string name="error_downloading">Fehler beim herunterladen. Überprüfen sie ihre Internetverbindung.</string>
 </resources>
