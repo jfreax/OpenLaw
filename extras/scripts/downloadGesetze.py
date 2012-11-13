@@ -2,10 +2,12 @@
 # -*- coding: utf-8 -*-
 
 import os
+import sys
+
 import lxml.etree
 import lxml.html
 
-output_dir = "./out/"
+output_dir = sys.argv[1]
 base_url = "http://www.gesetze-im-internet.de/"
 root_alphabet = lxml.html.parse(base_url+"aktuell.html").getroot()
 
@@ -24,7 +26,6 @@ def getAllLaws():
                     ret.append(el_title.attrib['href'][2:-11])
                     #print el_title.getchildren()[0].text, el_title.attrib['href']
 
-            return ret
     return ret
 
 
