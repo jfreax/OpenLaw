@@ -1,8 +1,7 @@
 #!/bin/bash
 
 gesetzePath="/home/jens/VCS/gesetze/"
-outputPath=sys.argv[1]
-
+outputPath=$1
 
 while read s
 do 
