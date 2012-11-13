@@ -46,7 +46,7 @@ def getLawText(law):
 
             headHtml_elem = head_root.cssselect("#paddingLR12")
 
-            directory = output_dir + '/' + law + '/'
+            directory = output_dir + '/' + law.replace('-','_') + '/'
 
             if not os.path.exists(directory):
                 os.makedirs(directory)

@@ -5,7 +5,7 @@ outputPath=$1
 
 while read s
 do 
-  name=$(grep "^origslug:" $s | sed 's/origslug: //g' | tr -d \\n)
+  name=$(grep "^origslug:" $s | sed 's/origslug: //g' | sed 's/-/_/g' | tr -d \\n)
   
   echo -n "" > "$outputPath/$name"
   
