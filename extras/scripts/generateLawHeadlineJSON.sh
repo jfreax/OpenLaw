@@ -1,7 +1,7 @@
 #!/bin/bash
 
 gesetzePath="/home/jens/VCS/gesetze/"
-outputPath="/home/jens/Dropbox/Programmierung/Java/Android/Gesetze/extras/server data/law/"
+outputPath=sys.argv[1]
 
 
 while read s
