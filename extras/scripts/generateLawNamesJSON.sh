@@ -9,7 +9,7 @@ do
   echo -n "[\""
   grep "^jurabk:" $s | sed 's/jurabk: //g' | tr -d \\n
   echo -n "\", \""
-  grep "^slug:" $s | sed 's/slug: //g' | tr -d \\n
+  grep "^origslug:" $s | sed 's/origslug: //g' | tr -d \\n
   echo -n "\", \""
   cat $s | head -2 | tail -1 | sed 's/Title: //g' | sed 's/"/\\"/g' | tr -d \\n
   echo "\"],"

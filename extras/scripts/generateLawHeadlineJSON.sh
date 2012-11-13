@@ -6,7 +6,7 @@ outputPath="/home/jens/Dropbox/Programmierung/Java/Android/Gesetze/extras/server
 
 while read s
 do 
-  name=$(grep "^slug:" $s | sed 's/slug: //g' | tr -d \\n)
+  name=$(grep "^origslug:" $s | sed 's/origslug: //g' | tr -d \\n)
   
   echo -n "" > "$outputPath/$name"
   
