@@ -37,6 +37,15 @@
                 android:value=".LawListActivity" />
         </activity>
         <activity
+            android:name="de.jdsoft.gesetze.LawTextActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/title_law_text"
+            android:parentActivityName=".LawListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LawListActivity" />
+        </activity>
+        <activity
             android:name="de.jdsoft.gesetze.MainActivity"
             android:label="@string/title_activity_main" >
         </activity>
