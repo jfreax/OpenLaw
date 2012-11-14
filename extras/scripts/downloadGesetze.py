@@ -33,6 +33,10 @@ def getLawText(law):
     law_root = lxml.html.parse(base_url+law+"/index.html").getroot()
     head_elem = law_root.cssselect("#paddingLR12 td a")
 
+    # Fix for laws without headlines
+    if len(head_elem) == 0:
+        head_elem = law_root.cssselect("#paddingLR12 a")
+
     i = 0
     for el in head_elem:
         if el.attrib.has_key('href'):
@@ -58,6 +62,7 @@ def getLawText(law):
 
 
 
-laws = getAllLaws()
-for law in laws:
-    getLawText(law)
+getLawText("luftvodv_174")
+#laws = getAllLaws()
+#for law in laws:
+#    getLawText(law)
