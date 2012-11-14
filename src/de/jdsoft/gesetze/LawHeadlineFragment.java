@@ -14,12 +14,18 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
 import android.widget.BaseAdapter;
+import android.widget.GridLayout.LayoutParams;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.app.SherlockListFragment;
+import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
+import com.actionbarsherlock.internal.nineoldandroids.animation.PropertyValuesHolder;
 import com.jakewharton.DiskLruCache;
 import com.jakewharton.DiskLruCache.Snapshot;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -43,6 +49,13 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	public static final String ARG_ITEM_ID = "item_id";
 	private String slug = "";
 	private HeadlineComposerAdapter adapter;
+	
+    public static final int ANIM_DURATION = 500;
+    private static final Interpolator interpolator = new DecelerateInterpolator();
+
+    boolean isCollapsed = false;
+    private ViewGroup panel1, panel2, panel3;
+
 	
 	/**
 	 * The serialization (saved instance state) Bundle key representing the
@@ -95,6 +108,10 @@ public class LawHeadlineFragment extends SherlockListFragment {
 				this.slug = law.getSlug();
 			}
 		}
+		
+        panel1 = (ViewGroup) getActivity().findViewById(R.id.law_list);
+        panel2 = (ViewGroup) getActivity().findViewById(R.id.law_detail_container);
+        panel3 = (ViewGroup) getActivity().findViewById(R.id.law_text_container);
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -133,14 +150,37 @@ public class LawHeadlineFragment extends SherlockListFragment {
 			long id) {
 		super.onListItemClick(listView, view, position, id);
 		
+		Log.e("onListItemClick", "fdzrd");
+
+		
 		if ( getActivity() instanceof LawListActivity && ((LawListActivity)getActivity()).isTwoPane() ) {
+			
 			FragmentTransaction ft = getFragmentManager().beginTransaction();
 			
-			ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-			ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_in_left, android.R.anim.slide_in_left, android.R.anim.slide_in_left);
+			//ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+			ft.setCustomAnimations(android.R.anim.slide_out_right, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_in_left);
 			//ft.replace(R.id.law_list, new LawListFragment());
+			//ft.replace(R.id.law_list, new LawHeadlineFragment());
+			
+			// Create new fragment to show law text
+			LinearLayout text_container = (LinearLayout) getActivity().findViewById(R.id.law_text_container);
+			//text_container.setL;
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+				    LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1);
+			//	params.weight = 2.0f;
+			//text_container.setLayoutParams(params);
+			
+			Bundle arguments = new Bundle();
+			arguments.putString(LawHeadlineFragment.ARG_ITEM_ID, "10"); // TODO
+			LawHeadlineFragment text_fragment = new LawHeadlineFragment(); // TODO
+			text_fragment.setArguments(arguments);
+			ft.replace(R.id.law_text_container, text_fragment);
+			
+			
+						
+			// Hide list of laws
 			//ft.hide(getFragmentManager().findFragmentById(R.id.law_list));
-			ft.addToBackStack(null);
+			//ft.addToBackStack(null);
 	
 			//ft.setCustomAnimations(android.R.animator.fade_in,   android.R.animator.fade_out);
 			//ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
@@ -149,6 +189,9 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	
 			//ft.hide(getFragmentManager().findFragmentById(R.id.law_list)); 
 			ft.commit(); 
+			
+			toggleCollapseState();
+
 	
 			// Notify the active callbacks interface (the activity, if the
 			// fragment is attached to one) that an item has been selected.	
@@ -165,6 +208,77 @@ public class LawHeadlineFragment extends SherlockListFragment {
 			outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
 		}
 	}
+	
+    private void toggleCollapseState() {
+        //Most of the magic here can be attributed to: http://android.amberfog.com/?p=758
+
+        if (isCollapsed) {
+            PropertyValuesHolder[] arrayOfPropertyValuesHolder = new PropertyValuesHolder[3];
+            arrayOfPropertyValuesHolder[0] = PropertyValuesHolder.ofFloat("Panel1Weight", 0.0f, 1.0f);
+            arrayOfPropertyValuesHolder[1] = PropertyValuesHolder.ofFloat("Panel2Weight", 1.0f, 2.0f);
+            arrayOfPropertyValuesHolder[2] = PropertyValuesHolder.ofFloat("Panel3Weight", 2.0f, 0.0f);
+            ObjectAnimator localObjectAnimator = ObjectAnimator.ofPropertyValuesHolder(this, arrayOfPropertyValuesHolder).setDuration(ANIM_DURATION);
+            localObjectAnimator.setInterpolator(interpolator);
+            localObjectAnimator.start();
+        } else {
+            PropertyValuesHolder[] arrayOfPropertyValuesHolder = new PropertyValuesHolder[3];
+            arrayOfPropertyValuesHolder[0] = PropertyValuesHolder.ofFloat("Panel1Weight", 1.0f, 0.0f);
+            arrayOfPropertyValuesHolder[1] = PropertyValuesHolder.ofFloat("Panel2Weight", 2.0f, 1.0f);
+            arrayOfPropertyValuesHolder[2] = PropertyValuesHolder.ofFloat("Panel3Weight", 0.0f, 2.0f);
+            ObjectAnimator localObjectAnimator = ObjectAnimator.ofPropertyValuesHolder(this, arrayOfPropertyValuesHolder).setDuration(ANIM_DURATION);
+            localObjectAnimator.setInterpolator(interpolator);
+            localObjectAnimator.start();
+        }
+        isCollapsed = !isCollapsed;
+    }
+    
+    
+//    public void onBackPressed() {
+//        //TODO: Very basic stack handling. Would probably want to do something relating to fragments here..
+//        if(isCollapsed) {
+//            toggleCollapseState();
+//        } else {
+//            super.onBackPressed();
+//        }
+//    }
+
+    /*
+     * Our magic getters/setters below!
+     */
+    
+    public float getPanel1Weight() {
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)     panel1.getLayoutParams();
+        return params.weight;
+    }
+
+    public void setPanel1Weight(float newWeight) {
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) panel1.getLayoutParams();
+        params.weight = newWeight;
+        panel1.setLayoutParams(params);
+    }
+
+    public float getPanel2Weight() {
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) panel2.getLayoutParams();
+        return params.weight;
+    }
+
+    public void setPanel2Weight(float newWeight) {
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) panel2.getLayoutParams();
+        params.weight = newWeight;
+        panel2.setLayoutParams(params);
+    }
+
+    public float getPanel3Weight() {
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) panel3.getLayoutParams();
+        return params.weight;
+    }
+
+    public void setPanel3Weight(float newWeight) {
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) panel3.getLayoutParams();
+        params.weight = newWeight;
+        panel3.setLayoutParams(params);
+    }
+    
 
 	/**
 	 * Turns on activate-on-click mode. When this mode is on, list items will be
@@ -264,9 +378,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	            public void onFailure(Throwable error, String content) {
 	            	makeHeadlines("");
 	            }
-	            
-	            
-	            
 	        });
 	    }
 	    
@@ -291,9 +402,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	    	}
 	    	
 			notifyDataSetChanged();
-
 	    }
-
 
 		public Context getContext() {
 			return getActivity().getApplicationContext();

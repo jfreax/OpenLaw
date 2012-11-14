@@ -34,4 +34,10 @@
         android:layout_height="match_parent"
         android:layout_weight="3" />
 
+    <LinearLayout
+        android:id="@+id/law_text_container"
+        android:background="#fff"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0" />
 </LinearLayout>

@@ -77,12 +77,12 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 
 	@SuppressLint("NewApi")
 	public void onItemSelected(String id) {
-//		Log.e("onItemSelected", id);
+		Log.e("onItemSelected", id);
 
 		
-//		FragmentTransaction ft = getFragmentManager().beginTransaction();  
-//		ft.hide(getFragmentManager().getFragment(null, "test")); 
-//		ft.commit(); 
+		FragmentTransaction ft = getFragmentManager().beginTransaction();  
+		ft.hide(getFragmentManager().getFragment(null, "test")); 
+		ft.commit(); 
 	}
 	
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
