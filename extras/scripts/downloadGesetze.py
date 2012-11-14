@@ -61,8 +61,6 @@ def getLawText(law):
             i = i+1
 
 
-
-getLawText("luftvodv_174")
-#laws = getAllLaws()
-#for law in laws:
-#    getLawText(law)
+laws = getAllLaws()
+for law in laws:
+    getLawText(law)
