@@ -351,7 +351,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 			}
 
 	    	// Not in cache, try to read from network
-	        RestClient.get(getContext(), "law/"+slug, null, new AsyncHttpResponseHandler() {   	
+	        RestClient.get(getContext(), slug+"/heads", null, new AsyncHttpResponseHandler() {   	
 	            public void onSuccess(String response) {
 	            	Log.i("GetLawHeadlines", "onSuccess() Response size: "+response.length());
 					if ( response.length() == 0 ) {

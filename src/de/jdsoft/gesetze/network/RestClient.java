@@ -1,6 +1,7 @@
 package de.jdsoft.gesetze.network;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -13,6 +14,7 @@ public class RestClient {
 	private static AsyncHttpClient client = new AsyncHttpClient();
 
 	public static void get(Context context, String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+		Log.d("RestClient", getAbsoluteUrl(url));
 		client.get(context, getAbsoluteUrl(url), params, responseHandler);
 	}
 	
