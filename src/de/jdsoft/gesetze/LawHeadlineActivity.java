@@ -55,7 +55,6 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.law_detail_container, fragment).commit();
 		}
-
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {

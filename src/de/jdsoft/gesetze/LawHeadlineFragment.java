@@ -150,55 +150,24 @@ public class LawHeadlineFragment extends SherlockListFragment {
 			long id) {
 		super.onListItemClick(listView, view, position, id);
 		
-		Log.e("onListItemClick", "fdzrd");
-
-		
 		if ( getActivity() instanceof LawListActivity && ((LawListActivity)getActivity()).isTwoPane() ) {
 			
 			FragmentTransaction ft = getFragmentManager().beginTransaction();
 			
 			//ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 			ft.setCustomAnimations(android.R.anim.slide_out_right, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_in_left);
-			//ft.replace(R.id.law_list, new LawListFragment());
-			//ft.replace(R.id.law_list, new LawHeadlineFragment());
-			
-			// Create new fragment to show law text
-			LinearLayout text_container = (LinearLayout) getActivity().findViewById(R.id.law_text_container);
-			//text_container.setL;
-			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-				    LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1);
-			//	params.weight = 2.0f;
-			//text_container.setLayoutParams(params);
-			
+
 			Bundle arguments = new Bundle();
-			arguments.putString(LawHeadlineFragment.ARG_ITEM_ID, "10"); // TODO
-			LawHeadlineFragment text_fragment = new LawHeadlineFragment(); // TODO
+			arguments.putString(LawTextFragment.ARG_ITEM_ID, "10"); // TODO
+			LawTextFragment text_fragment = new LawTextFragment(); // TODO
 			text_fragment.setArguments(arguments);
 			ft.replace(R.id.law_text_container, text_fragment);
-			
-			
-						
-			// Hide list of laws
-			//ft.hide(getFragmentManager().findFragmentById(R.id.law_list));
-			//ft.addToBackStack(null);
-	
-			//ft.setCustomAnimations(android.R.animator.fade_in,   android.R.animator.fade_out);
-			//ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
-			//ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-			//ft.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out,android.R.anim.fade_in,android.R.anim.fade_out);
-	
-			//ft.hide(getFragmentManager().findFragmentById(R.id.law_list)); 
+
 			ft.commit(); 
-			
+		
+			// TODO
 			toggleCollapseState();
-
-	
-			// Notify the active callbacks interface (the activity, if the
-			// fragment is attached to one) that an item has been selected.	
-			//int dbid = ((HeadlineComposerAdapter)listView.getAdapter()).getItem(position).getID();
-			//mCallbacks.onItemSelected("1");
 		}
-
 	}
 
 	public void onSaveInstanceState(Bundle outState) {
