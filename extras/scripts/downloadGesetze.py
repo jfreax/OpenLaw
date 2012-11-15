@@ -64,11 +64,11 @@ def writeLawHead(slug, html):
 
 
 def writeLawText(slug, html):
-    head_elem = law_root.cssselect("#paddingLR12 td a")
+    head_elem = html.cssselect("#paddingLR12 td a")
 
     # Fix for laws without headlines
     if len(head_elem) == 0:
-        head_elem = law_root.cssselect("#paddingLR12 a")
+        head_elem = html.cssselect("#paddingLR12 a")
 
     fakeLinkIDs = []
     i = 0
