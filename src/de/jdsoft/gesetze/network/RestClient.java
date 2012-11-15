@@ -9,7 +9,7 @@ import com.loopj.android.http.RequestParams;
 
 
 public class RestClient {
-	private static final String BASE_URL = "http://gesetze.jdsoft.de/static/";
+	private static final String BASE_URL = "http://gesetze.jdsoft.de/static/"; // TODO property!
 
 	private static AsyncHttpClient client = new AsyncHttpClient();
 

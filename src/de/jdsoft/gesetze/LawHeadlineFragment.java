@@ -32,6 +32,7 @@ import com.jakewharton.DiskLruCache.Snapshot;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import de.jdsoft.gesetze.LawListFragment.Callbacks;
+import de.jdsoft.gesetze.data.Cache;
 import de.jdsoft.gesetze.data.helper.Law;
 import de.jdsoft.gesetze.data.helper.LawHeadline;
 import de.jdsoft.gesetze.database.LawNamesDb;
@@ -154,6 +155,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 		if ( getActivity() instanceof LawListActivity && ((LawListActivity)getActivity()).isTwoPane() ) {
 			Bundle arguments = new Bundle();
 			arguments.putLong(LawTextFragment.ARG_ITEM_ID, id);
+			arguments.putString(LawTextFragment.ARG_ITEM_SLUG, law.getSlug());
 			LawTextFragment text_fragment = new LawTextFragment();
 			text_fragment.setArguments(arguments);
 			
@@ -169,6 +171,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 			// for the selected item ID.
 			Intent detailIntent = new Intent(getActivity(), LawTextActivity.class);
 			detailIntent.putExtra(LawTextFragment.ARG_ITEM_ID, id);
+			detailIntent.putExtra(LawTextFragment.ARG_ITEM_SLUG, law.getSlug());
 			startActivity(detailIntent);
 		}
 	}
@@ -273,36 +276,20 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	 */
 	public class HeadlineComposerAdapter extends BaseAdapter {
 		private List<Pair<Integer,String>> headlines = null;
-		
-		private DiskLruCache cache = null;
-		private static final int DISK_CACHE_SIZE = 1024 * 1024 * 10; // 10MB
-																	 // TODO this should be a property!
-		private static final String DISK_CACHE_SUBDIR = ".Gesetze";
-		private static final int DISK_CACHE_VERSION = 2;
-		
+		Cache cache = null;
+
 		
 		public HeadlineComposerAdapter() {		
-			try {
-				this.openCache();
-			} catch (IOException e) {
-				// Okay, so we can't use it :(
-				Log.e(HeadlineComposerAdapter.class.getName(), "Can't open cache " + DISK_CACHE_SUBDIR + "!");
-				e.printStackTrace();
-			}
+			cache = new Cache();
 			getHeadlinesRaw();
 		}
 		
 		protected void finalize() throws Throwable {
 			super.finalize();
-			
-			try {
-				if ( cache != null && !cache.isClosed() ) {
-					cache.close();
-					cache = null;
-				}
-			} catch (IOException e) {
-				// Thats bad
-				e.printStackTrace();
+
+			if ( cache != null && !cache.isClosed() ) {
+				cache.close();
+				cache = null;
 			}
 		}
 		
@@ -310,7 +297,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	    	// Try to read from cache
 	    	try {
 	    		if ( cache == null || cache.isClosed() ) {
-	    			openCache();
+	    			cache.openCache();
 	    		}
 				Snapshot snapshot = cache.get(slug);
 				if ( snapshot != null ) {
@@ -318,7 +305,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 					return;
 				}
 			} catch (IOException e) {
-				Log.e(HeadlineComposerAdapter.class.getName(), "Error while reading cache1 " + DISK_CACHE_SUBDIR + "!");
+				Log.e(HeadlineComposerAdapter.class.getName(), "Error while reading cache!");
 				Log.e(HeadlineComposerAdapter.class.getName(), e.getCause().getMessage());
 			}
 
@@ -334,14 +321,14 @@ public class LawHeadlineFragment extends SherlockListFragment {
 					// Save to cache
 			    	try {
 			    		if ( cache == null || cache.isClosed() ) {
-			    			openCache();
+			    			cache.openCache();
 			    		}
 						DiskLruCache.Editor creator = cache.edit(slug);
 						creator.set(0, response);
 						creator.commit();
 						cache.flush();
 					} catch (IOException e) {
-						Log.e(HeadlineComposerAdapter.class.getName(), "Error while reading cache " + DISK_CACHE_SUBDIR + "!");
+						Log.e(HeadlineComposerAdapter.class.getName(), "Error while reading cache!");
 					}
 					
 					makeHeadlines(response);
@@ -442,14 +429,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
 		
 		public String getSlug() {
 			return slug;
-		}
-		
-		public void openCache() throws IOException {
-	        String javaTmpDir = System.getProperty("java.io.tmpdir");
-	        File cacheDir = new File(javaTmpDir, DISK_CACHE_SUBDIR);
-	        cacheDir.mkdir();
-	        
-	        cache = DiskLruCache.open(cacheDir, DISK_CACHE_VERSION, 1, DISK_CACHE_SIZE);
 		}
 	}
 }
