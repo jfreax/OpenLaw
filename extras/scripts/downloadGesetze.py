@@ -30,7 +30,7 @@ def getAllLaws():
             for (el_link, el_title) in zip(link_elem, title_elem):
                 if el_link.attrib.has_key('href') and not el_link.attrib['href'].endswith('.pdf'):
                     ret.append((
-                            re.escape(el_title.text.lstrip(' ')),
+                            re.escape(el_title.text.lstrip(' ').rstrip(' ')),
                             re.escape(el_title.attrib['title']),
                             el_link.attrib['href'][2:-11]
                         ))
@@ -68,8 +68,8 @@ def writeLawText(slug, html):
                 text = tr.xpath("child::td/descendant::text()")[-1]
 
             # Skip if headline text is empty, unless its the first entry
-            print "'%s'" % text.replace(' ', '')
-            if not first and text.replace(' ', '') == "":
+            tmp_text = text.replace(u' ', u'').replace(u'\xa0', u'')
+            if not first and text.replace(' ', '') is "":
                 continue
 
             ###
