@@ -39,28 +39,26 @@ def getAllLaws():
 def writeLawHead(slug, html):
     first = True
 
-    for tr in html.xpath("//div[@id='paddingLR12']/table/tr"):
-        tds = tr.xpath("child::td")
-        text = tr.xpath("child::td/descendant::text()")[-1]
+    directory = output_dir + '/' + slug.replace('-','_') + '/'
+    with codecs.open(directory + "heads", 'w', 'utf-8') as lawHead:
+        for tr in html.xpath("//div[@id='paddingLR12']/table/tr"):
+            tds = tr.xpath("child::td")
+            text = tr.xpath("child::td/descendant::text()")[-1]
 
-        depth = len(tds)
-        if len(tds) < 3:
-            colspan = tds[-1].xpath("attribute::colspan")[0]
-            depth = 4 - int(colspan)
+            depth = len(tds)
+            if len(tds) < 3:
+                colspan = tds[-1].xpath("attribute::colspan")[0]
+                depth = 4 - int(colspan)
 
-        if first:
-            first = False
-            if text[0] != u"§":
-                depth = 1
+            if first:
+                first = False
+                if text[0] != u"§" and not text.startswith("Art"):
+                    depth = 1
 
-        #href = tds[-1].xpath("child::a/attribute::href")[0]
-        #if '#' in href:
-        #    continue
-
-        directory = output_dir + '/' + slug.replace('-','_') + '/'
-        with codecs.open(directory + "heads", 'w', 'utf-8') as lawHead:
-            lawHead.write(u"%i: %s" % (depth,text))
-    pass
+            #href = tds[-1].xpath("child::a/attribute::href")[0]
+            #if '#' in href:
+            #    continue
+            lawHead.write(u"%i: %s\n" % (depth,text))
 
 
 def writeLawText(slug, html):
@@ -104,6 +102,11 @@ def writeLawText(slug, html):
                     with open(directory + str(fake), 'w') as lawFile:
                         lawFile.write("%"+str(i)+"%")
                 fakeLinkIDs = []
+
+# Debug
+#law_index_html = lxml.html.parse(base_url+"aabg/index.html").getroot()
+#writeLawHead('aabg', law_index_html)
+#exit()
 
 # First, fetch links to all laws + short name and full name
 laws = getAllLaws()
