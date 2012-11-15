@@ -3,6 +3,7 @@ package de.jdsoft.gesetze;
 import java.io.File;
 import java.io.IOException;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,8 +13,13 @@ import android.webkit.WebView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.jakewharton.DiskLruCache;
+import com.jakewharton.DiskLruCache.Editor;
+import com.jakewharton.DiskLruCache.Snapshot;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
+import de.jdsoft.gesetze.LawHeadlineFragment.HeadlineComposerAdapter;
 import de.jdsoft.gesetze.data.Cache;
+import de.jdsoft.gesetze.network.RestClient;
 
 public class LawTextFragment extends SherlockFragment {
 	public static final String ARG_ITEM_ID = "text_id";
@@ -23,6 +29,9 @@ public class LawTextFragment extends SherlockFragment {
 	
 	private long id = 0;
 	private String slug = "";
+	
+	private WebView webview = null;
+	private String lawText = "";
 
 	
 	/**
@@ -50,22 +59,77 @@ public class LawTextFragment extends SherlockFragment {
 		
 		
 		cache = new Cache();
+		webview = (WebView) rootView.findViewById(R.id.text_webview);
 		
-		WebView webview = (WebView) rootView.findViewById(R.id.text_webview);
+		LoadOrCache();
 		
-		Log.e("Webview", "http://gesetze.jdsoft.de/static/"+slug+"/"+id+".html");
+		//Log.e("Webview", "http://gesetze.jdsoft.de/static/"+slug+"/"+id+".html");
 		//webview.loadUrl("http://gesetze.jdsoft.de/static/"+slug+"/"+id);
 		//webview.loadDataWithBaseURL(baseUrl, data, mimeType, encoding, historyUrl)
 		//webview.loadData("<div id=\"paddingLR12\"><div><div class=\"jnhtml\"><div><div class=\"jurAbsatz\">Die Deutsche Bundesbank wird erm&#228;chtigt, zum Gedenken an die Deutsche Mark im eigenen Namen im Jahre 2001 eine M&#252;nze in Gold &#252;ber 1 Deutsche Mark (1-DM-Goldm&#252;nze) mit einer Auflage von bis zu einer Million St&#252;ck herauszugeben.</div></div></div></div></div>", "text/html", "UTF-8");
-		Log.e("Test", "ok"+webview.getOriginalUrl());
+		//Log.e("Test", "ok"+webview.getOriginalUrl());
 		
 		return rootView;
 	}
 	
-	private String LoadOrCache() {
+	private void LoadOrCache() {
+    	// Try to read from cache
+    	try {
+    		if ( cache == null || cache.isClosed() ) {
+    			cache.openCache();
+    		}
+			Snapshot snapshot = cache.get(slug+"_"+id);
+			if ( snapshot != null ) {
+				lawText = snapshot.getString(0);
+				reloadWebview();
+				return;
+			}
+		} catch (IOException e) {
+			Log.e(LawTextFragment.class.getName(), e.getCause().getMessage());
+		}
+    	
+    	// Not in cache, try to read from network
+        RestClient.get(getContext(), slug+"/"+id, null, new AsyncHttpResponseHandler() {   	
+            public void onSuccess(String response) {
+            	Log.i("GetLawText", "onSuccess() Response size: "+response.length());
+				if ( response.length() == 0 ) {
+					Log.e(LawTextFragment.class.getName(), "Can't download law " + slug + " " + id);
+					return;
+				}
+				
+				// Save to cache
+		    	try {
+		    		if ( cache == null || cache.isClosed() ) {
+		    			cache.openCache();
+		    		}
+					Editor creator = cache.edit(slug);
+					creator.set(0, response);
+					creator.commit();
+					cache.flush();
+				} catch (IOException e) {
+					Log.e(LawTextFragment.class.getName(), "Error while reading cache!");
+				}
+				
+				lawText = response;
+				reloadWebview();
+            }
+            
+            public void onFailure(Throwable error, String content) {
+            	// TODO
+            	reloadWebview();
+            }
+        });
 		
-		
-		return null;
-		
+		return;
+	}
+	
+	private void reloadWebview() {
+		if ( webview != null ) {
+			webview.loadData(lawText, "text/html", "UTF-8");
+		}
+	}
+	
+	private Context getContext() {
+		return getActivity().getApplicationContext();
 	}
 }
