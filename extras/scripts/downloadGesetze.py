@@ -4,6 +4,9 @@
 import os
 import sys
 
+import codecs
+from itertools import chain
+
 import lxml.etree
 import lxml.html
 
@@ -11,6 +14,7 @@ output_dir = sys.argv[1]
 base_url = "http://www.gesetze-im-internet.de/"
 root_alphabet = lxml.html.parse(base_url+"aktuell.html").getroot()
 
+# (name, fulltitle, slug/link)
 def getAllLaws():
     ret = []
 
@@ -19,17 +23,20 @@ def getAllLaws():
         if el.attrib.has_key('href'):
             alphabet_elem = lxml.html.parse(base_url+el.attrib['href']).getroot()
 
-            title_elem = alphabet_elem.cssselect("#paddingLR12 p a")
+            link_elem = alphabet_elem.cssselect("#paddingLR12 p a")
+            title_elem = alphabet_elem.cssselect("#paddingLR12 p a abbr")
 
-            for el_title in title_elem:
-                if el_title.attrib.has_key('href') and not el_title.attrib['href'].endswith('.pdf'):
-                    ret.append(el_title.attrib['href'][2:-11])
-                    #print el_title.getchildren()[0].text, el_title.attrib['href']
-
+            for (el_link, el_title) in zip(link_elem, title_elem):
+                if el_link.attrib.has_key('href') and not el_link.attrib['href'].endswith('.pdf'):
+                    ret.append(
+                            (el_title.text.lstrip(' '),
+                            el_title.attrib['title'],
+                            el_link.attrib['href'][2:-11])
+                        )
     return ret
 
 
-def getLawText(law):
+def writeLawText(law):
     law_root = lxml.html.parse(base_url+law+"/index.html").getroot()
     head_elem = law_root.cssselect("#paddingLR12 td a")
 
@@ -37,9 +44,12 @@ def getLawText(law):
     if len(head_elem) == 0:
         head_elem = law_root.cssselect("#paddingLR12 a")
 
+    fakeLinkIDs = []
     i = 0
     for el in head_elem:
         if el.attrib.has_key('href'):
+            i = i+1
+
             head_link = el.attrib['href']
             head_root = lxml.html.parse(base_url+law+"/"+head_link).getroot()
 
@@ -48,19 +58,48 @@ def getLawText(law):
             for bad in head_root.xpath("//div[contains(@class, 'jnheader')]"):
                 bad.getparent().remove(bad)
 
+            # Its only a link to the whole law text rather to one part of it
+            if '#' in head_link:
+                fakeLinkIDs.append(i)
+                continue
+
             headHtml_elem = head_root.cssselect("#paddingLR12")
 
             directory = output_dir + '/' + law.replace('-','_') + '/'
-
             if not os.path.exists(directory):
                 os.makedirs(directory)
 
             with open(directory + str(i), 'w') as lawFile:
                 lawFile.write(lxml.etree.tostring(headHtml_elem[0]))
 
-            i = i+1
+            # Write "link" to real first chapters
+            if len(fakeLinkIDs) != 0:
+                for fake in fakeLinkIDs:
+                    with open(directory + str(fake), 'w') as lawFile:
+                        lawFile.write("%"+str(i)+"%")
+                fakeLinkIDs = []
 
-
+# First, fetch links to all laws + short name and full name
 laws = getAllLaws()
-for law in laws:
-    getLawText(law)
+
+i = 1
+lawIter = chain(laws);
+with codecs.open(output_dir + "/laws", 'w', 'utf-8') as lawsFile:
+    lawsFile.write("[\n")
+
+    while True:
+        try:
+            name,title,link = lawIter.next()
+        except StopIteration:
+            lawsFile.write(u'["%s", "%s", "%s"]\n]' % ( name,link,title ))
+            break
+
+        print "Loading #%i: %s" % (i, name)
+
+        lawsFile.write(u'["%s", "%s", "%s"],\n' % ( name,link,title ))
+        writeLawText(link)
+        i = i+1
+
+    
+
+    
