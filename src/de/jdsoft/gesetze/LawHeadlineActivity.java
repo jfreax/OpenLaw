@@ -53,7 +53,7 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 			LawHeadlineFragment fragment = new LawHeadlineFragment();
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.law_detail_container, fragment).commit();
+					.add(R.id.law_headline_container, fragment).commit();
 		}
 	}
 
@@ -76,12 +76,12 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 
 	@SuppressLint("NewApi")
 	public void onItemSelected(String id) {
-		Log.e("onItemSelected", id);
-
-		
-		FragmentTransaction ft = getFragmentManager().beginTransaction();  
-		ft.hide(getFragmentManager().getFragment(null, "test")); 
-		ft.commit(); 
+//		Log.e("onItemSelected", id);
+//
+//		
+//		FragmentTransaction ft = getFragmentManager().beginTransaction();  
+//		ft.hide(getFragmentManager().getFragment(null, "test")); 
+//		ft.commit(); 
 	}
 	
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {

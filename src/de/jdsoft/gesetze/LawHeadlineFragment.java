@@ -112,7 +112,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 		}
 		
         panel1 = (ViewGroup) getActivity().findViewById(R.id.law_list);
-        panel2 = (ViewGroup) getActivity().findViewById(R.id.law_detail_container);
+        panel2 = (ViewGroup) getActivity().findViewById(R.id.law_headline_container);
         panel3 = (ViewGroup) getActivity().findViewById(R.id.law_text_container);
 	}
 	
@@ -162,6 +162,8 @@ public class LawHeadlineFragment extends SherlockListFragment {
 			FragmentTransaction ft = getFragmentManager().beginTransaction();
 
 			ft.replace(R.id.law_text_container, text_fragment);
+			ft.addToBackStack(null);
+			
 			ft.commit(); 
 		
 			// TODO
@@ -208,14 +210,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
     }
     
     
-//    public void onBackPressed() {
-//        //TODO: Very basic stack handling. Would probably want to do something relating to fragments here..
-//        if(isCollapsed) {
-//            toggleCollapseState();
-//        } else {
-//            super.onBackPressed();
-//        }
-//    }
+
 
     /*
      * Our magic getters/setters below!

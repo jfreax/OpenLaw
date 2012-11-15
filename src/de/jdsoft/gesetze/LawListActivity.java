@@ -44,7 +44,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_law_list);
 
-		if (findViewById(R.id.law_detail_container) != null) {
+		if (findViewById(R.id.law_headline_container) != null) {
 			// The detail container view will be present only in the
 			// large-screen layouts (res/values-large and
 			// res/values-sw600dp). If this view is present, then the
@@ -114,7 +114,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
 			LawHeadlineFragment fragment = new LawHeadlineFragment();
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.law_detail_container, fragment).commit();
+					.replace(R.id.law_headline_container, fragment).commit();
 
 		} else {
 			// In single-pane mode, simply start the detail activity
@@ -137,4 +137,16 @@ public class LawListActivity extends SherlockFragmentActivity implements
 	public boolean isTwoPane() {
 		return mTwoPane;
 	}
+	
+    public void onBackPressed() {
+    	if ( isTwoPane() ) {
+	        //TODO: Very basic stack handling. Would probably want to do something relating to fragments here..
+//	        if(isCollapsed) {
+//	            toggleCollapseState();
+//	            getFragmentManager().get
+//	        } else {
+//	            super.onBackPressed();
+//	        }
+    	}
+    }
 }

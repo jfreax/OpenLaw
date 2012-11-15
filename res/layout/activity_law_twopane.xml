@@ -28,7 +28,7 @@
 <!--         tools:layout="@android:layout/list_content" /> -->
 
     <LinearLayout
-        android:id="@+id/law_detail_container"
+        android:id="@+id/law_headline_container"
         android:background="#fff"
         android:layout_width="0dp"
         android:layout_height="match_parent"
