@@ -36,8 +36,34 @@ def getAllLaws():
     return ret
 
 
-def writeLawText(law):
-    law_root = lxml.html.parse(base_url+law+"/index.html").getroot()
+def writeLawHead(slug, html):
+    first = True
+
+    for tr in html.xpath("//div[@id='paddingLR12']/table/tr"):
+        tds = tr.xpath("child::td")
+        text = tr.xpath("child::td/descendant::text()")[-1]
+
+        depth = len(tds)
+        if len(tds) < 3:
+            colspan = tds[-1].xpath("attribute::colspan")[0]
+            depth = 4 - int(colspan)
+
+        if first:
+            first = False
+            if text[0] != u"§":
+                depth = 1
+
+        #href = tds[-1].xpath("child::a/attribute::href")[0]
+        #if '#' in href:
+        #    continue
+
+        directory = output_dir + '/' + slug.replace('-','_') + '/'
+        with open(directory + "heads", 'w') as lawHead:
+            lawHead.write("%i: %s" % (depth,text))
+    pass
+
+
+def writeLawText(slug, html):
     head_elem = law_root.cssselect("#paddingLR12 td a")
 
     # Fix for laws without headlines
@@ -51,7 +77,7 @@ def writeLawText(law):
             i = i+1
 
             head_link = el.attrib['href']
-            head_root = lxml.html.parse(base_url+law+"/"+head_link).getroot()
+            head_root = lxml.html.parse(base_url+slug+"/"+head_link).getroot()
 
             for bad in head_root.xpath("//a[text()='Nichtamtliches Inhaltsverzeichnis']"):
                 bad.getparent().remove(bad)
@@ -65,7 +91,7 @@ def writeLawText(law):
 
             headHtml_elem = head_root.cssselect("#paddingLR12")
 
-            directory = output_dir + '/' + law.replace('-','_') + '/'
+            directory = output_dir + '/' + slug.replace('-','_') + '/'
             if not os.path.exists(directory):
                 os.makedirs(directory)
 
@@ -89,15 +115,19 @@ with codecs.open(output_dir + "/laws", 'w', 'utf-8') as lawsFile:
 
     while True:
         try:
-            name,title,link = lawIter.next()
+            name,title,slug = lawIter.next()
         except StopIteration:
-            lawsFile.write(u'["%s", "%s", "%s"]\n]' % ( name,link,title ))
+            lawsFile.write(u'["%s", "%s", "%s"]\n]' % ( name,slug,title ))
             break
 
         print "Loading #%i: %s" % (i, name)
 
-        lawsFile.write(u'["%s", "%s", "%s"],\n' % ( name,link,title ))
-        writeLawText(link)
+        lawsFile.write(u'["%s", "%s", "%s"],\n' % ( name,slug,title ))
+
+        law_index_html = lxml.html.parse(base_url+slug+"/index.html").getroot()
+        writeLawText(slug, law_index_html)
+        writeLawHead(slug, law_index_html)
+
         i = i+1
 
     
