@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -38,6 +39,8 @@ public class LawListActivity extends SherlockFragmentActivity implements
 	 * device.
 	 */
 	private boolean mTwoPane;
+	
+	public LawHeadlineFragment headlineFragment = null;
 
 	@SuppressLint("NewApi")
 	public void onCreate(Bundle savedInstanceState) {
@@ -139,14 +142,11 @@ public class LawListActivity extends SherlockFragmentActivity implements
 	}
 	
     public void onBackPressed() {
-    	if ( isTwoPane() ) {
-	        //TODO: Very basic stack handling. Would probably want to do something relating to fragments here..
-//	        if(isCollapsed) {
-//	            toggleCollapseState();
-//	            getFragmentManager().get
-//	        } else {
-//	            super.onBackPressed();
-//	        }
+    	Log.e("ouho", "back " + headlineFragment.isCollapsed);
+    	if ( isTwoPane() && headlineFragment != null && !headlineFragment.isCollapsed ) {
+    		headlineFragment.fadeOut();
+    	} else {
+    		super.onBackPressed();
     	}
     }
 }

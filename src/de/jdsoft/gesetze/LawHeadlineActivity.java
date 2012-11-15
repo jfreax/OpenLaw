@@ -87,4 +87,9 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 		return true;
 	}
+	
+    public void onBackPressed() {
+    	Log.e("ouho", "back222");
+
+    }
 }

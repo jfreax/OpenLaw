@@ -160,14 +160,12 @@ public class LawHeadlineFragment extends SherlockListFragment {
 			text_fragment.setArguments(arguments);
 			
 			FragmentTransaction ft = getFragmentManager().beginTransaction();
-
-			ft.replace(R.id.law_text_container, text_fragment);
-			ft.addToBackStack(null);
-			
+			ft.replace(R.id.law_text_container, text_fragment);			
 			ft.commit(); 
+			
+			((LawListActivity)getActivity()).headlineFragment = this;
 		
-			// TODO
-			toggleCollapseState();
+			fadeIn();
 		} else {
 			// In single-pane mode, simply start the text activity
 			// for the selected item ID.
@@ -186,27 +184,30 @@ public class LawHeadlineFragment extends SherlockListFragment {
 		}
 	}
 	
-    private void toggleCollapseState() {
+    public void fadeIn() {
         //Most of the magic here can be attributed to: http://android.amberfog.com/?p=758
 
-        if (isCollapsed) {
-            PropertyValuesHolder[] arrayOfPropertyValuesHolder = new PropertyValuesHolder[3];
-            arrayOfPropertyValuesHolder[0] = PropertyValuesHolder.ofFloat("Panel1Weight", 0.0f, 1.0f);
-            arrayOfPropertyValuesHolder[1] = PropertyValuesHolder.ofFloat("Panel2Weight", 1.0f, 2.0f);
-            arrayOfPropertyValuesHolder[2] = PropertyValuesHolder.ofFloat("Panel3Weight", 2.0f, 0.0f);
-            ObjectAnimator localObjectAnimator = ObjectAnimator.ofPropertyValuesHolder(this, arrayOfPropertyValuesHolder).setDuration(ANIM_DURATION);
-            localObjectAnimator.setInterpolator(interpolator);
-            localObjectAnimator.start();
-        } else {
-            PropertyValuesHolder[] arrayOfPropertyValuesHolder = new PropertyValuesHolder[3];
-            arrayOfPropertyValuesHolder[0] = PropertyValuesHolder.ofFloat("Panel1Weight", 1.0f, 0.0f);
-            arrayOfPropertyValuesHolder[1] = PropertyValuesHolder.ofFloat("Panel2Weight", 2.0f, 1.0f);
-            arrayOfPropertyValuesHolder[2] = PropertyValuesHolder.ofFloat("Panel3Weight", 0.0f, 2.0f);
-            ObjectAnimator localObjectAnimator = ObjectAnimator.ofPropertyValuesHolder(this, arrayOfPropertyValuesHolder).setDuration(ANIM_DURATION);
-            localObjectAnimator.setInterpolator(interpolator);
-            localObjectAnimator.start();
-        }
-        isCollapsed = !isCollapsed;
+        isCollapsed = false;
+        PropertyValuesHolder[] arrayOfPropertyValuesHolder = new PropertyValuesHolder[3];
+        arrayOfPropertyValuesHolder[0] = PropertyValuesHolder.ofFloat("Panel1Weight", 1.0f, 0.0f);
+        arrayOfPropertyValuesHolder[1] = PropertyValuesHolder.ofFloat("Panel2Weight", 2.0f, 1.0f);
+        arrayOfPropertyValuesHolder[2] = PropertyValuesHolder.ofFloat("Panel3Weight", 0.0f, 2.0f);
+        ObjectAnimator localObjectAnimator = ObjectAnimator.ofPropertyValuesHolder(this, arrayOfPropertyValuesHolder).setDuration(ANIM_DURATION);
+        localObjectAnimator.setInterpolator(interpolator);
+        localObjectAnimator.start();
+
+    }
+    
+    public void fadeOut() {
+    	isCollapsed = true;
+    	
+        PropertyValuesHolder[] arrayOfPropertyValuesHolder = new PropertyValuesHolder[3];
+        arrayOfPropertyValuesHolder[0] = PropertyValuesHolder.ofFloat("Panel1Weight", 0.0f, 1.0f);
+        arrayOfPropertyValuesHolder[1] = PropertyValuesHolder.ofFloat("Panel2Weight", 1.0f, 2.0f);
+        arrayOfPropertyValuesHolder[2] = PropertyValuesHolder.ofFloat("Panel3Weight", 2.0f, 0.0f);
+        ObjectAnimator localObjectAnimator = ObjectAnimator.ofPropertyValuesHolder(this, arrayOfPropertyValuesHolder).setDuration(ANIM_DURATION);
+        localObjectAnimator.setInterpolator(interpolator);
+        localObjectAnimator.start();
     }
     
     

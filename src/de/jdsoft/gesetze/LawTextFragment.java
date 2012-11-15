@@ -57,10 +57,8 @@ public class LawTextFragment extends SherlockFragment {
 		View rootView = inflater.inflate(R.layout.fragment_law_text,
 				container, false);
 		
-		
 		cache = new Cache();
-		webview = (WebView) rootView.findViewById(R.id.text_webview);
-		
+		webview = (WebView) rootView.findViewById(R.id.text_webview);		
 		LoadOrCache();
 
 		return rootView;
