@@ -152,13 +152,14 @@ with codecs.open(output_dir + "/laws", 'w', 'utf-8') as lawsFile:
     while True:
         try:
             name,title,slug = lawIter.next()
+            clean_slug = slug.replace('-','_')
         except StopIteration:
-            lawsFile.write(u'["%s", "%s", "%s"]\n]' % ( name,slug,title ))
+            lawsFile.write(u'["%s", "%s", "%s"]\n]' % ( name,clean_slug,title ))
             break
 
         print "Loading #%i: %s" % (i, name)
 
-        lawsFile.write(u'["%s", "%s", "%s"],\n' % ( name,slug,title ))
+        lawsFile.write(u'["%s", "%s", "%s"],\n' % ( name,clean_slug,title ))
 
         law_index_html = lxml.html.parse(base_url+slug+"/index.html").getroot()
         writeLawText(slug, law_index_html)
