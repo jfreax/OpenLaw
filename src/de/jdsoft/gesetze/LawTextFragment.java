@@ -102,7 +102,7 @@ public class LawTextFragment extends SherlockFragment {
 		    		if ( cache == null || cache.isClosed() ) {
 		    			cache.openCache();
 		    		}
-					Editor creator = cache.edit(slug);
+					Editor creator = cache.edit(slug+"_"+id);
 					creator.set(0, response);
 					creator.commit();
 					cache.flush();
