@@ -1,9 +1,11 @@
 package de.jdsoft.gesetze;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
@@ -27,7 +29,11 @@ public class LawTextFragment extends SherlockFragment {
 		View rootView = inflater.inflate(R.layout.fragment_law_text,
 				container, false);
 
-
+		WebView webview = (WebView) rootView.findViewById(R.id.text_webview);
+		
+		webview.loadUrl("http://www.google.de");
+		Log.e("Test", "ok"+webview.getOriginalUrl());
+		
 		return rootView;
 	}
 }

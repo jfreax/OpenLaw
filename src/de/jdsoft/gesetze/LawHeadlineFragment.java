@@ -7,6 +7,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -151,22 +152,24 @@ public class LawHeadlineFragment extends SherlockListFragment {
 		super.onListItemClick(listView, view, position, id);
 		
 		if ( getActivity() instanceof LawListActivity && ((LawListActivity)getActivity()).isTwoPane() ) {
+			Bundle arguments = new Bundle();
+			arguments.putLong(LawTextFragment.ARG_ITEM_ID, id);
+			LawTextFragment text_fragment = new LawTextFragment();
+			text_fragment.setArguments(arguments);
 			
 			FragmentTransaction ft = getFragmentManager().beginTransaction();
-			
-			//ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-			ft.setCustomAnimations(android.R.anim.slide_out_right, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_in_left);
 
-			Bundle arguments = new Bundle();
-			arguments.putString(LawTextFragment.ARG_ITEM_ID, "10"); // TODO
-			LawTextFragment text_fragment = new LawTextFragment(); // TODO
-			text_fragment.setArguments(arguments);
 			ft.replace(R.id.law_text_container, text_fragment);
-
 			ft.commit(); 
 		
 			// TODO
 			toggleCollapseState();
+		} else {
+			// In single-pane mode, simply start the text activity
+			// for the selected item ID.
+			Intent detailIntent = new Intent(getActivity(), LawTextActivity.class);
+			detailIntent.putExtra(LawTextFragment.ARG_ITEM_ID, id);
+			startActivity(detailIntent);
 		}
 	}
 
