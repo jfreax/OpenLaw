@@ -3,6 +3,7 @@
 
 import os
 import sys
+import re
 
 import codecs
 from itertools import chain
@@ -28,75 +29,99 @@ def getAllLaws():
 
             for (el_link, el_title) in zip(link_elem, title_elem):
                 if el_link.attrib.has_key('href') and not el_link.attrib['href'].endswith('.pdf'):
-                    ret.append(
-                            (el_title.text.lstrip(' '),
-                            el_title.attrib['title'],
-                            el_link.attrib['href'][2:-11])
-                        )
+                    ret.append((
+                            re.escape(el_title.text.lstrip(' ')),
+                            re.escape(el_title.attrib['title']),
+                            el_link.attrib['href'][2:-11]
+                        ))
     return ret
 
 
-def writeLawHead(slug, html):
-    first = True
-
-    directory = output_dir + '/' + slug.replace('-','_') + '/'
-    with codecs.open(directory + "heads", 'w', 'utf-8') as lawHead:
-        for tr in html.xpath("//div[@id='paddingLR12']/table/tr"):
-            tds = tr.xpath("child::td")
-            text = tr.xpath("child::td/descendant::text()")[-1]
-
-            depth = len(tds)
-            if len(tds) < 3:
-                colspan = tds[-1].xpath("attribute::colspan")[0]
-                depth = 4 - int(colspan)
-
-            if first:
-                first = False
-                if text[0] != u"§" and not text.startswith("Art"):
-                    depth = 1
-
-            #href = tds[-1].xpath("child::a/attribute::href")[0]
-            #if '#' in href:
-            #    continue
-            lawHead.write(u"%i: %s\n" % (depth,text))
-
-
 def writeLawText(slug, html):
-    head_elem = html.cssselect("#paddingLR12 td a")
+    #head_elem = html.cssselect("#paddingLR12 td a")
 
     # Fix for laws without headlines
-    if len(head_elem) == 0:
-        head_elem = html.cssselect("#paddingLR12 a")
+    #if len(head_elem) == 0:
+    #    head_elem = html.cssselect("#paddingLR12 a")
+
+    directory = output_dir + '/' + slug.replace('-','_') + '/'
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
     fakeLinkIDs = []
     i = 0
     first = True
-    for el in head_elem:
-        if el.attrib.has_key('href'):
+
+    with codecs.open(directory + "heads", 'w', 'utf-8') as lawHead:
+        trs = html.xpath("//div[@id='paddingLR12']/table/tr")
+
+        if len(trs) == 0:
+            trs = html.xpath("//div[@id='paddingLR12']")
+
+        for tr in trs:
             i = i+1
 
-            head_link = el.attrib['href']
-            head_root = lxml.html.parse(base_url+slug+"/"+head_link).getroot()
+            tds = tr.xpath("child::td")
+            if len(tds) == 0:
+                text = ""
+            else:
+                text = tr.xpath("child::td/descendant::text()")[-1]
 
-            for bad in head_root.xpath("//a[text()='Nichtamtliches Inhaltsverzeichnis']"):
-                bad.getparent().remove(bad)
-            for bad in head_root.xpath("//div[contains(@class, 'jnheader')]"):
-                bad.getparent().remove(bad)
+            # Skip if headline text is empty, unless its the first entry
+            print "'%s'" % text.replace(' ', '')
+            if not first and text.replace(' ', '') == "":
+                continue
+
+            ###
+            # HEADLINE
+            ###
+            depth = 0
+            if len(tds) == 0:
+                head_link = tr.xpath("child::table/a/attribute::href")[0]
+                head_root = lxml.html.parse(base_url+slug+"/"+head_link).getroot()
+            else:
+                depth = len(tds)
+                if len(tds) < 3:
+                    colspan = tds[-1].xpath("attribute::colspan")[0]
+                    depth = 4 - int(colspan)
+
+                if first:
+                    if text[0] != u"§" and not text.startswith("Art"):
+                        depth = 1
+
+
+                head_link = tds[-1].xpath("child::a/attribute::href")[0]
+                head_root = lxml.html.parse(base_url+slug+"/"+head_link).getroot()
+
+            # Write headline
+            if '#' in head_link and not first:
+                lawHead.write(u"-%i: %s\n" % (depth,text))
+            else:
+                lawHead.write(u"%i: %s\n" % (depth,text))
+
+
+            ###
+            # TEXT
+            ###
 
             # Its only a link to the whole law text rather to one part of it
             if '#' in head_link and not first:
                 fakeLinkIDs.append(i)
                 continue
 
-            if first:
-                first = False
+            # Cleaning
+            for bad in head_root.xpath("//a[text()='Nichtamtliches Inhaltsverzeichnis']"):
+                bad.getparent().remove(bad)
+            for bad in head_root.xpath("//div[contains(@class, 'jnheader')]"):
+                bad.getparent().remove(bad)
+            for tag in head_root.xpath('//*[@class]'):
+                # For each element with a class attribute, remove that class attribute
+                tag.attrib.pop('class')
+
 
             headHtml_elem = head_root.cssselect("#paddingLR12")
 
-            directory = output_dir + '/' + slug.replace('-','_') + '/'
-            if not os.path.exists(directory):
-                os.makedirs(directory)
-
+            # Write text
             with open(directory + str(i), 'w') as lawFile:
                 lawFile.write(lxml.etree.tostring(headHtml_elem[0]))
 
@@ -107,13 +132,17 @@ def writeLawText(slug, html):
                         lawFile.write("%"+str(i)+"%")
                 fakeLinkIDs = []
 
+            if first:
+                first = False
+
 # Debug
-#law_index_html = lxml.html.parse(base_url+"aabg/index.html").getroot()
-#writeLawHead('aabg', law_index_html)
+#law_index_html = lxml.html.parse(base_url+"amg_1976/index.html").getroot()
+#writeLawText('amg_1976', law_index_html)
 #exit()
 
 # First, fetch links to all laws + short name and full name
 laws = getAllLaws()
+
 
 i = 1
 lawIter = chain(laws);
@@ -133,7 +162,6 @@ with codecs.open(output_dir + "/laws", 'w', 'utf-8') as lawsFile:
 
         law_index_html = lxml.html.parse(base_url+slug+"/index.html").getroot()
         writeLawText(slug, law_index_html)
-        writeLawHead(slug, law_index_html)
 
         i = i+1
 
