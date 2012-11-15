@@ -52,7 +52,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	private String slug = "";
 	private HeadlineComposerAdapter adapter;
 	
-    public static final int ANIM_DURATION = 500;
+    public static final int ANIM_DURATION =100;
     private static final Interpolator interpolator = new DecelerateInterpolator();
 
     boolean isCollapsed = false;
