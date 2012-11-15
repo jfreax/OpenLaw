@@ -58,8 +58,8 @@ def writeLawHead(slug, html):
         #    continue
 
         directory = output_dir + '/' + slug.replace('-','_') + '/'
-        with open(directory + "heads", 'w') as lawHead:
-            lawHead.write("%i: %s" % (depth,text))
+        with codecs.open(directory + "heads", 'w', 'utf-8') as lawHead:
+            lawHead.write(u"%i: %s" % (depth,text))
     pass
 
 
