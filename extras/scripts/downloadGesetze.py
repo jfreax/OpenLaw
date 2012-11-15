@@ -70,6 +70,7 @@ def writeLawText(slug, html):
 
     fakeLinkIDs = []
     i = 0
+    first = True
     for el in head_elem:
         if el.attrib.has_key('href'):
             i = i+1
@@ -83,9 +84,12 @@ def writeLawText(slug, html):
                 bad.getparent().remove(bad)
 
             # Its only a link to the whole law text rather to one part of it
-            if '#' in head_link:
+            if '#' in head_link and not first:
                 fakeLinkIDs.append(i)
                 continue
+
+            if first:
+                first = False
 
             headHtml_elem = head_root.cssselect("#paddingLR12")
 
