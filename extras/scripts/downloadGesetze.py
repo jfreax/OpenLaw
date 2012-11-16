@@ -68,7 +68,7 @@ def writeLawText(slug, html):
                 text = tr.xpath("child::td/descendant::text()")[-1]
 
             # Skip if headline text is empty, unless its the first entry
-            tmp_text = text.replace(u' ', u'').replace(u'\xa0', u'')
+            tmp_text = text.replace(u' ', u'').replace(u'\xa0', u'').replace(u'\xc2', u'')
             if not first and text.replace(' ', '') is "":
                 continue
 
