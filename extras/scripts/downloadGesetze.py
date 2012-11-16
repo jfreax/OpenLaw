@@ -69,7 +69,7 @@ def writeLawText(slug, html):
 
             # Skip if headline text is empty, unless its the first entry
             tmp_text = text.replace(u' ', u'').replace(u'\xa0', u'').replace(u'\xc2', u'')
-            if not first and text.replace(' ', '') is "":
+            if not first and tmp_text == "":
                 continue
 
             ###
