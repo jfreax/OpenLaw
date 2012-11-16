@@ -14,7 +14,7 @@ import android.util.Log;
 
 public class LawNamesDb extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION = 15;
+	private static final int DATABASE_VERSION = 17;
 	private static final String DATABASE_NAME = "gesetze";
 	private static final String TABLE_LAWS = "gesetze";
 

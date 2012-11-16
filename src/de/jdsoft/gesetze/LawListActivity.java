@@ -47,7 +47,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_law_list);
 
-		if (findViewById(R.id.law_headline_container) != null) {
+		if (findViewById(R.id.law_headline_container ) != null) {
 			// The detail container view will be present only in the
 			// large-screen layouts (res/values-large and
 			// res/values-sw600dp). If this view is present, then the
@@ -142,7 +142,6 @@ public class LawListActivity extends SherlockFragmentActivity implements
 	}
 	
     public void onBackPressed() {
-    	Log.e("ouho", "back " + headlineFragment.isCollapsed);
     	if ( isTwoPane() && headlineFragment != null && !headlineFragment.isCollapsed ) {
     		headlineFragment.fadeOut();
     	} else {

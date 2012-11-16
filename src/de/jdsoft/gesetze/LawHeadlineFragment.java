@@ -1,6 +1,5 @@
 package de.jdsoft.gesetze;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,6 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.BaseAdapter;
-import android.widget.GridLayout.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -165,7 +163,8 @@ public class LawHeadlineFragment extends SherlockListFragment {
 			
 			((LawListActivity)getActivity()).headlineFragment = this;
 		
-			fadeIn();
+			if ( !isCollapsed )
+				fadeIn();
 		} else {
 			// In single-pane mode, simply start the text activity
 			// for the selected item ID.
