@@ -1,8 +1,0 @@
-- Einstellungsfenster
-	- Schriftgröße
-	- Style (hell vs. dunkel)
-	- Cachegröße
-- Schriftgrößen nicht fest
-- Animation für Fragmentübergänge
-- Hintergrund ändern vom Überschriftenfragment
-- Fragmentaufruf nur im Tabletmodus (onclick bei header)

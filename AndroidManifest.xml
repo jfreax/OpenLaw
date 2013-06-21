@@ -1,26 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.jdsoft.gesetze"
-    android:versionCode="1"
-    android:versionName="1.0" >
-
-    <uses-sdk
-        android:minSdkVersion="7"
-        android:targetSdkVersion="16" />
+          package="de.jdsoft.law">
+    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="17" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:allowBackup="true"
-        android:hardwareAccelerated="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <activity
-            android:name="de.jdsoft.gesetze.LawListActivity"
-            android:configChanges="orientation|screenSize"
+            android:allowBackup="true"
+            android:hardwareAccelerated="true"
+            android:icon="@drawable/ic_launcher"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Sherlock.Light" >
+            android:theme="@style/AppTheme" >
+        <activity
+                android:name="de.jdsoft.law.LawListActivity"
+                android:configChanges="orientation|screenSize"
+                android:label="@string/app_name"
+                >
+            <!--android:theme="@style/Theme.Sherlock.Light"-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,31 +25,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="de.jdsoft.gesetze.LawHeadlineActivity"
-            android:configChanges="orientation|screenSize"
-            android:label="@string/title_law_detail"
-            android:parentActivityName=".LawListActivity" >
+                android:name="de.jdsoft.law.LawHeadlineActivity"
+                android:configChanges="orientation|screenSize"
+                android:label="@string/title_law_detail"
+                android:parentActivityName=".LawListActivity" >
             <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LawListActivity" />
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".LawListActivity" />
         </activity>
         <activity
-            android:name="de.jdsoft.gesetze.LawTextActivity"
-            android:configChanges="orientation|screenSize"
-            android:label="@string/title_law_text"
-            android:parentActivityName=".LawListActivity" >
+                android:name="de.jdsoft.law.LawTextActivity"
+                android:configChanges="orientation|screenSize"
+                android:label="@string/title_law_text"
+                android:parentActivityName=".LawListActivity" >
             <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LawListActivity" />
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".LawListActivity" />
         </activity>
         <activity
-            android:name="de.jdsoft.gesetze.MainActivity"
-            android:label="@string/title_activity_main" >
+                android:name="de.jdsoft.law.MainActivity"
+                android:label="@string/title_activity_main" >
         </activity>
         <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings" >
+                android:name=".SettingsActivity"
+                android:label="@string/title_activity_settings" >
         </activity>
     </application>
-
 </manifest>

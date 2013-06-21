@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/law_list"
-        android:name="de.jdsoft.gesetze.LawListFragment"
+        android:name="de.jdsoft.law.LawListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2" />
