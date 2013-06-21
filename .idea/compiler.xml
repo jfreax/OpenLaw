@@ -2,13 +2,6 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="Javac" />
-    <excludeFromCompile>
-      <directory url="file://$PROJECT_DIR$/extern/AmazingListView/gen" includeSubdirectories="true" />
-      <directory url="file://$PROJECT_DIR$/gen" includeSubdirectories="true" />
-      <directory url="file://$PROJECT_DIR$/extern/android-async-http/gen" includeSubdirectories="true" />
-      <directory url="file://$PROJECT_DIR$/extern/ActionBarSherlock/gen/com/actionbarsherlock/BuildConfig.java" includeSubdirectories="true" />
-      <directory url="file://$PROJECT_DIR$/extern/ActionBarSherlock/gen" includeSubdirectories="true" />
-    </excludeFromCompile>
     <resourceExtensions />
     <wildcardResourcePatterns>
       <entry name="!?*.java" />
@@ -24,17 +17,7 @@
       <profile default="true" name="Default" enabled="false">
         <processorPath useClasspath="true" />
       </profile>
-      <profile default="false" name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
-        <module name="ActionBarSherlock" />
-      </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ActionBarSherlock" target="1.6" />
-    </bytecodeTargetLevel>
   </component>
 </project>
 
