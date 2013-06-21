@@ -27,3 +27,6 @@ local.properties
 *.lint.xml
 
 .idea/workspace.xml
+project.properties
+*.iml
+.idea/*.xml
