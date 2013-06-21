@@ -29,4 +29,3 @@ local.properties
 .idea/workspace.xml
 project.properties
 *.iml
-.idea/*.xml
