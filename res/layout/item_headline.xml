@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/card_item"
+              android:layout_width="fill_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:paddingBottom="0dp"
+              android:paddingLeft="16dp"
+              android:paddingRight="16dp"
+              android:background="#eee">
     
-	<TextView
-		    android:id="@+id/headline"
-    		android:layout_width="wrap_content"
-  		    android:layout_height="wrap_content"
-  		    android:textColor="#000"/>
+
+    <TextView
+            android:id="@+id/headline"
+            style="@style/CardTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"/>
 </LinearLayout>

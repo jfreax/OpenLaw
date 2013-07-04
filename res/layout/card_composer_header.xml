@@ -8,6 +8,7 @@
               android:dividerPadding="0dp"
               android:orientation="vertical"
               android:padding="1dp"
+              android:clickable="false"
               android:showDividers="end" >
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"

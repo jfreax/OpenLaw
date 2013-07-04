@@ -27,6 +27,7 @@
     <style name="Headline2" parent="AppTheme">
         <item name="android:paddingLeft">20dp</item>
         <item name="android:textSize">18sp</item>
+
     </style>
     
     <style name="Headline3" parent="AppTheme">
@@ -37,16 +38,22 @@
     <style name="Headline4" parent="AppTheme">
         <item name="android:paddingLeft">28dp</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/card_light_text</item>
+        <item name="android:textStyle">bold</item>
+
     </style>
 
     <style name="Headline5" parent="AppTheme">
         <item name="android:paddingLeft">32dp</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/card_light_text</item>
     </style>
     
     <style name="Headline6" parent="AppTheme">
         <item name="android:paddingLeft">36dp</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/card_light_text</item>
+        <item name="android:textStyle">italic</item>
     </style>
 
 

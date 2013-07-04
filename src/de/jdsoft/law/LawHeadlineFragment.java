@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
+import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -381,43 +382,63 @@ public class LawHeadlineFragment extends SherlockListFragment {
 			return position;
 		}
 
+        // TODO performance!
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View res = convertView;
 
 			LawHeadline lineObj = getItem(position);
-			res = getActivity().getLayoutInflater().inflate(R.layout.item_headline, parent, false);
-			TextView headline = (TextView) res.findViewById(R.id.headline);
-			
-			switch (Math.abs(lineObj.depth)) {
-			case 1:
-				headline.setTextAppearance(getContext(), R.style.Headline1);
-				headline.setPadding(6, 0, 0, 0);
-				break;
-			case 2:
-				headline.setTextAppearance(getContext(), R.style.Headline2);
-				headline.setPadding(12, 0, 0, 0);
-				break;
-			case 3:
-				headline.setTextAppearance(getContext(), R.style.Headline3);
-				headline.setPadding(16, 0, 0, 0);
-				break;
-			case 4:
-				headline.setTextAppearance(getContext(), R.style.Headline4);
-				headline.setPadding(20, 0, 0, 0);
-				break;
-			case 5:
-				headline.setTextAppearance(getContext(), R.style.Headline5);
-				headline.setPadding(24, 0, 0, 0);
-				break;
-			case 6:
-				headline.setTextAppearance(getContext(), R.style.Headline6);
-				headline.setPadding(28, 0, 0, 0);
-				break;
-			default:
-				break;
-			}
-		
-			headline.setText(lineObj.headline);
+            if( Math.abs(lineObj.depth) == 1) {
+			    res = getActivity().getLayoutInflater().inflate(R.layout.item_headline_biggest, parent, false);
+                TextView headline = (TextView) res.findViewById(R.id.headline);
+                headline.setText(lineObj.headline);
+
+            } else if( Math.abs(lineObj.depth) == 2) {
+                res = getActivity().getLayoutInflater().inflate(R.layout.item_headline_big, parent, false);
+                TextView headline = (TextView) res.findViewById(R.id.headline);
+                headline.setText(lineObj.headline);
+
+            } else {
+                res = getActivity().getLayoutInflater().inflate(R.layout.item_headline, parent, false);
+
+//                WebView headline = (WebView) res.findViewById(R.id.headline);
+                TextView headline = (TextView) res.findViewById(R.id.headline);
+
+
+                switch (Math.abs(lineObj.depth)) {
+                    case 3:
+                        headline.setTextAppearance(getContext(), R.style.Headline3);
+//				headline.setPadding(16, 0, 0, 0);
+                        break;
+                    case 4:
+                        headline.setTextAppearance(getContext(), R.style.Headline4);
+//				headline.setPadding(20, 0, 0, 0);
+                        break;
+                    case 5:
+                        headline.setTextAppearance(getContext(), R.style.Headline5);
+//				headline.setPadding(24, 0, 0, 0);
+                        break;
+                    case 6:
+                        headline.setTextAppearance(getContext(), R.style.Headline6);
+//				headline.setPadding(28, 0, 0, 0);
+                        break;
+                    default:
+                        break;
+                }
+                headline.setText(lineObj.headline);
+//                String text = "<html><head>"
+//                        + "<style type=\"text/css\">body{text-indent: -30px; padding-left: 30px; }"
+//                        + "</style></head>"
+//                        + "<body>"
+//                        + "<p>"
+//                        + lineObj.headline
+//                        + "</p> "
+//                        + "</body></html>";
+//
+////                headline.loadData(text, "text/html", "");
+//                headline.loadDataWithBaseURL(null, text, "text/html", "utf-8", null);
+            }
+
+
 
 			return res;
 		}
