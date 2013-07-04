@@ -317,15 +317,14 @@ public class LawListFragment extends SherlockListFragment {
 
                                 filteredLaw.add(law);
                             }
-
-                            if( !filteredLaw.isEmpty() ) {
-                                filteredArrayItems.add(new Pair<String, List<Law>>(pair.first, filteredLaw));
-                            }
+                        }
+                        if( !filteredLaw.isEmpty() ) {
+                            filteredArrayItems.add(new Pair<String, List<Law>>(pair.first, filteredLaw));
                         }
 
-                        results.count = filteredArrayItems.size();
-                        results.values = filteredArrayItems;
                     }
+                    results.count = filteredArrayItems.size();
+                    results.values = filteredArrayItems;
 
                     return results;
                 }
