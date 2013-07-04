@@ -1,6 +1,8 @@
 package de.jdsoft.law;
 
-import android.graphics.Color;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -94,15 +96,23 @@ public class LawListActivity extends SherlockFragmentActivity implements
     	boolean isLight = true;
 
     	// Search button
-        menu.add(R.string.search)
+        menu.add(0, 3, 3, R.string.search)
             .setIcon(isLight ? R.drawable.ic_search_inverse : R.drawable.ic_search)
             .setActionView(R.layout.collapsible_search)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+
+
+//        EditText search =(EditText) menu.findItem(R.id.search_edittext);
+//        menu.
+//        search.setPadding(0,0,0,0);
         
         // Settings button
         menu.add(R.string.settings)
         	.setIcon(isLight ? R.drawable.ic_action_settings : R.drawable.ic_action_settings_inverse)
         	.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+
+
+
 
         return true;
     }
@@ -152,4 +162,32 @@ public class LawListActivity extends SherlockFragmentActivity implements
     		super.onBackPressed();
     	}
     }
+
+    private EditText search;
+    public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+        switch (item.getItemId()){
+
+            case 3:
+                search = (EditText) item.getActionView();
+                search.addTextChangedListener(searchTextWatcher);
+                break;
+
+        }
+        return true;
+    }
+
+    private TextWatcher searchTextWatcher = new TextWatcher() {
+        public void afterTextChanged(Editable s) {
+        }
+
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //... your logic here
+            LawListFragment fragment = ((LawListFragment) getSupportFragmentManager().findFragmentById(
+                    R.id.law_list));
+            ((LawListFragment.SectionComposerAdapter)fragment.getListAdapter()).getFilter().filter(s);
+        }
+    };
 }

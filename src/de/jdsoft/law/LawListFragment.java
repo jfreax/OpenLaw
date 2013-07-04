@@ -1,5 +1,6 @@
 package de.jdsoft.law;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -8,10 +9,8 @@ import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.*;
 import android.widget.AbsListView.OnScrollListener;
-import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.foound.widget.AmazingAdapter;
@@ -56,7 +55,7 @@ public class LawListFragment extends SherlockListFragment {
 	 * selections.
 	 */
 	public interface Callbacks {
-		/**
+        /**
 		 * Callback for when an item has been selected.
 		 */
 		public void onItemSelected(String id);
@@ -186,14 +185,16 @@ public class LawListFragment extends SherlockListFragment {
 	 * @author Jens Dieskau
 	 *
 	 */
-	public class SectionComposerAdapter extends AmazingAdapter implements CallbackInterface, OnScrollListener {
-		List<Pair<String, List<Law>>> all = null;
+	public class SectionComposerAdapter extends AmazingAdapter implements CallbackInterface, OnScrollListener, Filterable {
+		List<Pair<String, List<Law>>> unfiltered = null;
+        List<Pair<String, List<Law>>> all = null;
 
 		public SectionComposerAdapter() {
 		}
 
 		public void onFinish(CallerInterface caller) {
 			this.all = ((LawSectionList)caller).getResult();
+            this.unfiltered = new ArrayList<Pair<String, List<Law>>>(this.all); // copy
 
 			if ( this.getCount() > 0 ) {
 				setListAdapter(this);
@@ -293,5 +294,50 @@ public class LawListFragment extends SherlockListFragment {
 			return res;
 		}
 
-	}
+        @Override
+        public Filter getFilter() {
+            Filter filter = new Filter() {
+
+                @Override
+                protected FilterResults performFiltering(CharSequence constraint) {
+                    ArrayList<Pair<String, List<Law>>> filteredArrayItems = new ArrayList<Pair<String, List<Law>>>();
+                    FilterResults results = new FilterResults();
+                    constraint = constraint.toString().toLowerCase();
+
+
+                    for (int i = 0; i < unfiltered.size(); i++) {
+                        Pair<String, List<Law>> pair = unfiltered.get(i);
+
+                        List<Law> filteredLaw = new ArrayList<Law>();
+
+                        for(Law law : pair.second) {
+                            if( law.getShortName().toLowerCase().contains(constraint) ||
+                                law.getLongName().toLowerCase().contains(constraint)  ||
+                                law.getSlug().toLowerCase().contains(constraint)) {
+
+                                filteredLaw.add(law);
+                            }
+
+                            if( !filteredLaw.isEmpty() ) {
+                                filteredArrayItems.add(new Pair<String, List<Law>>(pair.first, filteredLaw));
+                            }
+                        }
+
+                        results.count = filteredArrayItems.size();
+                        results.values = filteredArrayItems;
+                    }
+
+                    return results;
+                }
+
+                @Override
+                protected void publishResults(CharSequence constraint, FilterResults results) {
+                    all = (ArrayList<Pair<String, List<Law>>>) results.values;
+                    notifyDataSetChanged();
+                }
+            };
+
+            return filter;
+        }
+    }
 }
