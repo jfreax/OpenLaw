@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/card_item"
-              android:layout_width="match_parent"
+              android:layout_width="fill_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
               android:paddingBottom="0dp"
@@ -11,7 +11,7 @@
 
     <!-- Header -->
     <include
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             layout="@layout/card_composer_header" />
 
@@ -19,7 +19,7 @@
     <TextView
             android:id="@+id/shortName"
             style="@style/CardTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 
     <TextView
@@ -27,6 +27,7 @@
             style="@style/CardText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLines="3"
             android:text="text"
             android:paddingBottom="5dp"/>
 

@@ -104,8 +104,18 @@ public class LawListFragment extends SherlockListFragment {
 		final ListView listView = getListView();
 		//listView.setSelector(android.R.color.transparent);
 		//listView.setCacheColorHint(Color.WHITE);
+//        listView.setPadding(0, 0, 0, 0);
+//        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
+//                LayoutParams.WRAP_CONTENT,
+//                LayoutParams.WRAP_CONTENT
+//        );
+//        params.setMargins(0, 0, 0, 0);
 
-		// Enable fast scroll
+//        listView.setLayoutParams(params);
+//        listView.setLayoutParams();
+
+
+        // Enable fast scroll
 		listView.setFastScrollEnabled(true);
 		listView.setScrollBarStyle(ScrollView.SCROLLBARS_OUTSIDE_OVERLAY);
 	}

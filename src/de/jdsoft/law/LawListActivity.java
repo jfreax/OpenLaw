@@ -65,7 +65,6 @@ public class LawListActivity extends SherlockFragmentActivity implements
 			listview.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
 			listview.setScrollBarStyle(ScrollView.SCROLLBARS_INSIDE_INSET);
 			listview.setFastScrollAlwaysVisible(true);
-            listview.setPadding(100, 0, 0, 0);
 
 //            Color.rgb(221, 221, 221)
 //            listview.setBackgroundColor();
