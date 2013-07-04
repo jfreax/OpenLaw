@@ -172,7 +172,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 			detailIntent.putExtra(LawTextFragment.ARG_ITEM_ID, id);
 			detailIntent.putExtra(LawTextFragment.ARG_ITEM_SLUG, law.getSlug());
 			startActivity(detailIntent);
-		}
+        }
 	}
 
 	public void onSaveInstanceState(Bundle outState) {

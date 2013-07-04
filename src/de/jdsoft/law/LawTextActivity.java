@@ -23,8 +23,8 @@ public class LawTextActivity extends SherlockFragmentActivity {
 			// Create the detail fragment and add it to the activity
 			// using a fragment transaction.
 			Bundle arguments = new Bundle();
-			arguments.putString(LawTextFragment.ARG_ITEM_ID, getIntent()
-					.getStringExtra(LawTextFragment.ARG_ITEM_ID));
+			arguments.putLong(LawTextFragment.ARG_ITEM_ID, getIntent().getLongExtra(LawTextFragment.ARG_ITEM_ID, 0L));
+            arguments.putString(LawTextFragment.ARG_ITEM_SLUG, getIntent().getStringExtra(LawTextFragment.ARG_ITEM_SLUG));
 			LawTextFragment fragment = new LawTextFragment();
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
