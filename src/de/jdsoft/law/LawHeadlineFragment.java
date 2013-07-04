@@ -70,7 +70,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	private Callbacks mCallbacks = sDummyCallbacks;
 
 	/**
-	 * A dummy implementation of the {@link HeadlineCallbacks} interface that does
+	 * A dummy implementation of the interface that does
 	 * nothing. Used only when this fragment is not attached to an activity.
 	 */
 	private static Callbacks sDummyCallbacks = new Callbacks() {

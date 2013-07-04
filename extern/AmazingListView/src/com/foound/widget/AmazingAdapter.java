@@ -124,7 +124,7 @@ public abstract class AmazingAdapter extends BaseAdapter implements SectionIndex
 	
 	/**
 	 * The last item on the list is requested to be seen, so do the request 
-	 * and call {@link AmazingListView#tellNoMoreData()} if there is no more pages.
+	 * and call if there is no more pages.
 	 * 
 	 * @param page the page number to load.
 	 */

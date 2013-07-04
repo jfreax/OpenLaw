@@ -1,5 +1,6 @@
 package de.jdsoft.law;
 
+import android.graphics.Color;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -59,10 +60,15 @@ public class LawListActivity extends SherlockFragmentActivity implements
 			lawListFragment.setActivateOnItemClick(true);
 			
 			ListView listview = lawListFragment.getListView();
+
 			
 			listview.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
 			listview.setScrollBarStyle(ScrollView.SCROLLBARS_INSIDE_INSET);
 			listview.setFastScrollAlwaysVisible(true);
+            listview.setPadding(100, 0, 0, 0);
+
+//            Color.rgb(221, 221, 221)
+//            listview.setBackgroundColor();
 		}
 		
 		com.actionbarsherlock.app.ActionBar actionbar = getSupportActionBar();

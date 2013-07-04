@@ -222,17 +222,17 @@ public class LawListFragment extends SherlockListFragment {
 
 		protected void bindSectionHeader(View view, int position, boolean displaySectionHeader) {
 			if (displaySectionHeader) {
-				view.findViewById(R.id.header).setVisibility(View.VISIBLE);
+				view.findViewById(R.id.card_header).setVisibility(View.VISIBLE);
 				TextView lSectionTitle = (TextView) view.findViewById(R.id.header);
 				lSectionTitle.setText(getSections()[getSectionForPosition(position)]);
 			} else {
-				view.findViewById(R.id.header).setVisibility(View.GONE);
+				view.findViewById(R.id.card_header).setVisibility(View.GONE);
 			}
 		}
 
 		public View getAmazingView(int position, View convertView, ViewGroup parent) {
 			View res = convertView;
-			if (res == null) res = getActivity().getLayoutInflater().inflate(R.layout.item_composer, null);
+			if (res == null) res = getActivity().getLayoutInflater().inflate(R.layout.card_composer, null);
 
 			TextView shortName = (TextView) res.findViewById(R.id.shortName);
 			TextView fullName = (TextView) res.findViewById(R.id.fullName);
