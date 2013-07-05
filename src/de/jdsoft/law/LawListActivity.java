@@ -2,6 +2,8 @@ package de.jdsoft.law;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -67,30 +69,27 @@ public class LawListActivity extends SherlockFragmentActivity implements
 			listview.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
 			listview.setScrollBarStyle(ScrollView.SCROLLBARS_INSIDE_INSET);
 			listview.setFastScrollAlwaysVisible(true);
-
-//            Color.rgb(221, 221, 221)
-//            listview.setBackgroundColor();
 		}
 		
 		com.actionbarsherlock.app.ActionBar actionbar = getSupportActionBar();
 		
 		// Hide title
-		actionbar.setDisplayShowTitleEnabled(false);
+		actionbar.setDisplayShowTitleEnabled(true);
 		
 		// Show list menu
-        Context context = getSupportActionBar().getThemedContext();
-        ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.locations, R.layout.sherlock_spinner_item);
-        list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
+//        Context context = getSupportActionBar().getThemedContext();
+//        ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.locations, R.layout.sherlock_spinner_item);
+//        list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
 
-        actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-        actionbar.setListNavigationCallbacks(list, this);
+//        actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+//        actionbar.setListNavigationCallbacks(list, this);
         
 		// If exposing deep links into your app, handle intents here.
 	}
 	
 	
     @SuppressLint("AlwaysShowAction")
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(final Menu menu) {
         //Used to put dark icons on light action bar
         //boolean isLight = SampleList.THEME == R.style.Theme_Sherlock_Light;
     	boolean isLight = true;
@@ -102,6 +101,22 @@ public class LawListActivity extends SherlockFragmentActivity implements
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
 
 
+        final EditText search = (EditText)menu.getItem(0).getActionView();
+        search.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean queryTextFocused) {
+                if(!queryTextFocused) {
+                    // Collapse search editor
+                    menu.getItem(0).collapseActionView();
+                    // And reset
+                    search.setText("");
+
+                    InputMethodManager imm =
+                            (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(search.getWindowToken(), 0);
+                }
+            }
+        });
 //        EditText search =(EditText) menu.findItem(R.id.search_edittext);
 //        menu.
 //        search.setPadding(0,0,0,0);
