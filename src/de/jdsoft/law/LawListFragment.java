@@ -108,7 +108,6 @@ public class LawListFragment extends SherlockListFragment {
         // Enable fast scroll
 		listView.setFastScrollEnabled(true);
 		listView.setScrollBarStyle(ScrollView.SCROLLBARS_OUTSIDE_OVERLAY);
-//        listView.setScrollBarSize(100);
 	}
 
 
@@ -135,6 +134,12 @@ public class LawListFragment extends SherlockListFragment {
 	public void onListItemClick(ListView listView, View view, int position,
 			long id) {
 		super.onListItemClick(listView, view, position, id);
+
+//        LinearLayout layout=(LinearLayout) view.findViewById(R.id.card_item);
+
+//        layout.setBackgroundColor(Color.YELLOW);
+//        layout.setBackground(R.drawable.list_background);
+//        get
 
 		// Notify the active callbacks interface (the activity, if the
 		// fragment is attached to one) that an item has been selected.	
