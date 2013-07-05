@@ -30,7 +30,7 @@
 
     <LinearLayout
         android:id="@+id/law_headline_container"
-        android:background="#eee"
+        android:background="#ddd"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3" />
