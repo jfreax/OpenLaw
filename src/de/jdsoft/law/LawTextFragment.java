@@ -40,8 +40,10 @@ public class LawTextFragment extends SherlockFragment {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		if ( getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)
+
+        getSherlockActivity().setSupportProgressBarIndeterminateVisibility(true);
+
+        if ( getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)
 				&& getArguments().containsKey(ARG_ITEM_SLUG)) {
 			
 			id = getArguments().getLong(ARG_ITEM_ID);
@@ -71,6 +73,7 @@ public class LawTextFragment extends SherlockFragment {
 			Snapshot snapshot = cache.get(slug+"_"+id);
 			if ( snapshot != null ) {
 				lawText = snapshot.getString(0);
+                getSherlockActivity().setSupportProgressBarIndeterminateVisibility(false);
 				reloadWebview();
 				return;
 			}

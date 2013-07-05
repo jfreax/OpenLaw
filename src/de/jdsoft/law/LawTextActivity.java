@@ -10,12 +10,11 @@ public class LawTextActivity extends SherlockFragmentActivity {
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		
-		setContentView(R.layout.activity_law_text);
 
-		// Show the Up button in the action bar.
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        setContentView(R.layout.activity_law_text);
+
+        // Show the Up button in the action bar.
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
