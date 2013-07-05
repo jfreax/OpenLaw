@@ -7,7 +7,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Window;
 
 public class LawTextActivity extends SherlockFragmentActivity {
-	
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
@@ -31,4 +31,6 @@ public class LawTextActivity extends SherlockFragmentActivity {
 					.add(R.id.law_text_container, fragment).commit();
 		}
 	}
+
+
 }

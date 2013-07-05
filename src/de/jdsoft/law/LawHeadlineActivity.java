@@ -21,7 +21,9 @@ import android.support.v4.app.NavUtils;
  */
 public class LawHeadlineActivity extends SherlockFragmentActivity implements Callbacks, ActionBar.OnNavigationListener {
 
-	@Override
+    private LawHeadlineFragment fragment;
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
@@ -47,7 +49,7 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 			Bundle arguments = new Bundle();
 			arguments.putString(LawHeadlineFragment.ARG_ITEM_ID, getIntent()
 					.getStringExtra(LawHeadlineFragment.ARG_ITEM_ID));
-			LawHeadlineFragment fragment = new LawHeadlineFragment();
+			fragment = new LawHeadlineFragment();
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.law_headline_container, fragment).commit();
@@ -77,4 +79,5 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 		return true;
 	}
+
 }

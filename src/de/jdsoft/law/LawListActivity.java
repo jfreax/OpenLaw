@@ -110,16 +110,13 @@ public class LawListActivity extends SherlockFragmentActivity implements
                     menu.getItem(0).collapseActionView();
                     // And reset
                     search.setText("");
-
+                    // Hide keyboard
                     InputMethodManager imm =
                             (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(search.getWindowToken(), 0);
                 }
             }
         });
-//        EditText search =(EditText) menu.findItem(R.id.search_edittext);
-//        menu.
-//        search.setPadding(0,0,0,0);
         
         // Settings button
         menu.add(R.string.settings)

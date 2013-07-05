@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.util.Pair;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +52,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
     public static final int ANIM_DURATION =100;
     private static final Interpolator interpolator = new DecelerateInterpolator();
 
-    boolean isCollapsed = false;
+    boolean isCollapsed = true;
     private ViewGroup panel1, panel2, panel3;
 
 	
@@ -171,14 +172,17 @@ public class LawHeadlineFragment extends SherlockListFragment {
 			arguments.putString(LawTextFragment.ARG_ITEM_SLUG, law.getSlug());
 			LawTextFragment text_fragment = new LawTextFragment();
 			text_fragment.setArguments(arguments);
-			
+
+            // Replace fragment
 			FragmentTransaction ft = getFragmentManager().beginTransaction();
-			ft.replace(R.id.law_text_container, text_fragment);			
+			ft.replace(R.id.law_text_container, text_fragment);
+//            ft.addToBackStack( "tag" );
 			ft.commit(); 
 			
 			((LawListActivity)getActivity()).headlineFragment = this;
-		
-			if ( !isCollapsed )
+
+            // Fade in
+			if ( isCollapsed )
 				fadeIn();
 		} else {
 			// In single-pane mode, simply start the text activity
@@ -277,9 +281,9 @@ public class LawHeadlineFragment extends SherlockListFragment {
 						: ListView.CHOICE_MODE_NONE);
 		
 	}
-	
-	
-	/**
+
+
+    /**
 	 * Section Composer... 
 	 * @author Jens Dieskau
 	 *
@@ -322,7 +326,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	    	// Not in cache, try to read from network
 	        RestClient.get(getContext(), slug+"/heads", null, new AsyncHttpResponseHandler() {   	
 	            public void onSuccess(String response) {
-	            	Log.i("GetLawHeadlines", "onSuccess() Response size: "+response.length());
+	            	Log.d("GetLawHeadlines", "onSuccess() Response size: "+response.length());
 					if ( response.length() == 0 ) {
 						Log.e(HeadlineComposerAdapter.class.getName(), "Cannot download law " + slug);
 						return;
@@ -360,7 +364,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	    	headlines = new ArrayList<Pair<Integer,String>>();
 	    	
 	    	if( raw.equals("") ) { // Error while downloading
-	    		headlines.add(new Pair<Integer, String>(0, getString(R.string.error_downloading)));
+	    		headlines.add(new Pair<Integer, String>(1, getString(R.string.error_downloading)));
 	    	} else {
 				for ( String line : raw.split("\\r?\\n")) {
 					if ( line.contains(":") ) {
