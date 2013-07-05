@@ -17,10 +17,7 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.webkit.WebView;
-import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.app.SherlockListFragment;
@@ -114,6 +111,23 @@ public class LawHeadlineFragment extends SherlockListFragment {
         panel2 = (ViewGroup) getActivity().findViewById(R.id.law_headline_container);
         panel3 = (ViewGroup) getActivity().findViewById(R.id.law_text_container);
 	}
+
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Restore the previously serialized activated item position.
+        if (savedInstanceState != null
+                && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
+//            setActivatedPosition(savedInstanceState
+//                    .getInt(STATE_ACTIVATED_POSITION));
+        }
+
+        final ListView listView = getListView();
+
+        // Enable fast scroll
+        listView.setFastScrollEnabled(true);
+        listView.setScrollBarStyle(ScrollView.SCROLLBARS_OUTSIDE_OVERLAY);
+    }
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
