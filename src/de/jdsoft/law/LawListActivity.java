@@ -43,7 +43,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
 	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
 	 * device.
 	 */
-	private boolean mTwoPane;
+    protected boolean mTwoPane;
 	
 	public LawHeadlineFragment headlineFragment = null;
 
@@ -177,8 +177,12 @@ public class LawListActivity extends SherlockFragmentActivity implements
 
     private EditText search;
     public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
-        switch (item.getItemId()){
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
 
+        switch (item.getItemId()){
             case 3:
                 search = (EditText) item.getActionView();
                 search.addTextChangedListener(searchTextWatcher);

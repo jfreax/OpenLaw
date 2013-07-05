@@ -90,6 +90,7 @@ public class LawListFragment extends SherlockListFragment {
 		// And parallel update the list from network
 		UpdateLawList updater = new UpdateLawList();
 		updater.execute(adapter);
+
 	}
 
 	public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -242,6 +243,12 @@ public class LawListFragment extends SherlockListFragment {
 		public View getAmazingView(int position, View convertView, ViewGroup parent) {
 			View res = convertView;
 			if (res == null) res = getActivity().getLayoutInflater().inflate(R.layout.card_composer, null);
+
+            if( ((LawListActivity)getActivity()).mTwoPane ) {
+                LinearLayout card = (LinearLayout)res.findViewById(R.id.card_item);
+                card.setBackgroundColor(Color.BLACK);
+                card.setBackground(getResources().getDrawable(R.drawable.headline_selector));
+            }
 
 			TextView shortName = (TextView) res.findViewById(R.id.shortName);
 			TextView fullName = (TextView) res.findViewById(R.id.fullName);
