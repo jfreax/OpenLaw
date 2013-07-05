@@ -421,6 +421,19 @@ public class LawHeadlineFragment extends SherlockListFragment {
 //                WebView headline = (WebView) res.findViewById(R.id.headline);
                 TextView headline = (TextView) res.findViewById(R.id.headline);
 
+                if( position == 0 ) {
+                    View stroke = res.findViewById(R.id.stroke);
+                    stroke.setVisibility(View.VISIBLE);
+//                    AbsListView pa = (AbsListView)res.findViewById(R.id.card_item);
+//                    pa.setPadding(0, 100, 0,0);
+//                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+//                            LinearLayout.LayoutParams.WRAP_CONTENT,
+//                            LinearLayout.LayoutParams.WRAP_CONTENT
+//                    );
+//                    params.setMargins(20, 100, 0, 0);
+//                    pa.setLayoutParams(params);
+                }
+
 
                 switch (Math.abs(lineObj.depth)) {
                     case 3:

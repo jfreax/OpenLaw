@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+        <!-- TODO do this without extra linearlayout! use margin -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="match_parent">
+
+<View xmlns:android="http://schemas.android.com/apk/res/android"
+      android:id="@+id/stroke"
+      android:layout_width="fill_parent"
+      android:layout_height="1dp"
+      android:layout_marginTop="20dp"
+      android:background="@color/stroke"
+      android:visibility="gone" />
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/card_item"
               android:layout_width="fill_parent"
@@ -8,7 +23,9 @@
               android:paddingLeft="16dp"
               android:paddingRight="16dp"
               android:background="#eee">
-    
+
+
+
 
     <TextView
             android:id="@+id/headline"
@@ -16,4 +33,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"/>
+
+</LinearLayout>
 </LinearLayout>

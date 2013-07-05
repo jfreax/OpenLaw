@@ -27,7 +27,7 @@
             style="@style/CardText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLines="3"
+
             android:text="text"
             android:paddingBottom="5dp"/>
 

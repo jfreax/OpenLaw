@@ -117,6 +117,7 @@ public class LawListFragment extends SherlockListFragment {
         // Enable fast scroll
 		listView.setFastScrollEnabled(true);
 		listView.setScrollBarStyle(ScrollView.SCROLLBARS_OUTSIDE_OVERLAY);
+//        listView.setScrollBarSize(100);
 	}
 
 	public void onAttach(Activity activity) {
