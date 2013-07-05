@@ -421,6 +421,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 //                WebView headline = (WebView) res.findViewById(R.id.headline);
                 TextView headline = (TextView) res.findViewById(R.id.headline);
 
+                // Add margin for first element
                 if( position == 0 ) {
                     View stroke = res.findViewById(R.id.stroke);
                     stroke.setVisibility(View.VISIBLE);
@@ -434,27 +435,29 @@ public class LawHeadlineFragment extends SherlockListFragment {
 //                    pa.setLayoutParams(params);
                 }
 
+                // Add padding for last or for last not big/biggest headline
+                if( position == getCount()-1 || getItem(position+1).depth < lineObj.depth ) {
+                    headline.setPadding(0,0,0,8);
+                }
+
 
                 switch (Math.abs(lineObj.depth)) {
                     case 3:
                         headline.setTextAppearance(getContext(), R.style.Headline3);
-//				headline.setPadding(16, 0, 0, 0);
                         break;
                     case 4:
                         headline.setTextAppearance(getContext(), R.style.Headline4);
-//				headline.setPadding(20, 0, 0, 0);
                         break;
                     case 5:
                         headline.setTextAppearance(getContext(), R.style.Headline5);
-//				headline.setPadding(24, 0, 0, 0);
                         break;
                     case 6:
                         headline.setTextAppearance(getContext(), R.style.Headline6);
-//				headline.setPadding(28, 0, 0, 0);
                         break;
                     default:
                         break;
                 }
+                // Set text
                 headline.setText(lineObj.headline);
 //                String text = "<html><head>"
 //                        + "<style type=\"text/css\">body{text-indent: -30px; padding-left: 30px; }"
