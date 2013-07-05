@@ -5,8 +5,10 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Pair;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
@@ -101,24 +103,14 @@ public class LawListFragment extends SherlockListFragment {
 		}
 
 		final ListView listView = getListView();
-		//listView.setSelector(android.R.color.transparent);
-		//listView.setCacheColorHint(Color.WHITE);
-//        listView.setPadding(0, 0, 0, 0);
-//        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
-//                LayoutParams.WRAP_CONTENT,
-//                LayoutParams.WRAP_CONTENT
-//        );
-//        params.setMargins(0, 0, 0, 0);
-
-//        listView.setLayoutParams(params);
-//        listView.setLayoutParams();
-
+        listView.setBackgroundColor(Color.rgb(238, 238, 238)); // FIXME hardcoded, but R.color.* does not work?
 
         // Enable fast scroll
 		listView.setFastScrollEnabled(true);
 		listView.setScrollBarStyle(ScrollView.SCROLLBARS_OUTSIDE_OVERLAY);
 //        listView.setScrollBarSize(100);
 	}
+
 
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
