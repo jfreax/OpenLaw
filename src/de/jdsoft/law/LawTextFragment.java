@@ -98,7 +98,7 @@ public class LawTextFragment extends SherlockFragment {
 				} catch (IOException e) {
 					Log.e(LawTextFragment.class.getName(), "Error while reading cache!");
 				}
-				
+
 				lawText = response;
 				reloadWebview();
             }
@@ -114,7 +114,7 @@ public class LawTextFragment extends SherlockFragment {
 	
 	private void reloadWebview() {
 		if ( webview != null ) {
-			webview.loadData(lawText, "text/html", "UTF-8");
+			webview.loadData("<html><body bgcolor=\"#eee\">" + lawText + "</body></html>", "text/html", "UTF-8");
 		}
 	}
 	
