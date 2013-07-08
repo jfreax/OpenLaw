@@ -1,9 +1,5 @@
 package de.jdsoft.law;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,15 +7,12 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.util.Pair;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
-import android.webkit.WebView;
 import android.widget.*;
-
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
@@ -27,13 +20,16 @@ import com.actionbarsherlock.internal.nineoldandroids.animation.PropertyValuesHo
 import com.jakewharton.DiskLruCache;
 import com.jakewharton.DiskLruCache.Snapshot;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-
 import de.jdsoft.law.LawListFragment.Callbacks;
 import de.jdsoft.law.data.Cache;
 import de.jdsoft.law.data.helper.Law;
 import de.jdsoft.law.data.helper.LawHeadline;
 import de.jdsoft.law.database.LawNamesDb;
 import de.jdsoft.law.network.RestClient;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A fragment representing a single Book detail screen. This fragment is either
@@ -128,6 +124,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
         // Enable fast scroll
         listView.setFastScrollEnabled(true);
         listView.setScrollBarStyle(ScrollView.SCROLLBARS_OUTSIDE_OVERLAY);
+//        listView.setOverScrollMode(View.OVER_SCROLL_IF_CONTENT_SCROLLS);
     }
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -165,6 +162,8 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	public void onListItemClick(ListView listView, View view, int position,
 			long id) {
 		super.onListItemClick(listView, view, position, id);
+
+        id++;
 		
 		if ( getActivity() instanceof LawListActivity && ((LawListActivity)getActivity()).isTwoPane() ) {
 			Bundle arguments = new Bundle();
