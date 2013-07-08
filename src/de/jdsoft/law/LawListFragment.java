@@ -8,7 +8,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Pair;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
@@ -247,7 +246,7 @@ public class LawListFragment extends SherlockListFragment {
             if( ((LawListActivity)getActivity()).mTwoPane ) {
                 LinearLayout card = (LinearLayout)res.findViewById(R.id.card_item);
                 card.setBackgroundColor(Color.BLACK);
-                card.setBackground(getResources().getDrawable(R.drawable.headline_selector));
+                card.setBackground(getResources().getDrawable(R.drawable.laws_selector));
             }
 
 			TextView shortName = (TextView) res.findViewById(R.id.shortName);
