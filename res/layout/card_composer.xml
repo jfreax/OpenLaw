@@ -7,8 +7,7 @@
               android:paddingBottom="0dp"
               android:paddingLeft="16dp"
               android:paddingRight="16dp"
-              android:background="#eee">
-<!--android:background="@drawable/headline_selector"-->
+              android:background="@drawable/laws_selector">
 
     <!-- Header -->
     <include

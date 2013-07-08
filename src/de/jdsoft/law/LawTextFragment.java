@@ -118,6 +118,7 @@ public class LawTextFragment extends SherlockFragment {
 	private void reloadData() {
         // Only valid text data
         if( lawText.length() <= 5 || lawText.substring(0, 4).contains("%") ) {
+            // if not valid, try next
             id++;
             LoadOrCache();
         }

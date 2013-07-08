@@ -245,8 +245,8 @@ public class LawListFragment extends SherlockListFragment {
 
             if( ((LawListActivity)getActivity()).mTwoPane ) {
                 LinearLayout card = (LinearLayout)res.findViewById(R.id.card_item);
-                card.setBackgroundColor(Color.BLACK);
-                card.setBackground(getResources().getDrawable(R.drawable.laws_selector));
+//                card.setBackgroundColor(Color.BLACK);
+//                card.setBackground(getResources().getDrawable(R.drawable.laws_selector));
             }
 
 			TextView shortName = (TextView) res.findViewById(R.id.shortName);
