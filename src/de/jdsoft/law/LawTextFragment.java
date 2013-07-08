@@ -58,7 +58,6 @@ public class LawTextFragment extends SherlockFragment {
 		
 		cache = new Cache();
 		webview = (WebView) rootView.findViewById(R.id.text_webview);
-        reloadWebview();
 		LoadOrCache();
 
 		return rootView;
