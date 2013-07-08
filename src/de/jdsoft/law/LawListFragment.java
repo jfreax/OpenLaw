@@ -137,12 +137,6 @@ public class LawListFragment extends SherlockListFragment {
 			long id) {
 		super.onListItemClick(listView, view, position, id);
 
-//        LinearLayout layout=(LinearLayout) view.findViewById(R.id.card_item);
-
-//        layout.setBackgroundColor(Color.YELLOW);
-//        layout.setBackground(R.drawable.list_background);
-//        get
-
 		// Notify the active callbacks interface (the activity, if the
 		// fragment is attached to one) that an item has been selected.	
 		int dbid = ((SectionComposerAdapter)listView.getAdapter()).getItem(position).getID();
@@ -257,9 +251,9 @@ public class LawListFragment extends SherlockListFragment {
 
 		public void configurePinnedHeader(View header, int position, int alpha) {
 			TextView lSectionHeader = (TextView)header;
-			lSectionHeader.setText(getSections()[getSectionForPosition(position)]);
-			lSectionHeader.setBackgroundColor(alpha << 24 | (0xbbffbb));
-			lSectionHeader.setTextColor(alpha << 24 | (0x000000));
+//			lSectionHeader.setText(getSections()[getSectionForPosition(position)]);
+//			lSectionHeader.setBackgroundColor(alpha << 24 | (0xbbffbb));
+//			lSectionHeader.setTextColor(alpha << 24 | (0x000000));
 		}
 
 		public int getPositionForSection(int section) {
