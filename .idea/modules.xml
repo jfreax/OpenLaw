@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/LiquidLaw.iml" filepath="$PROJECT_DIR$/LiquidLaw.iml" />
       <module fileurl="file://$PROJECT_DIR$/extern/actionbarsherlock/actionbarsherlock.iml" filepath="$PROJECT_DIR$/extern/actionbarsherlock/actionbarsherlock.iml" />
       <module fileurl="file://$PROJECT_DIR$/extern/android-async-http/android-async-http.iml" filepath="$PROJECT_DIR$/extern/android-async-http/android-async-http.iml" />
+      <module fileurl="file://$PROJECT_DIR$/extern/viewPageIndicator/viewPageIndicator.iml" filepath="$PROJECT_DIR$/extern/viewPageIndicator/viewPageIndicator.iml" />
     </modules>
   </component>
 </project>

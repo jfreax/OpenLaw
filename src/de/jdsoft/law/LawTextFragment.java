@@ -2,8 +2,13 @@ package de.jdsoft.law;
 
 import java.io.IOException;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +20,7 @@ import com.jakewharton.DiskLruCache.Editor;
 import com.jakewharton.DiskLruCache.Snapshot;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
+import com.viewpagerindicator.TabPageIndicator;
 import de.jdsoft.law.data.Cache;
 import de.jdsoft.law.helper.TweakedWebView;
 import de.jdsoft.law.network.RestClient;
@@ -30,14 +36,28 @@ public class LawTextFragment extends SherlockFragment {
 	
 	private TweakedWebView webview = null;
 	private String lawText = "";
+    private HeadlinePagerAdapter mAdapter;
+    private ViewPager mPager;
+    private TabPageIndicator mIndicator;
 
-	
-	/**
+
+    /**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
 	 */
 	public LawTextFragment() {
 	}
+
+    public static Fragment newInstance(long id, String slug) {
+        LawTextFragment fragment = new LawTextFragment();
+
+        Bundle args = new Bundle();
+        args.putLong(ARG_ITEM_ID, id);
+        args.putString(ARG_ITEM_SLUG, slug);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,7 +76,13 @@ public class LawTextFragment extends SherlockFragment {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_law_text,
 				container, false);
-		
+
+//        mAdapter = new HeadlinePagerAdapter(this.getFragmentManager(), this.getSherlockActivity(), slug);
+//        mPager = (ViewPager)rootView.findViewById(R.id.pager);
+//        mPager.setAdapter(mAdapter);
+//        mIndicator = (TabPageIndicator)rootView.findViewById(R.id.indicator);
+//        mIndicator.setViewPager(mPager);
+
 		cache = new Cache();
 		webview = (TweakedWebView) rootView.findViewById(R.id.text_webview);
 		LoadOrCache();
@@ -144,4 +170,30 @@ public class LawTextFragment extends SherlockFragment {
 	private Context getContext() {
 		return getSherlockActivity().getApplicationContext();
 	}
+
+    class HeadlinePagerAdapter extends FragmentPagerAdapter {
+        private HeadlineComposerAdapter mAdapter;
+
+        public HeadlinePagerAdapter(FragmentManager fm, Activity activity, String slug) {
+            super(fm);
+
+            mAdapter = new HeadlineComposerAdapter(activity, slug);
+
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return LawTextFragment.newInstance(position, mAdapter.getSlug());
+        }
+
+        @Override
+        public int getCount() {
+            return mAdapter.getCount();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mAdapter.getItem(position).headline;
+        }
+    }
 }

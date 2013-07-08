@@ -22,6 +22,7 @@ import android.support.v4.app.NavUtils;
 public class LawHeadlineActivity extends SherlockFragmentActivity implements Callbacks, ActionBar.OnNavigationListener {
 
     private LawHeadlineFragment fragment;
+    public LawHeadlineFragment headlineFragment;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {

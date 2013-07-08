@@ -29,6 +29,7 @@ import de.jdsoft.law.database.LawNamesDb;
 import de.jdsoft.law.network.RestClient;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -135,7 +136,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 		View rootView = inflater.inflate(R.layout.fragment_law_headline,
 				container, false);
 		
-		adapter = new HeadlineComposerAdapter();
+		adapter = new HeadlineComposerAdapterWithView(getSherlockActivity(), slug);
 		setListAdapter(adapter);
 
 		return rootView;
@@ -294,130 +295,29 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	}
 
 
-    /**
-	 * Section Composer... 
-	 * @author Jens Dieskau
-	 *
-	 */
-	public class HeadlineComposerAdapter extends BaseAdapter {
-		private List<Pair<Integer,String>> headlines = null;
-		Cache cache = null;
+    public class HeadlineComposerAdapterWithView extends HeadlineComposerAdapter {
 
-		
-		public HeadlineComposerAdapter() {		
-			cache = new Cache();
-			getHeadlinesRaw();
-		}
-		
-		protected void finalize() throws Throwable {
-			super.finalize();
+        public HeadlineComposerAdapterWithView(Activity activity, String slug) {
+            super(activity, slug);
+        }
 
-			if ( cache != null && !cache.isClosed() ) {
-				cache.close();
-				cache = null;
-			}
-		}
-		
-	    private void getHeadlinesRaw() {
-	    	// Try to read from cache
-	    	try {
-	    		if ( cache == null || cache.isClosed() ) {
-	    			cache.openCache();
-	    		}
-				Snapshot snapshot = cache.get(slug);
-				if ( snapshot != null ) {
-					makeHeadlines(snapshot.getString(0));
-					return;
-				}
-			} catch (IOException e) {
-				Log.e(HeadlineComposerAdapter.class.getName(), "Error while reading cache!");
-				Log.e(HeadlineComposerAdapter.class.getName(), e.getCause().getMessage());
-			}
+        protected void makeHeadlines(String raw) {
+            SherlockFragmentActivity activity = getSherlockActivity();
+            if( activity == null )
+                return;
 
-	    	// Not in cache, try to read from network
-	        RestClient.get(getContext(), slug+"/heads", null, new AsyncHttpResponseHandler() {   	
-	            public void onSuccess(String response) {
-	            	Log.d("GetLawHeadlines", "onSuccess() Response size: "+response.length());
-					if ( response.length() == 0 ) {
-						Log.e(HeadlineComposerAdapter.class.getName(), "Cannot download law " + slug);
-						return;
-					}
-					
-					// Save to cache
-			    	try {
-			    		if ( cache == null || cache.isClosed() ) {
-			    			cache.openCache();
-			    		}
-						DiskLruCache.Editor creator = cache.edit(slug);
-						creator.set(0, response);
-						creator.commit();
-						cache.flush();
-					} catch (IOException e) {
-						Log.e(HeadlineComposerAdapter.class.getName(), "Error while reading cache!");
-					}
-					
-					makeHeadlines(response);
-	            }
-	            
-	            public void onFailure(Throwable error, String content) {
-	            	makeHeadlines("");
-	            }
-	        });
-	    }
-	    
-	    private void makeHeadlines(String raw) {
-	    	SherlockFragmentActivity activity = getSherlockActivity();
-	    	if( activity == null )
-	    		return;
-	    	
-	    	activity.setSupportProgressBarIndeterminateVisibility(false);
-	    	
-	    	headlines = new ArrayList<Pair<Integer,String>>();
-	    	
-	    	if( raw.equals("") ) { // Error while downloading
-	    		headlines.add(new Pair<Integer, String>(1, getString(R.string.error_downloading)));
-	    	} else {
-				for ( String line : raw.split("\\r?\\n")) {
-					if ( line.contains(":") ) {
-						String[] depthAndText = line.split(":");
-						headlines.add(new Pair<Integer, String>(Integer.parseInt(depthAndText[0]), depthAndText[1]));
-					}
-				}
-	    	}
-	    	
-			notifyDataSetChanged();
-	    }
+            activity.setSupportProgressBarIndeterminateVisibility(false);
 
-		public Context getContext() {
-			return getActivity().getApplicationContext();
-		}
-
-		public int getCount() {
-			if ( headlines == null ) {
-				return 0;
-			}
-			return headlines.size();
-		}
-
-		public LawHeadline getItem(int position) {
-			try {
-				return new LawHeadline(headlines.get(position).first, headlines.get(position).second);
-			} catch(IndexOutOfBoundsException e){
-				return null;
-			}
-		}
-
-		public long getItemId(int position) {
-			return position;
-		}
+            super.makeHeadlines(raw);
+        }
 
         // TODO performance!
-		public View getView(int position, View convertView, ViewGroup parent) {
-			View res = convertView;
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View res = convertView;
 
-			LawHeadline lineObj = getItem(position);
+            LawHeadline lineObj = getItem(position);
             if( Math.abs(lineObj.depth) == 1) {
-			    res = getActivity().getLayoutInflater().inflate(R.layout.item_headline_biggest, parent, false);
+                res = getActivity().getLayoutInflater().inflate(R.layout.item_headline_biggest, parent, false);
                 TextView headline = (TextView) res.findViewById(R.id.headline);
                 headline.setText(lineObj.headline);
 
@@ -461,11 +361,8 @@ public class LawHeadlineFragment extends SherlockListFragment {
                 headline.setText(lineObj.headline);
             }
 
-			return res;
-		}
-		
-		public String getSlug() {
-			return slug;
-		}
-	}
+            return res;
+        }
+    }
+
 }

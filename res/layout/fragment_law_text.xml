@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<de.jdsoft.law.helper.TweakedWebView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/text_webview"
-    android:background="#eee"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-   
-</de.jdsoft.law.helper.TweakedWebView>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:id="@+id/law_text_container"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical"
+             android:background="#eee"
+             tools:context=".lawDetailActivity"
+             tools:ignore="MergeRootFrame" >
+
+    <de.jdsoft.law.helper.TweakedWebView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/text_webview"
+        android:background="#eee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+    </de.jdsoft.law.helper.TweakedWebView>
+</LinearLayout>
