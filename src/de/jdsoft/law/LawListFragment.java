@@ -19,6 +19,8 @@ import com.foound.widget.AmazingAdapter;
 import de.jdsoft.law.data.LawSectionList;
 import de.jdsoft.law.data.UpdateLawList;
 import de.jdsoft.law.data.helper.Law;
+import de.jdsoft.law.helper.CallbackInterface;
+import de.jdsoft.law.helper.CallerInterface;
 
 /**
  * A list fragment representing a list of Laws. This fragment also supports

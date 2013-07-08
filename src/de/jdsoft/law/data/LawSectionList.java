@@ -6,7 +6,7 @@ import java.util.Locale;
 
 import android.os.AsyncTask;
 import android.util.Pair;
-import de.jdsoft.law.CallerInterface;
+import de.jdsoft.law.helper.CallerInterface;
 import de.jdsoft.law.LawListFragment.SectionComposerAdapter;
 import de.jdsoft.law.data.helper.Law;
 import de.jdsoft.law.database.LawNamesDb;
