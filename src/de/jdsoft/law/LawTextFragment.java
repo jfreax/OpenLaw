@@ -48,7 +48,6 @@ public class LawTextFragment extends SherlockFragment {
 
 			id = getArguments().getLong(ARG_ITEM_ID);
             slug = getArguments().getString(ARG_ITEM_SLUG);
-            // TODO only if valid text for this id
         }
 	}
 	
@@ -108,7 +107,7 @@ public class LawTextFragment extends SherlockFragment {
             }
             
             public void onFailure(Throwable error, String content) {
-            	// TODO
+            	// TODO handle error
             	reloadData();
             }
         });
