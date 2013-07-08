@@ -214,9 +214,10 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	}
 	
     public void fadeIn() {
-        //Most of the magic here can be attributed to: http://android.amberfog.com/?p=758
-
         isCollapsed = false;
+        getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //Most of the magic here can be attributed to: http://android.amberfog.com/?p=758
         PropertyValuesHolder[] arrayOfPropertyValuesHolder = new PropertyValuesHolder[3];
         arrayOfPropertyValuesHolder[0] = PropertyValuesHolder.ofFloat("Panel1Weight", 1.0f, 0.0f);
         arrayOfPropertyValuesHolder[1] = PropertyValuesHolder.ofFloat("Panel2Weight", 2.0f, 1.0f);
@@ -229,7 +230,8 @@ public class LawHeadlineFragment extends SherlockListFragment {
     
     public void fadeOut() {
     	isCollapsed = true;
-    	
+        getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
         PropertyValuesHolder[] arrayOfPropertyValuesHolder = new PropertyValuesHolder[3];
         arrayOfPropertyValuesHolder[0] = PropertyValuesHolder.ofFloat("Panel1Weight", 0.0f, 1.0f);
         arrayOfPropertyValuesHolder[1] = PropertyValuesHolder.ofFloat("Panel2Weight", 1.0f, 2.0f);

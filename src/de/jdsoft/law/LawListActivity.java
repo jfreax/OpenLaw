@@ -1,6 +1,7 @@
 package de.jdsoft.law;
 
 import android.graphics.Color;
+import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.inputmethod.EditorInfo;
@@ -178,7 +179,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
     private EditText search;
     public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish();
+            this.onBackPressed();
             return true;
         }
 
