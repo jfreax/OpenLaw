@@ -125,6 +125,7 @@ public class LawTextFragment extends SherlockFragment {
             // if not valid, try next
             id++;
             LoadOrCache();
+            return;
         }
 
         // Select correct item in listview to visualize current selected
