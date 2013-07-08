@@ -7,7 +7,7 @@
               android:paddingBottom="0dp"
               android:paddingLeft="0dp"
               android:paddingRight="0dp"
-              android:background="@null">
+              android:background="@drawable/headline_biggest_selector">
 
     <TextView
             android:id="@+id/headline"

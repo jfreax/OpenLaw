@@ -10,7 +10,7 @@
               android:showDividers="end"
               android:divider="@color/stroke"
               android:dividerPadding="0dp"
-              android:background="#fff">
+              android:background="@drawable/headline_big_selector">
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/headline"
