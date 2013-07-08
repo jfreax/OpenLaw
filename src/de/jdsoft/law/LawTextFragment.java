@@ -20,6 +20,7 @@ import com.jakewharton.DiskLruCache.Editor;
 import com.jakewharton.DiskLruCache.Snapshot;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
+import com.viewpagerindicator.PageIndicator;
 import com.viewpagerindicator.TabPageIndicator;
 import de.jdsoft.law.data.Cache;
 import de.jdsoft.law.helper.TweakedWebView;
@@ -36,9 +37,6 @@ public class LawTextFragment extends SherlockFragment {
 	
 	private TweakedWebView webview = null;
 	private String lawText = "";
-    private HeadlinePagerAdapter mAdapter;
-    private ViewPager mPager;
-    private TabPageIndicator mIndicator;
 
 
     /**
@@ -82,6 +80,7 @@ public class LawTextFragment extends SherlockFragment {
 //        mPager.setAdapter(mAdapter);
 //        mIndicator = (TabPageIndicator)rootView.findViewById(R.id.indicator);
 //        mIndicator.setViewPager(mPager);
+
 
 		cache = new Cache();
 		webview = (TweakedWebView) rootView.findViewById(R.id.text_webview);
@@ -157,6 +156,9 @@ public class LawTextFragment extends SherlockFragment {
         // Select correct item in listview to visualize current selected
         if( getActivity() instanceof LawListActivity) { // Only in two pane mode
             ((LawListActivity)getActivity()).headlineFragment.getListView().setItemChecked((int)id-1, true);
+        } else {
+//            PageIndicator mIndicator = ((LawTextActivity)getSherlockActivity()).mIndicator;
+//            mIndicator.setCurrentItem((int)id-1);
         }
 
         // Disable progress bar
@@ -171,29 +173,29 @@ public class LawTextFragment extends SherlockFragment {
 		return getSherlockActivity().getApplicationContext();
 	}
 
-    class HeadlinePagerAdapter extends FragmentPagerAdapter {
-        private HeadlineComposerAdapter mAdapter;
-
-        public HeadlinePagerAdapter(FragmentManager fm, Activity activity, String slug) {
-            super(fm);
-
-            mAdapter = new HeadlineComposerAdapter(activity, slug);
-
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return LawTextFragment.newInstance(position, mAdapter.getSlug());
-        }
-
-        @Override
-        public int getCount() {
-            return mAdapter.getCount();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mAdapter.getItem(position).headline;
-        }
-    }
+//    class HeadlinePagerAdapter extends FragmentPagerAdapter {
+//        private HeadlineComposerAdapter mAdapter;
+//
+//        public HeadlinePagerAdapter(FragmentManager fm, Activity activity, String slug) {
+//            super(fm);
+//
+//            mAdapter = new HeadlineComposerAdapter(activity, slug);
+//
+//        }
+//
+//        @Override
+//        public Fragment getItem(int position) {
+//            return LawTextFragment.newInstance(position, mAdapter.getSlug());
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return mAdapter.getCount();
+//        }
+//
+//        @Override
+//        public CharSequence getPageTitle(int position) {
+//            return mAdapter.getItem(position).headline;
+//        }
+//    }
 }

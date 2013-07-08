@@ -15,10 +15,12 @@
 
     <!-- "Implementation" of VPI theme. We just set the text size and color. -->
     <style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">
-        <item name="android:textSize">8dip</item>
+        <item name="android:textSize">10dip</item>
         <item name="android:maxLines">2</item>
-        <item name="android:paddingLeft">3dp</item>
-        <item name="android:paddingRight">3dp</item>
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">5dp</item>
         <item name="android:textColor">@color/card_text</item>
     </style>
 

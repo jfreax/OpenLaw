@@ -15,7 +15,7 @@ import com.viewpagerindicator.TabPageIndicator;
 
 public class LawTextActivity extends SherlockFragmentActivity {
     ViewPager mPager;
-    PageIndicator mIndicator;
+    public PageIndicator mIndicator;
     private HeadlinePagerAdapter mAdapter;
 
     protected void onCreate(Bundle savedInstanceState) {
