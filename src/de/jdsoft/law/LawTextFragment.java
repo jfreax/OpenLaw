@@ -72,7 +72,7 @@ public class LawTextFragment extends SherlockFragment {
 			Snapshot snapshot = cache.get(slug+"_"+id);
 			if ( snapshot != null ) {
 				lawText = snapshot.getString(0);
-				reloadData();
+				reloadData(false);
 				return;
 			}
 		} catch (IOException e) {
@@ -102,19 +102,23 @@ public class LawTextFragment extends SherlockFragment {
 				}
 
 				lawText = response;
-				reloadData();
+				reloadData(false);
             }
             
             public void onFailure(Throwable error, String content) {
             	// TODO handle error
-            	reloadData();
+            	reloadData(true);
             }
         });
 		
 		return;
 	}
 	
-	private void reloadData() {
+	private void reloadData(boolean isError) {
+        if( isError ) {
+            return;
+        }
+
         // Only valid text data
         if( lawText.length() <= 5 || lawText.substring(0, 4).contains("%") ) {
             // if not valid, try next
@@ -136,6 +140,6 @@ public class LawTextFragment extends SherlockFragment {
 	}
 	
 	private Context getContext() {
-		return getActivity().getApplicationContext();
+		return getSherlockActivity().getApplicationContext();
 	}
 }
