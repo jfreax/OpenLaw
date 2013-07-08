@@ -3,6 +3,7 @@ package de.jdsoft.law;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -82,8 +83,9 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	 * This fragment is presenting.
 	 */
 	private Law law = null;
+    private long selectedID = 0L;
 
-	/**
+    /**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
 	 */
@@ -124,7 +126,8 @@ public class LawHeadlineFragment extends SherlockListFragment {
         // Enable fast scroll
         listView.setFastScrollEnabled(true);
         listView.setScrollBarStyle(ScrollView.SCROLLBARS_OUTSIDE_OVERLAY);
-//        listView.setOverScrollMode(View.OVER_SCROLL_IF_CONTENT_SCROLLS);
+
+        setActivateOnItemClick(true);
     }
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -164,6 +167,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 		super.onListItemClick(listView, view, position, id);
 
         id++;
+        selectedID = id;
 		
 		if ( getActivity() instanceof LawListActivity && ((LawListActivity)getActivity()).isTwoPane() ) {
 			Bundle arguments = new Bundle();
@@ -416,29 +420,18 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
             } else {
                 res = getActivity().getLayoutInflater().inflate(R.layout.item_headline, parent, false);
-
-//                WebView headline = (WebView) res.findViewById(R.id.headline);
                 TextView headline = (TextView) res.findViewById(R.id.headline);
 
                 // Add margin for first element
                 if( position == 0 ) {
                     View stroke = res.findViewById(R.id.stroke);
                     stroke.setVisibility(View.VISIBLE);
-//                    AbsListView pa = (AbsListView)res.findViewById(R.id.card_item);
-//                    pa.setPadding(0, 100, 0,0);
-//                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-//                            LinearLayout.LayoutParams.WRAP_CONTENT,
-//                            LinearLayout.LayoutParams.WRAP_CONTENT
-//                    );
-//                    params.setMargins(20, 100, 0, 0);
-//                    pa.setLayoutParams(params);
                 }
 
                 // Add padding for last or for last not big/biggest headline
                 if( position == getCount()-1 || getItem(position+1).depth < lineObj.depth ) {
                     headline.setPadding(0,0,0,8);
                 }
-
 
                 switch (Math.abs(lineObj.depth)) {
                     case 3:
@@ -458,20 +451,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
                 }
                 // Set text
                 headline.setText(lineObj.headline);
-//                String text = "<html><head>"
-//                        + "<style type=\"text/css\">body{text-indent: -30px; padding-left: 30px; }"
-//                        + "</style></head>"
-//                        + "<body>"
-//                        + "<p>"
-//                        + lineObj.headline
-//                        + "</p> "
-//                        + "</body></html>";
-//
-////                headline.loadData(text, "text/html", "");
-//                headline.loadDataWithBaseURL(null, text, "text/html", "utf-8", null);
             }
-
-
 
 			return res;
 		}
