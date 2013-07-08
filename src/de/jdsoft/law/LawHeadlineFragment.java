@@ -231,8 +231,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
         localObjectAnimator.start();
     }
     
-    
-
 
     /*
      * Our magic getters/setters below!
@@ -282,7 +280,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 		getListView().setChoiceMode(
 				activateOnItemClick ? ListView.CHOICE_MODE_SINGLE
 						: ListView.CHOICE_MODE_NONE);
-		
+
 	}
 
 
