@@ -123,7 +123,9 @@ public class LawTextFragment extends SherlockFragment {
         }
 
         // Select correct item in listview to visualize current selected
-        ((LawListActivity)getActivity()).headlineFragment.getListView().setItemChecked((int)id-1, true);
+        if( getActivity() instanceof LawListActivity) { // Only in two pane mode
+            ((LawListActivity)getActivity()).headlineFragment.getListView().setItemChecked((int)id-1, true);
+        }
 
         // Disable progress bar
         getActivity().setProgressBarIndeterminateVisibility(false);
