@@ -72,7 +72,6 @@ public class LawTextFragment extends SherlockFragment {
 			Snapshot snapshot = cache.get(slug+"_"+id);
 			if ( snapshot != null ) {
 				lawText = snapshot.getString(0);
-                getSherlockActivity().setSupportProgressBarIndeterminateVisibility(false);
 				reloadData();
 				return;
 			}
@@ -129,7 +128,7 @@ public class LawTextFragment extends SherlockFragment {
         }
 
         // Disable progress bar
-        getActivity().setProgressBarIndeterminateVisibility(false);
+        getSherlockActivity().setSupportProgressBarIndeterminateVisibility(false);
 
 		if ( webview != null ) {
 			webview.loadData("<html><body bgcolor=\"#eee\">" + lawText + "</body></html>", "text/html", "UTF-8");
