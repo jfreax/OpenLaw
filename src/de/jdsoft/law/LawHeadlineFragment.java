@@ -164,11 +164,19 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
 	public void onListItemClick(ListView listView, View view, int position,
 			long id) {
-		super.onListItemClick(listView, view, position, id);
+        super.onListItemClick(listView, view, position, id);
+        // Refresh law text only at new clicked id
+        if( selectedID == id+1 ) {
+//            getListView().setItemChecked((int)selectedID, true);
+            return;
+        }
 
+
+        //
         id++;
         selectedID = id;
-		
+
+        // In two pane mode
 		if ( getActivity() instanceof LawListActivity && ((LawListActivity)getActivity()).isTwoPane() ) {
 			Bundle arguments = new Bundle();
 			arguments.putLong(LawTextFragment.ARG_ITEM_ID, id);
@@ -178,9 +186,9 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
             // Replace fragment
 			FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.setCustomAnimations(R.anim.alpha_in, R.anim.alpha_out);
 			ft.replace(R.id.law_text_container, text_fragment);
-//            ft.addToBackStack( "tag" );
-			ft.commit(); 
+			ft.commit();
 			
 			((LawListActivity)getActivity()).headlineFragment = this;
 
