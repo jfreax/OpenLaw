@@ -121,6 +121,10 @@ public class LawTextFragment extends SherlockFragment {
             id++;
             LoadOrCache();
         }
+
+        // Disable progress bar
+        getActivity().setProgressBarIndeterminateVisibility(false);
+
 		if ( webview != null ) {
 			webview.loadData("<html><body bgcolor=\"#eee\">" + lawText + "</body></html>", "text/html", "UTF-8");
 		}
