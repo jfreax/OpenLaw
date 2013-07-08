@@ -31,5 +31,13 @@ public class LawTextActivity extends SherlockFragmentActivity {
 		}
 	}
 
+    public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            this.onBackPressed();
+            return true;
+        }
+
+       return false;
+    }
 
 }
