@@ -116,7 +116,7 @@ public class LawTextFragment extends SherlockFragment {
 	}
 	
 	private void reloadData(boolean isError) {
-        if( isError ) {
+        if( isError || getSherlockActivity() == null ) {
             return;
         }
 
