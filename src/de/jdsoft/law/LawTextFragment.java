@@ -16,6 +16,7 @@ import com.jakewharton.DiskLruCache.Snapshot;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import de.jdsoft.law.data.Cache;
+import de.jdsoft.law.helper.TweakedWebView;
 import de.jdsoft.law.network.RestClient;
 
 public class LawTextFragment extends SherlockFragment {
@@ -27,7 +28,7 @@ public class LawTextFragment extends SherlockFragment {
 	private long id = 0;
 	private String slug = "";
 	
-	private WebView webview = null;
+	private TweakedWebView webview = null;
 	private String lawText = "";
 
 	
@@ -57,7 +58,7 @@ public class LawTextFragment extends SherlockFragment {
 				container, false);
 		
 		cache = new Cache();
-		webview = (WebView) rootView.findViewById(R.id.text_webview);
+		webview = (TweakedWebView) rootView.findViewById(R.id.text_webview);
 		LoadOrCache();
 
 		return rootView;
