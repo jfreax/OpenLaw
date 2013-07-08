@@ -45,10 +45,11 @@ public class LawTextFragment extends SherlockFragment {
 
         if ( getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)
 				&& getArguments().containsKey(ARG_ITEM_SLUG)) {
-			
+
 			id = getArguments().getLong(ARG_ITEM_ID);
-			slug = getArguments().getString(ARG_ITEM_SLUG);
-		}
+            slug = getArguments().getString(ARG_ITEM_SLUG);
+            // TODO only if valid text for this id
+        }
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,7 +74,7 @@ public class LawTextFragment extends SherlockFragment {
 			if ( snapshot != null ) {
 				lawText = snapshot.getString(0);
                 getSherlockActivity().setSupportProgressBarIndeterminateVisibility(false);
-				reloadWebview();
+				reloadData();
 				return;
 			}
 		} catch (IOException e) {
@@ -103,19 +104,24 @@ public class LawTextFragment extends SherlockFragment {
 				}
 
 				lawText = response;
-				reloadWebview();
+				reloadData();
             }
             
             public void onFailure(Throwable error, String content) {
             	// TODO
-            	reloadWebview();
+            	reloadData();
             }
         });
 		
 		return;
 	}
 	
-	private void reloadWebview() {
+	private void reloadData() {
+        // Only valid text data
+        if( lawText.length() <= 5 || lawText.substring(0, 4).contains("%") ) {
+            id++;
+            LoadOrCache();
+        }
 		if ( webview != null ) {
 			webview.loadData("<html><body bgcolor=\"#eee\">" + lawText + "</body></html>", "text/html", "UTF-8");
 		}
