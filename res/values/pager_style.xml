@@ -9,8 +9,6 @@
     </style>
     <!-- "Implementation" of our ABS custom theme -->
     <style name="Widget.Styled.ActionBar" parent="Widget.Sherlock.Light.ActionBar.Solid.Inverse">
-        <item name="titleTextStyle">@style/TitleText</item>
-        <item name="android:titleTextStyle">@style/TitleText</item>
     </style>
 
     <!-- "Implementation" of VPI theme. We just set the text size and color. -->
@@ -24,9 +22,4 @@
         <item name="android:textColor">@color/card_text</item>
     </style>
 
-    <!-- More customizations for ABS -->
-    <style name="TitleText" >
-        <item name="android:textColor">@android:color/darker_gray</item>
-        <item name="android:textSize">17dip</item>
-    </style>
 </resources>
