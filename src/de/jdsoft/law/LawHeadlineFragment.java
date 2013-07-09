@@ -101,9 +101,14 @@ public class LawHeadlineFragment extends SherlockListFragment {
 		if ( getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)) {
 			LawNamesDb dbHandler = new LawNamesDb(this.getActivity().getApplicationContext());
 			law = dbHandler.getLaw(Integer.parseInt(getArguments().getString(ARG_ITEM_ID)));
-			
-			if (law != null) {
-				this.slug = law.getSlug();
+
+
+            if (law != null) {
+                // Change title
+                getSherlockActivity().getSupportActionBar().setTitle(law.getShortName());
+
+                // Save slug for later
+                this.slug = law.getSlug();
 			}
 		}
 		
