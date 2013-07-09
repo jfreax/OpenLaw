@@ -195,11 +195,7 @@ public class LawListFragment extends SherlockListFragment {
 			}
 		}
 
-        @Override
-        public void onFinish(CallerInterface caller, String result) {
-        }
-
-        public Context getContext() {
+		public Context getContext() {
 			return getActivity().getApplicationContext();
 		}
 
