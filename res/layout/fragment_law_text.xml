@@ -10,11 +10,10 @@
              tools:context=".lawDetailActivity"
              tools:ignore="MergeRootFrame" >
 
-    <de.jdsoft.law.helper.TweakedWebView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/text_webview"
-        android:background="#eee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
 
-    </de.jdsoft.law.helper.TweakedWebView>
+    <com.foound.widget.AmazingListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
 </LinearLayout>
