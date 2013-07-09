@@ -105,7 +105,11 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
             if (law != null) {
                 // Change title
-                getSherlockActivity().getSupportActionBar().setTitle(law.getShortName());
+                if( getSherlockActivity() instanceof LawHeadlineActivity) {
+                    getSherlockActivity().getSupportActionBar().setTitle(law.getShortName());
+                } else {
+                    getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.title_law));
+                }
 
                 // Save slug for later
                 this.slug = law.getSlug();
@@ -241,6 +245,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
     public void fadeOut() {
     	isCollapsed = true;
         getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.title_law));
 
         PropertyValuesHolder[] arrayOfPropertyValuesHolder = new PropertyValuesHolder[3];
         arrayOfPropertyValuesHolder[0] = PropertyValuesHolder.ofFloat("Panel1Weight", 0.0f, 1.0f);
