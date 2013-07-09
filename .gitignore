@@ -32,3 +32,5 @@ project.properties
 *.directory
 
 proguard_logs/
+
+LiquidLaw.iml
