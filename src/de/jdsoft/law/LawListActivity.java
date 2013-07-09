@@ -1,6 +1,7 @@
 package de.jdsoft.law;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -67,7 +68,9 @@ public class LawListActivity extends SherlockFragmentActivity implements
 			
 			ListView listview = lawListFragment.getListView();
 
-//			listview.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
+            if(Build.VERSION.SDK_INT >= 11) {
+			    listview.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
+            }
 			listview.setScrollBarStyle(ScrollView.SCROLLBARS_INSIDE_INSET);
 //			listview.setFastScrollAlwaysVisible(true);
         }
