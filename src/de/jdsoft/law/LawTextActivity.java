@@ -69,6 +69,11 @@ public class LawTextActivity extends SherlockFragmentActivity {
         return false;
     }
 
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
+    }
+
     class HeadlinePagerAdapter extends FragmentPagerAdapter {
         private HeadlineComposerAdapter mAdapter;
 

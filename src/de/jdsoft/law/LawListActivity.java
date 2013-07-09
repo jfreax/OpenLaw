@@ -152,12 +152,15 @@ public class LawListActivity extends SherlockFragmentActivity implements
 					.replace(R.id.law_headline_container, fragment).commit();
 
 		} else {
-			// In single-pane mode, simply start the detail activity
-			// for the selected item ID.
-			Intent detailIntent = new Intent(this, LawHeadlineActivity.class);
-			detailIntent.putExtra(LawHeadlineFragment.ARG_ITEM_ID, id);
-			startActivity(detailIntent);
-		}
+
+            // In single-pane mode, simply start the detail activity
+            // for the selected item ID.
+            Intent detailIntent = new Intent(this, LawHeadlineActivity.class);
+            detailIntent.putExtra(LawHeadlineFragment.ARG_ITEM_ID, id);
+//            detailIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(detailIntent);
+            overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
+        }
 	}
 
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {

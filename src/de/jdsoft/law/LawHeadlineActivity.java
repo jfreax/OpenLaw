@@ -29,8 +29,8 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 		super.onCreate(savedInstanceState);
 		
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		
-		setContentView(R.layout.activity_law_headline);
+
+        setContentView(R.layout.activity_law_headline);
 
 		// Show the Up button in the action bar.
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -69,7 +69,8 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 			//
 			NavUtils.navigateUpTo(this,
 					new Intent(this, LawListActivity.class));
-			return true;
+            overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
+            return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -80,5 +81,10 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 		return true;
 	}
+
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
+    }
 
 }
