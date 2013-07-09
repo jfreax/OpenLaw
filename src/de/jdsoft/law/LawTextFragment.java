@@ -1,6 +1,8 @@
 package de.jdsoft.law;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import android.app.Activity;
 import android.content.Context;
@@ -106,7 +108,7 @@ public class LawTextFragment extends SherlockFragment {
                 return;
             }
         } catch (IOException e) {
-            Log.e(LawTextFragment.class.getName(), e.getCause().getMessage());
+            Log.e(LawTextFragment.class.getName(), "Error while reading cache!");
         }
 
         // Not in cache, try to read from network
@@ -128,7 +130,7 @@ public class LawTextFragment extends SherlockFragment {
                     creator.commit();
                     cache.flush();
                 } catch (IOException e) {
-                    Log.e(LawTextFragment.class.getName(), "Error while reading cache!");
+                    Log.e(LawTextFragment.class.getName(), "Error while writing cache!");
                 }
 
                 lawText = response;
@@ -169,7 +171,12 @@ public class LawTextFragment extends SherlockFragment {
         getSherlockActivity().setSupportProgressBarIndeterminateVisibility(false);
 
         if ( webview != null ) {
-            webview.loadData("<html><body bgcolor=\"#eee\">" + lawText + "</body></html>", "text/html", "UTF-8");
+            String html = "<html><body bgcolor=\"#eee\">" + lawText + "</body></html>";
+            try {
+                webview.loadData(URLEncoder.encode(html, "utf-8").replaceAll("\\+"," "), "text/html", "utf-8");
+            } catch (UnsupportedEncodingException e) {
+                // TODO
+            }
         }
     }
 

@@ -52,8 +52,8 @@ public class HeadlineComposerAdapter extends BaseAdapter {
                 return;
             }
         } catch (IOException e) {
-            Log.e(HeadlineComposerAdapter.class.getName(), "Error while reading cache!");
-            Log.e(HeadlineComposerAdapter.class.getName(), e.getCause().getMessage());
+//            Log.e(HeadlineComposerAdapter.class.getName(), "Error while reading cache!");
+//            Log.e(HeadlineComposerAdapter.class.getName(), e.getCause().getMessage());
         }
 
         // Not in cache, try to read from network
@@ -75,7 +75,7 @@ public class HeadlineComposerAdapter extends BaseAdapter {
                     creator.commit();
                     cache.flush();
                 } catch (IOException e) {
-                    Log.e(HeadlineComposerAdapter.class.getName(), "Error while reading cache!");
+                    Log.e(HeadlineComposerAdapter.class.getName(), "Error while writing cache!");
                 }
 
                 makeHeadlines(response);

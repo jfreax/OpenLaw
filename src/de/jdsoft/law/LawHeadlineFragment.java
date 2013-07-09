@@ -120,6 +120,9 @@ public class LawHeadlineFragment extends SherlockListFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        adapter = new HeadlineComposerAdapterWithView(getSherlockActivity(), slug);
+        setListAdapter(adapter);
+
         // Restore the previously serialized activated item position.
         if (savedInstanceState != null
                 && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
@@ -136,16 +139,16 @@ public class LawHeadlineFragment extends SherlockListFragment {
         setActivateOnItemClick(true);
     }
 	
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_law_headline,
-				container, false);
-		
-		adapter = new HeadlineComposerAdapterWithView(getSherlockActivity(), slug);
-		setListAdapter(adapter);
-
-		return rootView;
-	}
+//	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//			Bundle savedInstanceState) {
+//		View rootView = inflater.inflate(R.layout.fragment_law_headline,
+//				container, false);
+//
+//		adapter = new HeadlineComposerAdapterWithView(getSherlockActivity(), slug);
+//		setListAdapter(adapter);
+//
+//		return rootView;
+//	}
 	
 
 	public void onAttach(Activity activity) {

@@ -31,14 +31,15 @@ public class LawTextActivity extends SherlockFragmentActivity {
                 getIntent().getStringExtra(LawTextFragment.ARG_ITEM_SLUG));
 
         lawShortName = getIntent().getStringExtra(LawTextFragment.ARG_ITEM_SHORT);
+        int selectID = (int)getIntent().getLongExtra(LawTextFragment.ARG_ITEM_ID, 1L);
 
         mPager = (ViewPager)findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
+        mPager.setCurrentItem(selectID-1);
 
         mIndicator = (TabPageIndicator)findViewById(R.id.indicator);
-        mIndicator.setViewPager(mPager);
+        mIndicator.setViewPager(mPager, selectID-1);
 
-        int selectID = (int)getIntent().getLongExtra(LawTextFragment.ARG_ITEM_ID, 1L);
         mIndicator.setCurrentItem(selectID-1);
 
 
@@ -74,7 +75,18 @@ public class LawTextActivity extends SherlockFragmentActivity {
         public HeadlinePagerAdapter(FragmentManager fm, Activity activity, String slug) {
             super(fm);
 
-            mAdapter = new HeadlineComposerAdapter(activity, slug);
+            mAdapter = new HeadlineComposerAdapter(activity, slug) {
+                @Override
+                protected void makeHeadlines(String raw) {
+                    super.makeHeadlines(raw);
+
+                    // Set position after loading all headlines
+                    if( mIndicator != null ) {
+                        int selectID = (int)getIntent().getLongExtra(LawTextFragment.ARG_ITEM_ID, 1L);
+                        mIndicator.setCurrentItem(selectID-1);
+                    }
+                }
+            };
 
         }
 

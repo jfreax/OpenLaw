@@ -67,9 +67,9 @@ public class LawListActivity extends SherlockFragmentActivity implements
 			
 			ListView listview = lawListFragment.getListView();
 
-			listview.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
+//			listview.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
 			listview.setScrollBarStyle(ScrollView.SCROLLBARS_INSIDE_INSET);
-			listview.setFastScrollAlwaysVisible(true);
+//			listview.setFastScrollAlwaysVisible(true);
         }
 		
 		com.actionbarsherlock.app.ActionBar actionbar = getSupportActionBar();

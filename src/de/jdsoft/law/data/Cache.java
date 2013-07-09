@@ -45,6 +45,9 @@ public class Cache {
 	}
 	
 	public boolean isClosed() {
+        if( cache == null ) {
+            return true;
+        }
 		return cache.isClosed();
 	}
 	
