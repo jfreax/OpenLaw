@@ -103,16 +103,17 @@ public class MainActivity extends SherlockActivity {
 	    }
 
 	    // references to all flags
-	    private Integer[] mFlags = {
-	            R.drawable.flag_of_baden, R.drawable.flag_of_bayern,
-	            R.drawable.flag_of_berlin, R.drawable.flag_of_brandenburg,
-	            R.drawable.flag_of_bremen, R.drawable.flag_of_hamburg,
-	            R.drawable.flag_of_hesse, R.drawable.flag_of_lower_saxony,
-	            R.drawable.flag_of_mecklenburg_pomerania, R.drawable.flag_of_north_rhine_westphalia,
-	            R.drawable.flag_of_rhineland_palatinate, R.drawable.flag_of_saarland,
-	            R.drawable.flag_of_saxony, R.drawable.flag_of_saxony_anhalt,
-	            R.drawable.flag_of_schleswig_holstein, R.drawable.flag_of_thuringia
-	    };
+        private Integer[] mFlags = {};
+//	    private Integer[] mFlags = {
+//	            R.drawable.flag_of_baden, R.drawable.flag_of_bayern,
+//	            R.drawable.flag_of_berlin, R.drawable.flag_of_brandenburg,
+//	            R.drawable.flag_of_bremen, R.drawable.flag_of_hamburg,
+//	            R.drawable.flag_of_hesse, R.drawable.flag_of_lower_saxony,
+//	            R.drawable.flag_of_mecklenburg_pomerania, R.drawable.flag_of_north_rhine_westphalia,
+//	            R.drawable.flag_of_rhineland_palatinate, R.drawable.flag_of_saarland,
+//	            R.drawable.flag_of_saxony, R.drawable.flag_of_saxony_anhalt,
+//	            R.drawable.flag_of_schleswig_holstein, R.drawable.flag_of_thuringia
+//	    };
 	    
 	    private String[] mFlagNames = getResources().getStringArray(R.array.LanderNames);
 	}
