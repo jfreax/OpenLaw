@@ -177,7 +177,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
             return;
         }
 
-
         //
         id++;
         selectedID = id;
@@ -187,6 +186,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 			Bundle arguments = new Bundle();
 			arguments.putLong(LawTextFragment.ARG_ITEM_ID, id);
 			arguments.putString(LawTextFragment.ARG_ITEM_SLUG, law.getSlug());
+            arguments.putString(LawTextFragment.ARG_ITEM_SHORT, law.getShortName());
 			LawTextFragment text_fragment = new LawTextFragment();
 			text_fragment.setArguments(arguments);
 
@@ -207,6 +207,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 			Intent detailIntent = new Intent(getActivity(), LawTextActivity.class);
 			detailIntent.putExtra(LawTextFragment.ARG_ITEM_ID, id);
 			detailIntent.putExtra(LawTextFragment.ARG_ITEM_SLUG, law.getSlug());
+            detailIntent.putExtra(LawTextFragment.ARG_ITEM_SHORT, law.getShortName());
 			startActivity(detailIntent);
         }
 	}

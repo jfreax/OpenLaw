@@ -29,6 +29,7 @@ import de.jdsoft.law.network.RestClient;
 public class LawTextFragment extends SherlockFragment {
     public static final String ARG_ITEM_ID = "text_id";
     public static final String ARG_ITEM_SLUG = "law";
+    public static final String ARG_ITEM_SHORT = "shortname";
 
     private Cache cache = null;
 
@@ -46,12 +47,13 @@ public class LawTextFragment extends SherlockFragment {
     public LawTextFragment() {
     }
 
-    public static Fragment newInstance(long id, String slug) {
+    public static Fragment newInstance(long id, String slug, String shortName) {
         LawTextFragment fragment = new LawTextFragment();
 
         Bundle args = new Bundle();
         args.putLong(ARG_ITEM_ID, id);
         args.putString(ARG_ITEM_SLUG, slug);
+        args.putString(ARG_ITEM_SHORT, shortName);
         fragment.setArguments(args);
 
         return fragment;
@@ -67,6 +69,8 @@ public class LawTextFragment extends SherlockFragment {
 
             id = getArguments().getLong(ARG_ITEM_ID);
             slug = getArguments().getString(ARG_ITEM_SLUG);
+
+            getSherlockActivity().getSupportActionBar().setTitle(getArguments().getString(ARG_ITEM_SHORT));
         }
     }
 
