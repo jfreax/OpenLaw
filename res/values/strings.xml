@@ -1,6 +1,7 @@
 <resources>
 
-    <string name="app_name">Bundesgesetze &amp; Verordnungen</string>
+    <string name="app_name">OpenLaw</string>
+    <string name="title_law">Bundesgesetze &amp; Verordnungen</string>
     <string name="title_law_detail">Gesetzestext</string>
     <string name="title_law_text">Gesetzestext</string>
 

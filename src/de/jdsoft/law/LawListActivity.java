@@ -74,8 +74,10 @@ public class LawListActivity extends SherlockFragmentActivity implements
 		
 		com.actionbarsherlock.app.ActionBar actionbar = getSupportActionBar();
 		
-		// Hide title
+		// Show title
 		actionbar.setDisplayShowTitleEnabled(true);
+        actionbar.setTitle(getResources().getString(R.string.title_law));
+
 		
 		// Show list menu
 //        Context context = getSupportActionBar().getThemedContext();
