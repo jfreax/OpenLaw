@@ -1,37 +1,25 @@
 package de.jdsoft.law;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.util.Pair;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
-import android.widget.*;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
 import com.actionbarsherlock.internal.nineoldandroids.animation.PropertyValuesHolder;
-import com.jakewharton.DiskLruCache;
-import com.jakewharton.DiskLruCache.Snapshot;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import de.jdsoft.law.LawListFragment.Callbacks;
-import de.jdsoft.law.data.Cache;
 import de.jdsoft.law.data.helper.Law;
 import de.jdsoft.law.data.helper.LawHeadline;
 import de.jdsoft.law.database.LawNamesDb;
-import de.jdsoft.law.network.RestClient;
-
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A fragment representing a single Book detail screen. This fragment is either
@@ -143,17 +131,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
         setActivateOnItemClick(true);
     }
 	
-//	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//			Bundle savedInstanceState) {
-//		View rootView = inflater.inflate(R.layout.fragment_law_headline,
-//				container, false);
-//
-//		adapter = new HeadlineComposerAdapterWithView(getSherlockActivity(), slug);
-//		setListAdapter(adapter);
-//
-//		return rootView;
-//	}
-	
 
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -244,9 +221,18 @@ public class LawHeadlineFragment extends SherlockListFragment {
     
     public void fadeOut() {
     	isCollapsed = true;
+
+        // Disable up button
         getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+        // Reset title
         getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.title_law));
 
+        // Deselect
+        getListView().setItemChecked((int)selectedID-1, false);
+        selectedID = -1;
+
+        // Animation
         PropertyValuesHolder[] arrayOfPropertyValuesHolder = new PropertyValuesHolder[3];
         arrayOfPropertyValuesHolder[0] = PropertyValuesHolder.ofFloat("Panel1Weight", 0.0f, 1.0f);
         arrayOfPropertyValuesHolder[1] = PropertyValuesHolder.ofFloat("Panel2Weight", 1.0f, 2.0f);
