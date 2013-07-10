@@ -19,6 +19,4 @@
             android:paddingLeft="10dp"
             android:clickable="false"
             android:enabled="false"/>
-
-
 </LinearLayout>

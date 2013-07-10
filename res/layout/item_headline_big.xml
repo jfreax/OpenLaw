@@ -19,13 +19,4 @@
               style="@style/CardTitleBold"
               android:padding="6dp"
               android:text="Header" />
-
-    <!--<View xmlns:android="http://schemas.android.com/apk/res/android"-->
-          <!--android:id="@+id/stroke"-->
-          <!--android:layout_width="fill_parent"-->
-          <!--android:layout_height="1dp"-->
-          <!--android:layout_marginTop="2dp"-->
-          <!--android:background="@color/stroke"-->
-          <!--android:visibility="visible" />-->
-
 </LinearLayout>
