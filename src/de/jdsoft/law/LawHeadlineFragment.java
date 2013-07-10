@@ -331,8 +331,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
                 // Add margin for first element
                 if( position == 0 ) {
-                    View stroke = res.findViewById(R.id.stroke);
-                    stroke.setVisibility(View.VISIBLE);
+                    getListView().setPadding(0, 8, 0, 0);
                 }
 
                 // Add padding for last or for last not big/biggest headline
