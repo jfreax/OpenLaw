@@ -51,9 +51,5 @@
                 android:name="de.jdsoft.law.MainActivity"
                 android:label="@string/title_activity_main" >
         </activity>
-        <activity
-                android:name=".SettingsActivity"
-                android:label="@string/title_activity_settings" >
-        </activity>
     </application>
 </manifest>
