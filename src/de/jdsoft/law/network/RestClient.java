@@ -9,7 +9,7 @@ import com.loopj.android.http.RequestParams;
 
 
 public class RestClient {
-	private static final String BASE_URL = "http://law.jdsoft.de/static/"; // TODO property!
+	private static final String BASE_URL = "http://api.openlaw.jdsoft.de"; // TODO property!
 
 	private static AsyncHttpClient client = new AsyncHttpClient();
 
@@ -23,6 +23,6 @@ public class RestClient {
 	}
 
 	private static String getAbsoluteUrl(String relativeUrl) {
-		return BASE_URL + relativeUrl;
+		return BASE_URL + "/" + relativeUrl;
 	}
 }
