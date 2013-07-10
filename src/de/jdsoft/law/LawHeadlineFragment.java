@@ -72,7 +72,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	 * This fragment is presenting.
 	 */
 	private Law law = null;
-    private long selectedID = 0L;
+    private long selectedID = -1L;
 
     /**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -156,13 +156,11 @@ public class LawHeadlineFragment extends SherlockListFragment {
 			long id) {
         super.onListItemClick(listView, view, position, id);
         // Refresh law text only at new clicked id
-        if( selectedID == id+1 ) {
+        if( selectedID == id ) {
 //            getListView().setItemChecked((int)selectedID, true);
             return;
         }
 
-        //
-        id++;
         selectedID = id;
 
         // In two pane mode
@@ -230,7 +228,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
         getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.title_law));
 
         // Deselect
-        getListView().setItemChecked((int)selectedID-1, false);
+        getListView().setItemChecked((int)selectedID, false);
         selectedID = -1;
 
         // Animation
@@ -338,7 +336,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
                 }
 
                 // Add padding for last or for last not big/biggest headline
-                if( position == getCount()-1 || getItem(position+1).depth < lineObj.depth ) {
+                if( position == getCount()-1 || getItem(position).depth < lineObj.depth ) {
                     headline.setPadding(0,0,0,8);
                 }
 

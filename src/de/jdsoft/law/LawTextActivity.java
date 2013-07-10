@@ -31,16 +31,16 @@ public class LawTextActivity extends SherlockFragmentActivity {
                 getIntent().getStringExtra(LawTextFragment.ARG_ITEM_SLUG));
 
         lawShortName = getIntent().getStringExtra(LawTextFragment.ARG_ITEM_SHORT);
-        int selectID = (int)getIntent().getLongExtra(LawTextFragment.ARG_ITEM_ID, 1L);
+        int selectID = (int)getIntent().getLongExtra(LawTextFragment.ARG_ITEM_ID, 0L);
 
         mPager = (ViewPager)findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
-        mPager.setCurrentItem(selectID-1);
+        mPager.setCurrentItem(selectID);
 
         mIndicator = (TabPageIndicator)findViewById(R.id.indicator);
-        mIndicator.setViewPager(mPager, selectID-1);
+        mIndicator.setViewPager(mPager, selectID);
 
-        mIndicator.setCurrentItem(selectID-1);
+        mIndicator.setCurrentItem(selectID);
 
 
         // Show the Up button in the action bar.
@@ -87,8 +87,8 @@ public class LawTextActivity extends SherlockFragmentActivity {
 
                     // Set position after loading all headlines
                     if( mIndicator != null ) {
-                        int selectID = (int)getIntent().getLongExtra(LawTextFragment.ARG_ITEM_ID, 1L);
-                        mIndicator.setCurrentItem(selectID-1);
+                        int selectID = (int)getIntent().getLongExtra(LawTextFragment.ARG_ITEM_ID, 0L);
+                        mIndicator.setCurrentItem(selectID);
                     }
                 }
             };
@@ -97,7 +97,7 @@ public class LawTextActivity extends SherlockFragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return LawTextFragment.newInstance(position+1, mAdapter.getSlug(), lawShortName);
+            return LawTextFragment.newInstance(position, mAdapter.getSlug(), lawShortName);
         }
 
         @Override
