@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 
+import android.widget.LinearLayout;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.jakewharton.DiskLruCache.Editor;
 import com.jakewharton.DiskLruCache.Snapshot;
@@ -39,6 +40,7 @@ public class LawTextFragment extends SherlockFragment {
     private String slug = "";
 
     private TweakedWebView webview = null;
+    private LinearLayout loading = null;
     private String lawText = "";
 
 
@@ -64,8 +66,6 @@ public class LawTextFragment extends SherlockFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getSherlockActivity().setSupportProgressBarIndeterminateVisibility(true);
-
         if ( getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)
                 && getArguments().containsKey(ARG_ITEM_SLUG)) {
 
@@ -81,15 +81,9 @@ public class LawTextFragment extends SherlockFragment {
         View rootView = inflater.inflate(R.layout.fragment_law_text,
                 container, false);
 
-//        mAdapter = new HeadlinePagerAdapter(this.getFragmentManager(), this.getSherlockActivity(), slug);
-//        mPager = (ViewPager)rootView.findViewById(R.id.pager);
-//        mPager.setAdapter(mAdapter);
-//        mIndicator = (TabPageIndicator)rootView.findViewById(R.id.indicator);
-//        mIndicator.setViewPager(mPager);
-
-
         cache = new Cache();
         webview = (TweakedWebView) rootView.findViewById(R.id.text_webview);
+        loading = (LinearLayout)rootView.findViewById(R.id.loading);
         LoadOrCache();
 
         return rootView;
@@ -162,18 +156,16 @@ public class LawTextFragment extends SherlockFragment {
         // Select correct item in listview to visualize current selected
         if( getActivity() instanceof LawListActivity) { // Only in two pane mode
             ((LawListActivity)getActivity()).headlineFragment.getListView().setItemChecked((int)id, true);
-        } else {
-//            PageIndicator mIndicator = ((LawTextActivity)getSherlockActivity()).mIndicator;
-//            mIndicator.setCurrentItem((int)id);
         }
-
-        // Disable progress bar
-        getSherlockActivity().setSupportProgressBarIndeterminateVisibility(false);
 
         if ( webview != null ) {
             String html = "<html><body bgcolor=\"#eee\">" + lawText + "</body></html>";
             try {
                 webview.loadData(URLEncoder.encode(html, "utf-8").replaceAll("\\+"," "), "text/html", "utf-8");
+                // Show webview
+                webview.setVisibility(View.VISIBLE);
+                // Hide loading animation
+                loading.setVisibility(View.GONE);
             } catch (UnsupportedEncodingException e) {
                 // TODO
             }
@@ -183,30 +175,4 @@ public class LawTextFragment extends SherlockFragment {
     private Context getContext() {
         return getSherlockActivity().getApplicationContext();
     }
-
-//    class HeadlinePagerAdapter extends FragmentPagerAdapter {
-//        private HeadlineComposerAdapter mAdapter;
-//
-//        public HeadlinePagerAdapter(FragmentManager fm, Activity activity, String slug) {
-//            super(fm);
-//
-//            mAdapter = new HeadlineComposerAdapter(activity, slug);
-//
-//        }
-//
-//        @Override
-//        public Fragment getItem(int position) {
-//            return LawTextFragment.newInstance(position, mAdapter.getSlug());
-//        }
-//
-//        @Override
-//        public int getCount() {
-//            return mAdapter.getCount();
-//        }
-//
-//        @Override
-//        public CharSequence getPageTitle(int position) {
-//            return mAdapter.getItem(position).headline;
-//        }
-//    }
 }

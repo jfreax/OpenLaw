@@ -32,4 +32,5 @@
         <item >Thüringen</item>
     </string-array>
     <string name="error_downloading">Fehler beim herunterladen. Überprüfen sie ihre Internetverbindung.</string>
+    <string name="loading">Lade...</string>
 </resources>
