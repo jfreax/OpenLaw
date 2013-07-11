@@ -32,7 +32,20 @@ public class LawSectionList extends AsyncTask<SectionComposerAdapter, Integer, L
 		List<Pair<String, List<Law>>> res = new ArrayList<Pair<String, List<Law>>>();
 		
 		for( Law law : allLaws ) {
+            // Get first letter
 			String firstCharacter = law.getShortName().substring(0, 1).toUpperCase(Locale.GERMAN);
+
+            // Change umlauts
+            if( firstCharacter.equals("Ä")) {
+                firstCharacter = "A";
+            }
+            if( firstCharacter.equals("Ö")) {
+                firstCharacter = "O";
+            }
+            if( firstCharacter.equals("Ü")) {
+                firstCharacter = "U";
+            }
+
 			if ( sectionName == null ) {
 				sectionName = firstCharacter;
 			}

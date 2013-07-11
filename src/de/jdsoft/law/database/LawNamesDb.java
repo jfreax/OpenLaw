@@ -136,7 +136,7 @@ public class LawNamesDb extends SQLiteOpenHelper {
 	 * @return
 	 */
 	public List<Law> getAllLaws() {
-		String selectQuery = "SELECT * FROM " + TABLE_LAWS + " ORDER BY " + KEY_SHORT_NAME + " ASC";
+		String selectQuery = "SELECT * FROM " + TABLE_LAWS + " ORDER BY " + KEY_SHORT_NAME + " COLLATE LOCALIZED ASC";
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor cursor = db.rawQuery(selectQuery, null);
