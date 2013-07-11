@@ -68,11 +68,10 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	 */
 	private int mActivatedPosition = ListView.INVALID_POSITION;
 
-	/**
-	 * This fragment is presenting.
-	 */
+
 	private Law law = null;
     private long selectedID = -1L;
+    private LinearLayout loading;
 
     /**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -82,8 +81,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
-		getSherlockActivity().setSupportProgressBarIndeterminateVisibility(true);
-		
 		super.onCreate(savedInstanceState);
 		
 		if ( getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)) {
@@ -107,6 +104,9 @@ public class LawHeadlineFragment extends SherlockListFragment {
         panel1 = (ViewGroup) getActivity().findViewById(R.id.law_list);
         panel2 = (ViewGroup) getActivity().findViewById(R.id.law_headline_container);
         panel3 = (ViewGroup) getActivity().findViewById(R.id.law_text_container);
+
+        loading = (LinearLayout)getActivity().findViewById(R.id.loading);
+        loading.setVisibility(View.VISIBLE);
 	}
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -305,7 +305,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
             if( activity == null )
                 return;
 
-            activity.setSupportProgressBarIndeterminateVisibility(false);
+            loading.setVisibility(View.GONE);
 
             super.makeHeadlines(raw);
         }

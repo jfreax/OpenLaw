@@ -27,9 +27,6 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-
         setContentView(R.layout.activity_law_headline);
 
 		// Show the Up button in the action bar.

@@ -7,5 +7,10 @@
     tools:context=".lawDetailActivity"
     tools:ignore="MergeRootFrame" >
 
+    <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/loading_view" />
+
 </FrameLayout>
 

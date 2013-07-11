@@ -7,7 +7,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
+import android.widget.*;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -19,9 +19,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.ScrollView;
 
 /**
  * An activity representing a list of Books. This activity has different
@@ -72,7 +69,10 @@ public class LawListActivity extends SherlockFragmentActivity implements
 			    listview.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
             }
 			listview.setScrollBarStyle(ScrollView.SCROLLBARS_INSIDE_INSET);
-//			listview.setFastScrollAlwaysVisible(true);
+
+            // Do not show loading animation on start
+            LinearLayout loading = (LinearLayout)findViewById(R.id.loading);
+            loading.setVisibility(View.GONE);
         }
 		
 		com.actionbarsherlock.app.ActionBar actionbar = getSupportActionBar();

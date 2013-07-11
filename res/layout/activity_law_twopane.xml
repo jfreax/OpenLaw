@@ -35,7 +35,13 @@
         android:paddingRight="6dp"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="3" />
+        android:layout_weight="3">
+
+            <include
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/loading_view" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/law_text_container"
