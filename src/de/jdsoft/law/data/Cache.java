@@ -14,7 +14,7 @@ public class Cache {
 	private DiskLruCache cache = null;
 	private static final int DISK_CACHE_SIZE = 1024 * 1024 * 10; // 10MB
 																 // TODO this should be a property!
-	private static final String DISK_CACHE_SUBDIR = ".Gesetze";
+	private static final String DISK_CACHE_SUBDIR = ".openlaw";
 	private static final int DISK_CACHE_VERSION = 9;
 	
 	
