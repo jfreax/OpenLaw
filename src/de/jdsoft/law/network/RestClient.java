@@ -11,7 +11,7 @@ import com.loopj.android.http.RequestParams;
 public class RestClient {
 	private static final String BASE_URL = "http://api.openlaw.jdsoft.de"; // TODO property!
 
-	private static AsyncHttpClient client = new AsyncHttpClient();
+	public static AsyncHttpClient client = new AsyncHttpClient();
 
 	public static void get(Context context, String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
 		Log.d("RestClient", getAbsoluteUrl(url));

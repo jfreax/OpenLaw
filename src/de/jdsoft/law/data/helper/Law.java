@@ -1,6 +1,11 @@
 package de.jdsoft.law.data.helper;
 
-public class Law {
+import java.io.IOException;
+import java.io.Serializable;
+
+public class Law implements Serializable {
+    private static final long serialVersionUID = 9107072458243854482L;
+
 	int id;
 	String shortname;
 	String longname;
@@ -53,4 +58,22 @@ public class Law {
 	public void setSlug(String slug) {
 		this.slug = slug;
 	}
+
+    private void writeObject(java.io.ObjectOutputStream out)
+          throws IOException {
+
+        out.write(id);
+        out.writeObject(shortname);
+        out.writeObject(longname);
+        out.writeObject(slug);
+   }
+
+   private void readObject(java.io.ObjectInputStream in)
+     throws IOException, ClassNotFoundException {
+
+       this.id = in.read();
+       this.shortname = (String)in.readObject();
+       this.longname = (String)in.readObject();
+       this.slug = (String)in.readObject();
+  }
 }

@@ -33,7 +33,8 @@ import de.jdsoft.law.helper.CallerInterface;
  */
 public class LawListFragment extends SherlockListFragment {
 
-	SectionComposerAdapter adapter;
+	final SectionComposerAdapter adapter = new SectionComposerAdapter();
+    final LawSectionList db = new LawSectionList();
 
 	/**
 	 * The serialization (saved instance state) Bundle key representing the
@@ -82,11 +83,14 @@ public class LawListFragment extends SherlockListFragment {
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		adapter = new SectionComposerAdapter();
+//		adapter = new SectionComposerAdapter();
 		
 		// Load actual list
-		LawSectionList db = new LawSectionList();
-		db.execute(adapter);
+//		LawSectionList db = new LawSectionList();
+//		db.execute(adapter);
+        if( !db.isExecuted ) {
+            db.execute(adapter);
+        }
 		
 		// And parallel update the list from network
 		UpdateLawList updater = new UpdateLawList();
@@ -100,8 +104,10 @@ public class LawListFragment extends SherlockListFragment {
 		// Restore the previously serialized activated item position.
 		if (savedInstanceState != null
 				&& savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
-			setActivatedPosition(savedInstanceState
-					.getInt(STATE_ACTIVATED_POSITION));
+//			setActivatedPosition(savedInstanceState
+//					.getInt(STATE_ACTIVATED_POSITION));
+            getListView().setSelection(savedInstanceState
+                    .getInt(STATE_ACTIVATED_POSITION));
 		}
 
 		final ListView listView = getListView();

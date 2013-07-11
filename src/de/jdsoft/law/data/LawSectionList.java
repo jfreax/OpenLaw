@@ -15,11 +15,16 @@ public class LawSectionList extends AsyncTask<SectionComposerAdapter, Integer, L
 	public static final String TAG = LawSectionList.class.getSimpleName();
 	private static SectionComposerAdapter mCallback = null;
 	private List<Pair<String, List<Law>>> result = null;
+    public boolean isExecuted = false;
 
-	protected List<Pair<String, List<Law>>> doInBackground(SectionComposerAdapter... params) {
+    protected List<Pair<String, List<Law>>> doInBackground(SectionComposerAdapter... params) {
 		mCallback = params[0];
 
 		LawNamesDb dbHandler = new LawNamesDb(mCallback.getContext());
+        if( isCancelled() ) {
+            dbHandler.close();
+            return null;
+        }
 		List<Law> allLaws = dbHandler.getAllLaws();
 
 		String sectionName = null;
@@ -48,7 +53,10 @@ public class LawSectionList extends AsyncTask<SectionComposerAdapter, Integer, L
 
 	protected void onPostExecute(List<Pair<String, List<Law>>> result) {
 		this.result = result;
-		mCallback.onFinish(this);
+        isExecuted = true;
+        if( !isCancelled() ) {
+		    mCallback.onFinish(this);
+        }
 	}
 
 	public List<Pair<String, List<Law>>> getResult() {

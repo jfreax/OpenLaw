@@ -154,8 +154,11 @@ public class LawTextFragment extends SherlockFragment {
         }
 
         // Select correct item in listview to visualize current selected
-        if( getActivity() instanceof LawListActivity) { // Only in two pane mode
-            ((LawListActivity)getActivity()).headlineFragment.getListView().setItemChecked((int)id, true);
+        if( getSherlockActivity() instanceof LawListActivity) { // Only in two pane mode
+            if( ((LawListActivity)getSherlockActivity()).headlineFragment == null ) { // == activity cancelled
+                return;
+            }
+            ((LawListActivity)getSherlockActivity()).headlineFragment.getListView().setItemChecked((int)id, true);
         }
 
         if ( webview != null ) {

@@ -41,6 +41,10 @@ public class LawHeadlineFragment extends SherlockListFragment {
     boolean isCollapsed = true;
     private ViewGroup panel1, panel2, panel3;
 
+    // For save state
+    public static final String STATE_SLUG = "STATE_SLUG";
+    public static final String STATE_LAW = "STATE_LAW";
+
 	
 	/**
 	 * The serialization (saved instance state) Bundle key representing the
@@ -82,31 +86,38 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		if ( getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)) {
-			LawNamesDb dbHandler = new LawNamesDb(this.getActivity().getApplicationContext());
-			law = dbHandler.getLaw(Integer.parseInt(getArguments().getString(ARG_ITEM_ID)));
+
+//        if( savedInstanceState != null ) {
+//            this.slug = savedInstanceState.getString(STATE_SLUG);
+//            this.law = (Law)savedInstanceState.getSerializable(STATE_LAW);
+//            LawNamesDb dbHandler = new LawNamesDb(this.getActivity().getApplicationContext());
+//        } else {
+            if ( getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)) {
+                LawNamesDb dbHandler = new LawNamesDb(this.getActivity().getApplicationContext());
+                law = dbHandler.getLaw(Integer.parseInt(getArguments().getString(ARG_ITEM_ID)));
 
 
-            if (law != null) {
-                // Change title
-                if( getSherlockActivity() instanceof LawHeadlineActivity) {
-                    getSherlockActivity().getSupportActionBar().setTitle(law.getShortName());
-                } else {
-                    getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.title_law));
+                if (law != null) {
+                    // Change title
+                    if( getSherlockActivity() instanceof LawHeadlineActivity) {
+                        getSherlockActivity().getSupportActionBar().setTitle(law.getShortName());
+                    } else {
+                        getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.title_law));
+                    }
+
+                    // Save slug for later
+                    this.slug = law.getSlug();
                 }
-
-                // Save slug for later
-                this.slug = law.getSlug();
-			}
-		}
+            }
+//        }
 		
-        panel1 = (ViewGroup) getActivity().findViewById(R.id.law_list);
-        panel2 = (ViewGroup) getActivity().findViewById(R.id.law_headline_container);
-        panel3 = (ViewGroup) getActivity().findViewById(R.id.law_text_container);
+        panel1 = (ViewGroup) getSherlockActivity().findViewById(R.id.law_list);
+        panel2 = (ViewGroup) getSherlockActivity().findViewById(R.id.law_headline_container);
+        panel3 = (ViewGroup) getSherlockActivity().findViewById(R.id.law_text_container);
 
-        loading = (LinearLayout)getActivity().findViewById(R.id.loading);
-        loading.setVisibility(View.VISIBLE);
+        loading = (LinearLayout)getSherlockActivity().findViewById(R.id.loading);
+        if( loading != null )
+            loading.setVisibility(View.VISIBLE);
 	}
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -118,6 +129,8 @@ public class LawHeadlineFragment extends SherlockListFragment {
         // Restore the previously serialized activated item position.
         if (savedInstanceState != null
                 && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
+            getListView().setSelection(savedInstanceState
+                    .getInt(STATE_ACTIVATED_POSITION));
 //            setActivatedPosition(savedInstanceState
 //                    .getInt(STATE_ACTIVATED_POSITION));
         }
@@ -151,6 +164,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 		// Reset the active callbacks interface to the dummy implementation.
 		mCallbacks = sDummyCallbacks;
 	}
+
 
 	public void onListItemClick(ListView listView, View view, int position,
 			long id) {
@@ -200,6 +214,8 @@ public class LawHeadlineFragment extends SherlockListFragment {
 		if (mActivatedPosition != ListView.INVALID_POSITION) {
 			// Serialize and persist the activated item position.
 			outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
+//            outState.putString(STATE_SLUG, this.slug);
+//            outState.putSerializable(STATE_LAW, this.law);
 		}
 	}
 	
@@ -305,7 +321,8 @@ public class LawHeadlineFragment extends SherlockListFragment {
             if( activity == null )
                 return;
 
-            loading.setVisibility(View.GONE);
+            if( loading != null )
+                loading.setVisibility(View.GONE);
 
             super.makeHeadlines(raw);
         }
