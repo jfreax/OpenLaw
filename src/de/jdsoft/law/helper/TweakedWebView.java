@@ -54,7 +54,7 @@ public class TweakedWebView extends WebView {
             zoomButtons.setVisible(false);
             zoomButtons.getZoomControls().setVisibility(View.GONE);
         }
-        return result;
+        return false;
     }
 
 }

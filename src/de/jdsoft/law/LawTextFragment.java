@@ -7,14 +7,18 @@ import java.net.URLEncoder;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 
 import android.widget.LinearLayout;
@@ -41,6 +45,8 @@ public class LawTextFragment extends SherlockFragment {
 
     private TweakedWebView webview = null;
     private LinearLayout loading = null;
+    private LinearLayout text_overlay = null;
+
     private String lawText = "";
 
 
@@ -84,6 +90,37 @@ public class LawTextFragment extends SherlockFragment {
         cache = new Cache();
         webview = (TweakedWebView) rootView.findViewById(R.id.text_webview);
         loading = (LinearLayout)rootView.findViewById(R.id.loading);
+        text_overlay = (LinearLayout)rootView.findViewById(R.id.text_overlay);
+
+        // Set touch listener to show button overlay
+        rootView.setOnTouchListener(new View.OnTouchListener() {
+
+            public Runnable fadeOutRunner = null;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if( fadeOutRunner == null ) {
+                    final Animation animFadeIn = AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in);
+                    text_overlay.setAnimation(animFadeIn);
+                    text_overlay.setVisibility(View.VISIBLE);
+
+                    new Handler().postDelayed(fadeOutRunner = new Runnable() {
+                        @Override
+                        public void run() {
+                            final Animation animFadeOut = AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_out);
+                            text_overlay.setAnimation(animFadeOut);
+                            text_overlay.setVisibility(View.GONE);
+                            fadeOutRunner = null;
+                        }
+                    }, 1000);
+                } else {
+                }
+
+
+                return false;
+            }
+        });
+
         LoadOrCache();
 
         return rootView;

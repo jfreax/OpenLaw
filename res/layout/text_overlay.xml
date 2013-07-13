@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/text_overlay"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:gravity="right">
+              android:gravity="right"
+              android:visibility="gone">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
@@ -13,10 +15,11 @@
         android:padding="5dp">
 
         <ImageButton
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_search">
         </ImageButton>
+
     </LinearLayout>
 </LinearLayout>

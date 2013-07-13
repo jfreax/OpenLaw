@@ -17,7 +17,7 @@
 
     <de.jdsoft.law.helper.TweakedWebView xmlns:android="http://schemas.android.com/apk/res/android"
                                          android:id="@+id/text_webview"
-                                         android:background="#eee"
+                                         android:background="#eeef"
                                          android:layout_width="wrap_content"
                                          android:layout_height="wrap_content"
                                          android:visibility="gone">
