@@ -47,6 +47,7 @@ public class TweakedWebView extends WebView {
         }
     }
 
+
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         boolean result = super.onTouchEvent(ev);

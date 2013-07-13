@@ -88,7 +88,17 @@ public class LawTextFragment extends SherlockFragment {
                 container, false);
 
         cache = new Cache();
+
+        // Initialize webview
         webview = (TweakedWebView) rootView.findViewById(R.id.text_webview);
+        webview.setLongClickable(false);
+        webview.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
+
         loading = (LinearLayout)rootView.findViewById(R.id.loading);
         text_overlay = (LinearLayout)rootView.findViewById(R.id.text_overlay);
 
@@ -115,7 +125,6 @@ public class LawTextFragment extends SherlockFragment {
                     }, 1000);
                 } else {
                 }
-
 
                 return false;
             }
