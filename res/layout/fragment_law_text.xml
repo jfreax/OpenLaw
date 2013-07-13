@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:id="@+id/law_text_container"
              android:layout_width="match_parent"
@@ -14,6 +14,7 @@
             android:layout_height="match_parent"
             layout="@layout/loading_view" />
 
+
     <de.jdsoft.law.helper.TweakedWebView xmlns:android="http://schemas.android.com/apk/res/android"
                                          android:id="@+id/text_webview"
                                          android:background="#eee"
@@ -22,4 +23,10 @@
                                          android:visibility="gone">
     </de.jdsoft.law.helper.TweakedWebView>
 
-</LinearLayout>
+
+    <include
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/text_overlay" />
+
+</FrameLayout>
