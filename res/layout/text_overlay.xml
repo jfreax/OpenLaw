@@ -18,7 +18,14 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:background="@android:color/transparent"
-                android:src="@drawable/ic_search">
+                android:src="@drawable/rating_not_important">
+        </ImageButton>
+
+        <ImageButton
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/av_download">
         </ImageButton>
 
     </LinearLayout>
