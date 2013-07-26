@@ -28,8 +28,8 @@ Danksagung
 Lizenz
 ------
 
-GNU GENERAL PUBLIC LICENSE, Version 2
-http://www.gnu.org/licenses/gpl-2.0.txt
+GNU GENERAL PUBLIC LICENSE, Version 3
+http://www.gnu.org/licenses/gpl.html
 
 
 Tags
