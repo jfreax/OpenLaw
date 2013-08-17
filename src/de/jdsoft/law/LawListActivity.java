@@ -57,6 +57,8 @@ public class LawListActivity extends SherlockFragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_law_list);
 
+
+
 		if (findViewById(R.id.law_headline_container ) != null) {
 			// The detail container view will be present only in the
 			// large-screen layouts (res/values-large and

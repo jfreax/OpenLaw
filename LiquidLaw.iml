@@ -17,9 +17,9 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="actionbarsherlock" />
     <orderEntry type="module" module-name="AmazingListView" />
-    <orderEntry type="library" name="android-support-v4" level="project" />
     <orderEntry type="module" module-name="android-async-http" />
     <orderEntry type="module" module-name="viewPageIndicator" />
+    <orderEntry type="library" name="android-support-v4" level="project" />
   </component>
 </module>
 
