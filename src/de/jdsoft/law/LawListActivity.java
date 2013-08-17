@@ -16,7 +16,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
-import de.jdsoft.law.database.Handler;
+import de.jdsoft.law.database.Connector;
 
 /**
  * An activity representing a list of Books. This activity has different
@@ -36,7 +36,7 @@ import de.jdsoft.law.database.Handler;
 public class LawListActivity extends SherlockFragmentActivity implements
 		LawListFragment.Callbacks, ActionBar.OnNavigationListener {
 
-    public static Handler db;
+    public static Connector db;
 
 	/**
 	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -49,7 +49,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
     public LawListActivity() {
         super();
 
-        db = new Handler(this);
+        db = new Connector(this);
     }
 
 	@SuppressLint("NewApi")

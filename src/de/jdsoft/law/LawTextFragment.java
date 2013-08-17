@@ -90,7 +90,7 @@ public class LawTextFragment extends SherlockFragment {
 //        rootView.setOnTouchListener(new View.OnTouchListener() {
 //
 //            public AnimRunnable fadeOutRunner = null;
-//            public Handler mHandler = new Handler();
+//            public Connector mHandler = new Connector();
 //            public boolean isFaded = false;
 //
 //            @Override

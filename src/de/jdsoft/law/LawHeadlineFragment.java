@@ -19,8 +19,7 @@ import com.actionbarsherlock.internal.nineoldandroids.animation.PropertyValuesHo
 import de.jdsoft.law.LawListFragment.Callbacks;
 import de.jdsoft.law.data.helper.Law;
 import de.jdsoft.law.data.helper.LawHeadline;
-import de.jdsoft.law.database.DbLaws;
-import de.jdsoft.law.database.Handler;
+import de.jdsoft.law.database.Laws;
 
 /**
  * A fragment representing a single Book detail screen. This fragment is either
@@ -91,10 +90,10 @@ public class LawHeadlineFragment extends SherlockListFragment {
 //        if( savedInstanceState != null ) {
 //            this.slug = savedInstanceState.getString(STATE_SLUG);
 //            this.law = (Law)savedInstanceState.getSerializable(STATE_LAW);
-//            Handler dbHandler = new Handler(this.getActivity().getApplicationContext());
+//            Connector dbHandler = new Connector(this.getActivity().getApplicationContext());
 //        } else {
             if ( getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)) {
-                law = DbLaws.getLaw(Integer.parseInt(getArguments().getString(ARG_ITEM_ID)));
+                law = Laws.getLaw(Integer.parseInt(getArguments().getString(ARG_ITEM_ID)));
 
 
                 if (law != null) {

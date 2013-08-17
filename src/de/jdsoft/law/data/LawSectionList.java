@@ -6,9 +6,7 @@ import java.util.Locale;
 
 import android.os.AsyncTask;
 import android.util.Pair;
-import de.jdsoft.law.LawListActivity;
-import de.jdsoft.law.database.DbLaws;
-import de.jdsoft.law.database.Handler;
+import de.jdsoft.law.database.Laws;
 import de.jdsoft.law.helper.CallerInterface;
 import de.jdsoft.law.LawListFragment.SectionComposerAdapter;
 import de.jdsoft.law.data.helper.Law;
@@ -25,7 +23,7 @@ public class LawSectionList extends AsyncTask<SectionComposerAdapter, Integer, L
         if( isCancelled() ) {
             return null;
         }
-		List<Law> allLaws = DbLaws.getAllLaws();
+		List<Law> allLaws = Laws.getAllLaws();
 
 		String sectionName = null;
 		List<Law> currentList = new ArrayList<Law>();

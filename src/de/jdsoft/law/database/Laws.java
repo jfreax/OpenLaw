@@ -12,7 +12,7 @@ import de.jdsoft.law.data.helper.Law;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DbLaws implements Constants {
+public class Laws implements Constants {
     static public void addLaw(Law law) {
         SQLiteDatabase db = LawListActivity.db.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -61,7 +61,7 @@ public class DbLaws implements Constants {
                 KEY_SHORT_NAME, KEY_LONG_NAME, KEY_SLUG }, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor.getCount() == 0 ) {
-            Log.e(Handler.class.getName(), "No db entry for id " + id);
+            Log.e(Connector.class.getName(), "No db entry for id " + id);
             return null;
         }
 

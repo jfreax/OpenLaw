@@ -1,5 +1,9 @@
 package de.jdsoft.law;
 
+import android.content.Context;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -11,6 +15,7 @@ import de.jdsoft.law.LawListFragment.Callbacks;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import de.jdsoft.law.database.Favorites;
 
 /**
  * An activity representing a single Book detail screen. This activity is only
@@ -21,6 +26,8 @@ import android.support.v4.app.NavUtils;
  * a {@link LawHeadlineFragment}.
  */
 public class LawHeadlineActivity extends SherlockFragmentActivity implements Callbacks, ActionBar.OnNavigationListener {
+
+    private static final int OPTION_FAV = 3;
 
     private LawHeadlineFragment fragment;
     public LawHeadlineFragment headlineFragment;
@@ -58,8 +65,17 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
     public boolean onCreateOptionsMenu(final Menu menu) {
         boolean isLight = true; // TODO
 
-        menu.add(0, 3, 2, R.string.favit)
-                .setIcon(isLight ? R.drawable.rating_not_important : R.drawable.rating_not_important)
+        // Favorite
+        int favDrawable = 0;
+        if( Favorites.isFav(getIntent()
+                .getStringExtra(LawHeadlineFragment.ARG_ITEM_ID)) ) {
+            favDrawable = R.drawable.rating_important;
+        } else {
+            favDrawable = R.drawable.rating_not_important;
+        }
+
+        menu.add(0, OPTION_FAV, 2, R.string.favit)
+                .setIcon(favDrawable)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
 
 
@@ -68,6 +84,7 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 
 
     public boolean onOptionsItemSelected(MenuItem item) {
+
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			// This ID represents the Home or Up button. In the case of this
@@ -81,6 +98,18 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 					new Intent(this, LawListActivity.class));
             overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
             return true;
+
+        case OPTION_FAV:
+            String id = getIntent().getStringExtra(LawHeadlineFragment.ARG_ITEM_ID);
+            if( Favorites.isFav(id) ) {
+                Favorites.removeFav(id);
+                item.setIcon(R.drawable.rating_not_important);
+            } else {
+                Favorites.addFav(id);
+                item.setIcon(R.drawable.rating_important);
+            }
+
+            break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
