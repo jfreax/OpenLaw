@@ -1,11 +1,8 @@
 package de.jdsoft.law;
 
-import android.graphics.Color;
 import android.os.Build;
-import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import com.actionbarsherlock.app.ActionBar;
@@ -19,7 +16,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
-import de.jdsoft.law.database.DbHandler;
+import de.jdsoft.law.database.Handler;
 
 /**
  * An activity representing a list of Books. This activity has different
@@ -39,7 +36,7 @@ import de.jdsoft.law.database.DbHandler;
 public class LawListActivity extends SherlockFragmentActivity implements
 		LawListFragment.Callbacks, ActionBar.OnNavigationListener {
 
-    public static DbHandler db;
+    public static Handler db;
 
 	/**
 	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -52,7 +49,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
     public LawListActivity() {
         super();
 
-        db = new DbHandler(this);
+        db = new Handler(this);
     }
 
 	@SuppressLint("NewApi")

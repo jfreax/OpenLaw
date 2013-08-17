@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.jdsoft.law.LawListActivity;
-import de.jdsoft.law.database.DbHandler;
+import de.jdsoft.law.database.DbLaws;
+import de.jdsoft.law.database.Handler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,11 +44,11 @@ public class UpdateLawList extends AsyncTask<SectionComposerAdapter, Integer, Bo
 					}
 					
 					// Clear db
-					DbHandler db = LawListActivity.db;
+					Handler db = LawListActivity.db;
 					db.clear();
 
 					// Add new law list to db
-					db.addLaws(laws);
+                    DbLaws.addLaws(laws);
 					
 					if ( response.length() != 0 ) {
 						LawSectionList sectionListBuilder = new LawSectionList();
