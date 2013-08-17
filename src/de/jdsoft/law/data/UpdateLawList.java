@@ -3,6 +3,8 @@ package de.jdsoft.law.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.jdsoft.law.LawListActivity;
+import de.jdsoft.law.database.DbHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,7 +16,6 @@ import android.util.Log;
 import de.jdsoft.law.helper.CallerInterface;
 import de.jdsoft.law.LawListFragment.SectionComposerAdapter;
 import de.jdsoft.law.data.helper.Law;
-import de.jdsoft.law.database.LawNamesDb;
 import de.jdsoft.law.network.RestClient;
 
 public class UpdateLawList extends AsyncTask<SectionComposerAdapter, Integer, Boolean> implements CallerInterface {
@@ -42,7 +43,7 @@ public class UpdateLawList extends AsyncTask<SectionComposerAdapter, Integer, Bo
 					}
 					
 					// Clear db
-					LawNamesDb db = new LawNamesDb(mCallback.getContext());
+					DbHandler db = LawListActivity.db;
 					db.clear();
 
 					// Add new law list to db

@@ -6,10 +6,11 @@ import java.util.Locale;
 
 import android.os.AsyncTask;
 import android.util.Pair;
+import de.jdsoft.law.LawListActivity;
+import de.jdsoft.law.database.DbHandler;
 import de.jdsoft.law.helper.CallerInterface;
 import de.jdsoft.law.LawListFragment.SectionComposerAdapter;
 import de.jdsoft.law.data.helper.Law;
-import de.jdsoft.law.database.LawNamesDb;
 
 public class LawSectionList extends AsyncTask<SectionComposerAdapter, Integer, List<Pair<String, List<Law>>>> implements CallerInterface {
 	public static final String TAG = LawSectionList.class.getSimpleName();
@@ -20,7 +21,7 @@ public class LawSectionList extends AsyncTask<SectionComposerAdapter, Integer, L
     protected List<Pair<String, List<Law>>> doInBackground(SectionComposerAdapter... params) {
 		mCallback = params[0];
 
-		LawNamesDb dbHandler = new LawNamesDb(mCallback.getContext());
+		DbHandler dbHandler = LawListActivity.db;
         if( isCancelled() ) {
             dbHandler.close();
             return null;

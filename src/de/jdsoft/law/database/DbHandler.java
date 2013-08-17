@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class LawNamesDb extends SQLiteOpenHelper {
+public class DbHandler extends SQLiteOpenHelper {
 
 	private static final int DATABASE_VERSION = 19;
 	private static final String DATABASE_NAME = "law";
@@ -24,7 +24,7 @@ public class LawNamesDb extends SQLiteOpenHelper {
 	private static final String KEY_SLUG = "text";
 
 
-	public LawNamesDb(Context context) {
+	public DbHandler(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
@@ -58,7 +58,6 @@ public class LawNamesDb extends SQLiteOpenHelper {
 		values.put(KEY_SLUG, law.getSlug());
 
 		db.insert(TABLE_LAWS, null, values);
-		db.close();
 	}
 
 	public void addLaws(List<Law> laws) {
@@ -90,7 +89,6 @@ public class LawNamesDb extends SQLiteOpenHelper {
 		finally {
 			db.endTransaction();
 		}
-		db.close();
 	}
 
 	public Law getLaw(int id) {
@@ -99,7 +97,7 @@ public class LawNamesDb extends SQLiteOpenHelper {
 				KEY_SHORT_NAME, KEY_LONG_NAME, KEY_SLUG }, KEY_ID + "=?",
 				new String[] { String.valueOf(id) }, null, null, null, null);
 		if (cursor.getCount() == 0 ) {
-			Log.e(LawNamesDb.class.getName(), "No db entry for id "+id);
+			Log.e(DbHandler.class.getName(), "No db entry for id "+id);
 			return null;
 		}
 		
@@ -109,7 +107,6 @@ public class LawNamesDb extends SQLiteOpenHelper {
 				cursor.getString(1), cursor.getString(3), cursor.getString(2));
 
 		cursor.close();
-		db.close();
 		return law;
 	}
 
@@ -127,7 +124,6 @@ public class LawNamesDb extends SQLiteOpenHelper {
 				cursor.getString(1), cursor.getString(3), cursor.getString(2));
 
 		cursor.close();
-		db.close();
 		return law;
 	}
 
@@ -155,8 +151,6 @@ public class LawNamesDb extends SQLiteOpenHelper {
 		}
 		
 		cursor.close();
-		db.close();
-
 		return result;
 	}
 
@@ -167,7 +161,6 @@ public class LawNamesDb extends SQLiteOpenHelper {
 
 		int count = cursor.getCount();
 		cursor.close();
-		db.close();
 
 		return count;
 	}
@@ -182,7 +175,6 @@ public class LawNamesDb extends SQLiteOpenHelper {
 
 		int ret =  db.update(TABLE_LAWS, values, KEY_ID + " = ?",
 				new String[] { String.valueOf(law.getID()) });
-		db.close();
 
 		return ret;
 	}
@@ -191,6 +183,5 @@ public class LawNamesDb extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(TABLE_LAWS, KEY_ID + " = ?",
 				new String[] { String.valueOf(law.getID()) });
-		db.close();
 	}
 }

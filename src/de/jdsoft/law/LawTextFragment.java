@@ -87,45 +87,51 @@ public class LawTextFragment extends SherlockFragment {
         text_overlay = (LinearLayout) rootView.findViewById(R.id.text_overlay);
 
         // Set touch listener to show button overlay
-        rootView.setOnTouchListener(new View.OnTouchListener() {
-
-            public AnimRunnable fadeOutRunner = null;
-            public Handler mHandler = new Handler();
-            public boolean isFaded = false;
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (fadeOutRunner == null) {
-                    if (!isFaded) {
-                        final Animation animFadeIn = AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in);
-                        text_overlay.setAnimation(animFadeIn);
-                        text_overlay.setVisibility(View.VISIBLE);
-                        isFaded = true;
-                    }
-
-                    mHandler.postDelayed(fadeOutRunner = new AnimRunnable() {
-                        @Override
-                        public void run() {
-                            if (isStop()) {
-                                return;
-                            }
-                            final Animation animFadeOut = AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_out);
-                            text_overlay.setAnimation(animFadeOut);
-                            text_overlay.setVisibility(View.GONE);
-                            fadeOutRunner = null;
-                            isFaded = false;
-                        }
-                    }, 3000); // Todo variable
-                } else {
-                    mHandler.removeCallbacksAndMessages(fadeOutRunner);
-                    fadeOutRunner.stop();
-                    fadeOutRunner = null;
-                    this.onTouch(v, event);
-                }
-
-                return false;
-            }
-        });
+//        rootView.setOnTouchListener(new View.OnTouchListener() {
+//
+//            public AnimRunnable fadeOutRunner = null;
+//            public Handler mHandler = new Handler();
+//            public boolean isFaded = false;
+//
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                if (fadeOutRunner == null) {
+//                    if (!isFaded && event.getAction() != MotionEvent.ACTION_MOVE) {
+//                        final Animation animFadeIn = AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in);
+//                        text_overlay.setAnimation(animFadeIn);
+//                        text_overlay.setVisibility(View.VISIBLE);
+//                        isFaded = true;
+//
+//                        mHandler.postDelayed(fadeOutRunner = new AnimRunnable() {
+//                            @Override
+//                            public void run() {
+//                                if (isStop()) {
+//                                    return;
+//                                }
+//                                final Animation animFadeOut = AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_out);
+//                                text_overlay.setAnimation(animFadeOut);
+//                                text_overlay.setVisibility(View.GONE);
+//                                fadeOutRunner = null;
+//                                isFaded = false;
+//                            }
+//                        }, 3000); // Todo variable
+//                    } else {
+//                        final Animation animFadeOut = AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_out);
+//                        text_overlay.setAnimation(animFadeOut);
+//                        text_overlay.setVisibility(View.GONE);
+//                        fadeOutRunner = null;
+//                        isFaded = false;
+//                    }
+//                } else {
+//                    mHandler.removeCallbacksAndMessages(fadeOutRunner);
+//                    fadeOutRunner.stop();
+//                    fadeOutRunner = null;
+//                    this.onTouch(v, event);
+//                }
+//
+//                return false;
+//            }
+//        });
 
         LoadOrCache();
 
