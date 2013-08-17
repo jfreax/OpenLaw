@@ -112,8 +112,6 @@ public class LawListActivity extends SherlockFragmentActivity implements
             @Override
             public void onFocusChange(View view, boolean queryTextFocused) {
                 if(!queryTextFocused) {
-                    // Collapse search editor
-                    menu.getItem(0).collapseActionView();
                     // And reset
                     search.setText("");
                     // Hide keyboard
@@ -123,14 +121,6 @@ public class LawListActivity extends SherlockFragmentActivity implements
                 }
             }
         });
-        
-        // Settings button
-        menu.add(R.string.settings)
-        	.setIcon(isLight ? R.drawable.ic_action_settings : R.drawable.ic_action_settings_inverse)
-        	.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-
-
-
 
         return true;
     }
