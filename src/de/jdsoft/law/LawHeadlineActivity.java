@@ -1,9 +1,14 @@
 package de.jdsoft.law;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ListView;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -32,13 +37,11 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
     private LawHeadlineFragment fragment;
     public LawHeadlineFragment headlineFragment;
 
+
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_law_headline);
-
-		// Show the Up button in the action bar.
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		// savedInstanceState is non-null when there is fragment state
 		// saved from previous configurations of this activity
@@ -60,7 +63,11 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.law_headline_container, fragment).commit();
 		}
-	}
+
+        // Show the Up button in the action bar.
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
 
     public boolean onCreateOptionsMenu(final Menu menu) {
         boolean isLight = true; // TODO
@@ -85,6 +92,7 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        // Handle action buttons
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			// This ID represents the Home or Up button. In the case of this

@@ -1,6 +1,9 @@
 package de.jdsoft.law;
 
 import android.os.Build;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.inputmethod.InputMethodManager;
@@ -38,12 +41,15 @@ public class LawListActivity extends SherlockFragmentActivity implements
 
     public static Connector db;
 
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private ListView mDrawerList;
+
 	/**
 	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
 	 * device.
 	 */
     protected boolean mTwoPane;
-	
 	public LawHeadlineFragment headlineFragment = null;
 
     public LawListActivity() {
@@ -56,8 +62,6 @@ public class LawListActivity extends SherlockFragmentActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_law_list);
-
-
 
 		if (findViewById(R.id.law_headline_container ) != null) {
 			// The detail container view will be present only in the
@@ -84,23 +88,51 @@ public class LawListActivity extends SherlockFragmentActivity implements
         }
 		
 		com.actionbarsherlock.app.ActionBar actionbar = getSupportActionBar();
-		
-		// Show title
+
+        // Locate ListView in drawer_main.xml
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        // ActionBarDrawerToggle ties together the the proper interactions
+        // between the sliding drawer and the action bar app icon
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.drawable.ic_drawer,
+                R.string.drawer_open,
+                R.string.drawer_close) {
+
+            public void onDrawerClosed(View view) {
+                // TODO Auto-generated method stub
+                super.onDrawerClosed(view);
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                // TODO Auto-generated method stub
+                super.onDrawerOpened(drawerView);
+            }
+        };
+
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        // set a custom shadow that overlays the main content when the drawer opens
+        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+
+        // Show the Up button in the action bar.
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeButtonEnabled(true);
+
+        // Show title
 		actionbar.setDisplayShowTitleEnabled(true);
         actionbar.setTitle(getResources().getString(R.string.title_law));
-
-		
-		// Show list menu
-//        Context context = getSupportActionBar().getThemedContext();
-//        ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.locations, R.layout.sherlock_spinner_item);
-//        list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
-
-//        actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-//        actionbar.setListNavigationCallbacks(list, this);
-        
-		// If exposing deep links into your app, handle intents here.
 	}
-	
+
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
 	
     @SuppressLint("AlwaysShowAction")
 	public boolean onCreateOptionsMenu(final Menu menu) {
@@ -161,18 +193,24 @@ public class LawListActivity extends SherlockFragmentActivity implements
         }
 	}
 
+
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
-	public void onConfigurationChanged(Configuration newConfig) {
-	    super.onConfigurationChanged(newConfig);
-	}
+
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
 	
 	public boolean isTwoPane() {
 		return mTwoPane;
 	}
+
 	
     public void onBackPressed() {
     	if ( isTwoPane() && headlineFragment != null && !headlineFragment.isCollapsed ) {
@@ -184,12 +222,14 @@ public class LawListActivity extends SherlockFragmentActivity implements
 
     private EditText search;
     public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            this.onBackPressed();
-            return true;
-        }
-
         switch (item.getItemId()){
+            case android.R.id.home:
+                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                    mDrawerLayout.closeDrawer(mDrawerList);
+                } else {
+                    mDrawerLayout.openDrawer(mDrawerList);
+                }
+                break;
             case 3:
                 search = (EditText) item.getActionView();
                 search.addTextChangedListener(searchTextWatcher);

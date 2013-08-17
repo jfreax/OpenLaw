@@ -34,4 +34,8 @@
     </string-array>
     <string name="error_downloading">Fehler beim herunterladen. Überprüfen sie ihre Internetverbindung.</string>
     <string name="loading">Lade...</string>
+
+    <!--Drawer-->
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 </resources>
