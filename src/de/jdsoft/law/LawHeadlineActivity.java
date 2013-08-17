@@ -2,6 +2,7 @@ package de.jdsoft.law;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 
@@ -54,7 +55,19 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 		}
 	}
 
-	public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        boolean isLight = true; // TODO
+
+        menu.add(0, 3, 2, R.string.favit)
+                .setIcon(isLight ? R.drawable.rating_not_important : R.drawable.rating_not_important)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+
+
+        return true;
+    }
+
+
+    public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			// This ID represents the Home or Up button. In the case of this
