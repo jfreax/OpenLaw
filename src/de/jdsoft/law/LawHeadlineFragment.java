@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
@@ -16,9 +17,13 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
 import com.actionbarsherlock.internal.nineoldandroids.animation.PropertyValuesHolder;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import de.jdsoft.law.LawListFragment.Callbacks;
 import de.jdsoft.law.data.helper.Law;
 import de.jdsoft.law.data.helper.LawHeadline;
+import de.jdsoft.law.database.Favorites;
 import de.jdsoft.law.database.Laws;
 
 /**
@@ -32,9 +37,11 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	 * represents.
 	 */
 	public static final String ARG_ITEM_ID = "item_id";
-	private String slug = "";
+    public static final int OPTION_FAV = 4;
+
+    private String slug = "";
 	private HeadlineComposerAdapter adapter;
-	
+
     public static final int ANIM_DURATION =100;
     private static final Interpolator interpolator = new DecelerateInterpolator();
 
@@ -76,6 +83,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	private Law law = null;
     private long selectedID = -1L;
     private LinearLayout loading;
+    private MenuItem button_fav;
 
     /**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -86,7 +94,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 //        if( savedInstanceState != null ) {
 //            this.slug = savedInstanceState.getString(STATE_SLUG);
 //            this.law = (Law)savedInstanceState.getSerializable(STATE_LAW);
@@ -119,6 +126,14 @@ public class LawHeadlineFragment extends SherlockListFragment {
             loading.setVisibility(View.VISIBLE);
 	}
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup
+            container, Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -141,6 +156,46 @@ public class LawHeadlineFragment extends SherlockListFragment {
         listView.setScrollBarStyle(ScrollView.SCROLLBARS_OUTSIDE_OVERLAY);
 
         setActivateOnItemClick(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu (Menu menu, MenuInflater inflater) {
+        boolean isLight = true; // TODO
+
+        // Favorite
+        int favDrawable = 0;
+        if( Favorites.isFav(""+law.getID()) ) {
+            favDrawable = R.drawable.btn_star_on_convo_holo_light;
+        } else {
+            favDrawable = R.drawable.btn_star_off_convo_holo_light;
+        }
+
+        menu.add(0, OPTION_FAV, 2, R.string.favit)
+                .setIcon(favDrawable)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+
+        button_fav = menu.findItem(OPTION_FAV);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // Handle action buttons
+        switch (item.getItemId()) {
+
+            case LawHeadlineFragment.OPTION_FAV:
+                String id = ""+law.getID();
+                if( Favorites.isFav(id) ) {
+                    Favorites.removeFav(id);
+                    item.setIcon(R.drawable.btn_star_off_convo_holo_light);
+                } else {
+                    Favorites.addFav(id);
+                    item.setIcon(R.drawable.btn_star_on_convo_holo_light);
+                }
+
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 	
 
@@ -170,7 +225,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
         super.onListItemClick(listView, view, position, id);
         // Refresh law text only at new clicked id
         if( selectedID == id ) {
-//            getListView().setItemChecked((int)selectedID, true);
             return;
         }
 

@@ -32,8 +32,6 @@ import de.jdsoft.law.database.Favorites;
  */
 public class LawHeadlineActivity extends SherlockFragmentActivity implements Callbacks, ActionBar.OnNavigationListener {
 
-    private static final int OPTION_FAV = 3;
-
     private LawHeadlineFragment fragment;
     public LawHeadlineFragment headlineFragment;
 
@@ -69,27 +67,6 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
     }
 
 
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        boolean isLight = true; // TODO
-
-        // Favorite
-        int favDrawable = 0;
-        if( Favorites.isFav(getIntent()
-                .getStringExtra(LawHeadlineFragment.ARG_ITEM_ID)) ) {
-            favDrawable = R.drawable.btn_star_on_convo_holo_light;
-        } else {
-            favDrawable = R.drawable.btn_star_off_convo_holo_light;
-        }
-
-        menu.add(0, OPTION_FAV, 2, R.string.favit)
-                .setIcon(favDrawable)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
-
-
-        return true;
-    }
-
-
     public boolean onOptionsItemSelected(MenuItem item) {
 
         // Handle action buttons
@@ -108,7 +85,7 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
             onBackPressed();
             return true;
 
-        case OPTION_FAV:
+        case LawHeadlineFragment.OPTION_FAV:
             String id = getIntent().getStringExtra(LawHeadlineFragment.ARG_ITEM_ID);
             if( Favorites.isFav(id) ) {
                 Favorites.removeFav(id);

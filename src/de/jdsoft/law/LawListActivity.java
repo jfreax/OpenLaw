@@ -262,6 +262,8 @@ public class LawListActivity extends SherlockFragmentActivity implements
     }
 
     private EditText search;
+
+    @Override
     public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
@@ -274,10 +276,9 @@ public class LawListActivity extends SherlockFragmentActivity implements
             case 3:
                 search = (EditText) item.getActionView();
                 search.addTextChangedListener(searchTextWatcher);
-                break;
-
+                return true;
         }
-        return true;
+        return false;
     }
 
 
