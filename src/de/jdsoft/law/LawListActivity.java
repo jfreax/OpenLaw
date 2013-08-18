@@ -1,25 +1,31 @@
 package de.jdsoft.law;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.os.Bundle;
-import android.view.View;
 import de.jdsoft.law.database.Connector;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * An activity representing a list of Books. This activity has different
@@ -55,7 +61,9 @@ public class LawListActivity extends SherlockFragmentActivity implements
     public LawListActivity() {
         super();
 
-        db = new Connector(this);
+        if( db == null ) {
+            db = new Connector(this);
+        }
     }
 
 	@SuppressLint("NewApi")
@@ -91,6 +99,12 @@ public class LawListActivity extends SherlockFragmentActivity implements
 
         // Locate ListView in drawer_main.xml
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        // Set drawer adapter
+        DrawerAdapter adapter = new DrawerAdapter(this);
+        mDrawerList.setAdapter(adapter);
+
+        // Locate drawer
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
@@ -186,7 +200,6 @@ public class LawListActivity extends SherlockFragmentActivity implements
             // for the selected item ID.
             Intent detailIntent = new Intent(this, LawHeadlineActivity.class);
             detailIntent.putExtra(LawHeadlineFragment.ARG_ITEM_ID, id);
-//            detailIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(detailIntent);
             overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
         }
@@ -238,6 +251,16 @@ public class LawListActivity extends SherlockFragmentActivity implements
         return true;
     }
 
+
+    @Override
+    protected void onDestroy() {
+        db.close();
+        db = null;
+
+        super.onDestroy();
+    }
+
+
     private TextWatcher searchTextWatcher = new TextWatcher() {
         public void afterTextChanged(Editable s) {
         }
@@ -252,4 +275,77 @@ public class LawListActivity extends SherlockFragmentActivity implements
             ((LawListFragment.SectionComposerAdapter)fragment.getListAdapter()).getFilter().filter(s);
         }
     };
+
+
+    static private class DrawerAdapter extends BaseAdapter {
+
+        static private class Entry {
+            public Entry(Drawable icon, int count, String text) {
+                this.icon = icon;
+                this.count = count;
+                this.text = text;
+            }
+
+            public Drawable icon;
+            public int count;
+            public String text;
+        }
+
+        static class ViewHolder {
+            public TextView text;
+            public TextView count;
+            public ImageView icon;
+        }
+
+        private final LayoutInflater inflater;
+        private final List<Entry> entries = new LinkedList<Entry>();
+
+        public DrawerAdapter(Activity activity) {
+            inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+
+            entries.add( new Entry(
+                    activity.getResources().getDrawable(R.drawable.rating_not_important), 10, "Bundesgesetze"));
+            entries.add( new Entry(
+                    activity.getResources().getDrawable(R.drawable.btn_star_on_convo_holo_light), 10, "Favoriten"));
+        }
+
+        @Override
+        public int getCount() {
+            return entries.size();
+        }
+
+        @Override
+        public Entry getItem(int position) {
+            return entries.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+
+            if (convertView == null) {
+                convertView = inflater.inflate(R.layout.item_drawer, null);
+
+                holder = new ViewHolder();
+                holder.text = (TextView) convertView.findViewById(R.id.text);
+                holder.icon = (ImageView) convertView.findViewById(R.id.icon);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder)convertView.getTag();
+            }
+
+            Entry item = getItem(position);
+            holder.text.setText(item.text);
+            holder.icon.setImageDrawable(item.icon);
+
+
+            return convertView;
+        }
+    }
 }
