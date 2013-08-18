@@ -19,14 +19,14 @@ public class Connector extends SQLiteOpenHelper implements Constants {
 	}
 
 	public void onCreate(SQLiteDatabase db) {
-		String CREATE_LAW_TABLE = "CREATE TABLE " + TABLE_LAWS + "("
+		String CREATE_LAW_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_LAWS + "("
 				+ KEY_ID + " INTEGER PRIMARY KEY," 
 				+ KEY_SHORT_NAME + " TEXT,"
 				+ KEY_LONG_NAME + " TEXT,"
 				+ KEY_SLUG + " TEXT" + ")";
 		db.execSQL(CREATE_LAW_TABLE);
 
-        String CREATE_FAV_TABLE = "CREATE TABLE " + TABLE_FAVS + "("
+        String CREATE_FAV_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_FAVS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY)";
         db.execSQL(CREATE_FAV_TABLE);
 	}

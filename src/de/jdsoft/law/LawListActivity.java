@@ -22,6 +22,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import de.jdsoft.law.data.LawSectionList;
 import de.jdsoft.law.database.Connector;
 
 import java.util.LinkedList;
@@ -71,6 +72,10 @@ public class LawListActivity extends SherlockFragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_law_list);
 
+        final LawListFragment lawListFragment =
+                ((LawListFragment) getSupportFragmentManager().findFragmentById(R.id.law_list));
+
+        // Two pane mode
 		if (findViewById(R.id.law_headline_container ) != null) {
 			// The detail container view will be present only in the
 			// large-screen layouts (res/values-large and
@@ -79,8 +84,6 @@ public class LawListActivity extends SherlockFragmentActivity implements
 			mTwoPane = true;
 			// In two-pane mode, list items should be given the
 			// 'activated' state when touched.
-			LawListFragment lawListFragment = ((LawListFragment) getSupportFragmentManager().findFragmentById(
-					R.id.law_list));
 			lawListFragment.setActivateOnItemClick(true);
 			
 			ListView listview = lawListFragment.getListView();
@@ -95,14 +98,39 @@ public class LawListActivity extends SherlockFragmentActivity implements
             loading.setVisibility(View.GONE);
         }
 		
-		com.actionbarsherlock.app.ActionBar actionbar = getSupportActionBar();
+		final com.actionbarsherlock.app.ActionBar actionbar = getSupportActionBar();
 
         // Locate ListView in drawer_main.xml
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
         // Set drawer adapter
-        DrawerAdapter adapter = new DrawerAdapter(this);
+        final DrawerAdapter adapter = new DrawerAdapter(this);
         mDrawerList.setAdapter(adapter);
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (adapter.getItem(position).type) {
+                    case DrawerAdapter.ID_GERMAN_BUND:
+                        if( !lawListFragment.adapter.isFinish ) {
+                            LawSectionList sectionDB = new LawSectionList(LawSectionList.TYPE_ALL);
+                            sectionDB.execute(lawListFragment.adapter);
+                        } else {
+                            lawListFragment.setListAdapter(lawListFragment.adapter);
+                        }
+                        break;
+                    case DrawerAdapter.ID_FAV:
+                        if( !lawListFragment.adapterFavs.isFinish ) {
+                            LawSectionList sectionDB = new LawSectionList(LawSectionList.TYPE_FAV);
+                            sectionDB.execute(lawListFragment.adapterFavs);
+                        } else {
+                            lawListFragment.setListAdapter(lawListFragment.adapterFavs);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
 
         // Locate drawer
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -277,17 +305,21 @@ public class LawListActivity extends SherlockFragmentActivity implements
 
 
     static private class DrawerAdapter extends BaseAdapter {
+        public static final int ID_GERMAN_BUND = 1;
+        public static final int ID_FAV = 2;
 
         static private class Entry {
-            public Entry(Drawable icon, int count, String text) {
+            public Entry(Drawable icon, int count, String text, int type) {
                 this.icon = icon;
                 this.count = count;
                 this.text = text;
+                this.type = type;
             }
 
             public Drawable icon;
             public int count;
             public String text;
+            public final int type;
         }
 
         static class ViewHolder {
@@ -304,9 +336,15 @@ public class LawListActivity extends SherlockFragmentActivity implements
 
 
             entries.add( new Entry(
-                    activity.getResources().getDrawable(R.drawable.rating_not_important), 10, "Bundesgesetze"));
+                    activity.getResources().getDrawable(R.drawable.btn_star_off_convo_holo_light),
+                    10,
+                    activity.getString(R.string.german_bund_law),
+                    ID_GERMAN_BUND));
             entries.add( new Entry(
-                    activity.getResources().getDrawable(R.drawable.btn_star_on_convo_holo_light), 10, "Favoriten"));
+                    activity.getResources().getDrawable(R.drawable.btn_star_on_convo_holo_light),
+                    10,
+                    activity.getString(R.string.fav),
+                    ID_FAV));
         }
 
         @Override

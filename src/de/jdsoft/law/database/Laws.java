@@ -13,6 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Laws implements Constants {
+
+    static public void clear() {
+        SQLiteDatabase db = LawListActivity.db.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_LAWS);
+        LawListActivity.db.onCreate(db);
+    }
+
     static public void addLaw(Law law) {
         SQLiteDatabase db = LawListActivity.db.getWritableDatabase();
         ContentValues values = new ContentValues();

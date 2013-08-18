@@ -20,7 +20,7 @@
                 android:layout_height="24dp"
                 android:layout_marginRight="8dp"
                 android:background="@android:color/transparent"
-                android:src="@drawable/rating_not_important">
+                android:src="@drawable/btn_star_off_convo_holo_light">
         </ImageButton>
 
         <ImageButton

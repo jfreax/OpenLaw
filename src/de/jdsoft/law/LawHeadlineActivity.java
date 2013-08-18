@@ -76,9 +76,9 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
         int favDrawable = 0;
         if( Favorites.isFav(getIntent()
                 .getStringExtra(LawHeadlineFragment.ARG_ITEM_ID)) ) {
-            favDrawable = R.drawable.rating_important;
+            favDrawable = R.drawable.btn_star_on_convo_holo_light;
         } else {
-            favDrawable = R.drawable.rating_not_important;
+            favDrawable = R.drawable.btn_star_off_convo_holo_light;
         }
 
         menu.add(0, OPTION_FAV, 2, R.string.favit)
@@ -111,10 +111,10 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
             String id = getIntent().getStringExtra(LawHeadlineFragment.ARG_ITEM_ID);
             if( Favorites.isFav(id) ) {
                 Favorites.removeFav(id);
-                item.setIcon(R.drawable.rating_not_important);
+                item.setIcon(R.drawable.btn_star_off_convo_holo_light);
             } else {
                 Favorites.addFav(id);
-                item.setIcon(R.drawable.rating_important);
+                item.setIcon(R.drawable.btn_star_on_convo_holo_light);
             }
 
             break;

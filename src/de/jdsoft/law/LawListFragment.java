@@ -34,7 +34,7 @@ import de.jdsoft.law.helper.CallerInterface;
 public class LawListFragment extends SherlockListFragment {
 
 	final SectionComposerAdapter adapter = new SectionComposerAdapter();
-    final LawSectionList db = new LawSectionList();
+    SectionComposerAdapter adapterFavs = new SectionComposerAdapter();
 
 	/**
 	 * The serialization (saved instance state) Bundle key representing the
@@ -83,13 +83,11 @@ public class LawListFragment extends SherlockListFragment {
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		adapter = new SectionComposerAdapter();
-		
+
 		// Load actual list
-//		LawSectionList db = new LawSectionList();
-//		db.execute(adapter);
-        if( !db.isExecuted ) {
-            db.execute(adapter);
+        final LawSectionList sectionDB = new LawSectionList(LawSectionList.TYPE_ALL);
+        if( !sectionDB.isExecuted ) {
+            sectionDB.execute(adapter);
         }
 		
 		// And parallel update the list from network
@@ -189,11 +187,19 @@ public class LawListFragment extends SherlockListFragment {
 		List<Pair<String, List<Law>>> unfiltered = null;
         List<Pair<String, List<Law>>> all = null;
 
+        public boolean isFinish = false;
+
 		public SectionComposerAdapter() {
 		}
 
 		public void onFinish(CallerInterface caller) {
+            isFinish = true;
 			this.all = ((LawSectionList)caller).getResult();
+
+            if(this.all == null ) {
+                return; // TODO show info that no laws available
+            }
+
             this.unfiltered = new ArrayList<Pair<String, List<Law>>>(this.all); // copy
 
 			if ( this.getCount() > 0 ) {

@@ -44,14 +44,13 @@ public class UpdateLawList extends AsyncTask<SectionComposerAdapter, Integer, Bo
 					}
 					
 					// Clear db
-					Connector db = LawListActivity.db;
-					db.clear();
+					Laws.clear();
 
 					// Add new law list to db
                     Laws.addLaws(laws);
 					
 					if ( response.length() != 0 ) {
-						LawSectionList sectionListBuilder = new LawSectionList();
+						LawSectionList sectionListBuilder = new LawSectionList(LawSectionList.TYPE_ALL);
 						sectionListBuilder.execute(mCallback);
 					}
 

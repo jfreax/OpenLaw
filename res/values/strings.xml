@@ -39,4 +39,6 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="icon">Icon</string>
+    <string name="german_bund_law">Bundesgesetze</string>
+    <string name="fav">Favoriten</string>
 </resources>
