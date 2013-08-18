@@ -75,13 +75,13 @@ public class LawTextFragment extends SherlockFragment {
 
         // Initialize webview
         webview = (TweakedWebView) rootView.findViewById(R.id.text_webview);
-        webview.setLongClickable(false);
-        webview.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return true;
-            }
-        });
+//        webview.setLongClickable(false);
+//        webview.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                return true;
+//            }
+//        });
 
         loading = (LinearLayout) rootView.findViewById(R.id.loading);
         text_overlay = (LinearLayout) rootView.findViewById(R.id.text_overlay);
