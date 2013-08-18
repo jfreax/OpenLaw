@@ -143,12 +143,10 @@ public class LawListActivity extends SherlockFragmentActivity implements
                 R.string.drawer_close) {
 
             public void onDrawerClosed(View view) {
-                // TODO Auto-generated method stub
                 super.onDrawerClosed(view);
             }
 
             public void onDrawerOpened(View drawerView) {
-                // TODO Auto-generated method stub
                 super.onDrawerOpened(drawerView);
             }
         };
@@ -267,12 +265,15 @@ public class LawListActivity extends SherlockFragmentActivity implements
     public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
+                if ( isTwoPane() && headlineFragment != null && !headlineFragment.isCollapsed ) {
+                    onBackPressed();
+                }
                 if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
                     mDrawerLayout.closeDrawer(mDrawerList);
                 } else {
                     mDrawerLayout.openDrawer(mDrawerList);
                 }
-                break;
+                return true;
             case 3:
                 search = (EditText) item.getActionView();
                 search.addTextChangedListener(searchTextWatcher);
