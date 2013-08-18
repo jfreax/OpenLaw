@@ -91,7 +91,6 @@ public class LawListActivity extends SherlockFragmentActivity implements
 
         // Locate ListView in drawer_main.xml
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
-
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
