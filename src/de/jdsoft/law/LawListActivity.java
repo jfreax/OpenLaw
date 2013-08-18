@@ -339,7 +339,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
 
 
             entries.add( new Entry(
-                    activity.getResources().getDrawable(R.drawable.btn_star_off_convo_holo_light),
+                    activity.getResources().getDrawable(R.drawable.flag_germany),
                     10,
                     activity.getString(R.string.german_bund_law),
                     ID_GERMAN_BUND));
