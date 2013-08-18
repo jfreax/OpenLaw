@@ -269,7 +269,6 @@ public class LawListActivity extends SherlockFragmentActivity implements
         }
 
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            //... your logic here
             LawListFragment fragment = ((LawListFragment) getSupportFragmentManager().findFragmentById(
                     R.id.law_list));
             ((LawListFragment.SectionComposerAdapter)fragment.getListAdapter()).getFilter().filter(s);
