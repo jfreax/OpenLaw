@@ -84,20 +84,8 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 //            overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
             onBackPressed();
             return true;
-
-        case LawHeadlineFragment.OPTION_FAV:
-            String id = getIntent().getStringExtra(LawHeadlineFragment.ARG_ITEM_ID);
-            if( Favorites.isFav(id) ) {
-                Favorites.removeFav(id);
-                item.setIcon(R.drawable.btn_star_off_convo_holo_light);
-            } else {
-                Favorites.addFav(id);
-                item.setIcon(R.drawable.btn_star_on_convo_holo_light);
-            }
-
-            break;
 		}
-		return super.onOptionsItemSelected(item);
+		return false;
 	}
 
 	public void onItemSelected(String id) {
