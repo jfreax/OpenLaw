@@ -2,7 +2,7 @@ package de.jdsoft.law.database;
 
 public interface Constants {
 
-    public static final int DATABASE_VERSION = 21;
+    public static final int DATABASE_VERSION = 22;
     public static final String DATABASE_NAME = "law";
 
     public static final String TABLE_LAWS = "law";
