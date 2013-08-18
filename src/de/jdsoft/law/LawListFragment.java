@@ -86,13 +86,15 @@ public class LawListFragment extends SherlockListFragment {
 
 		// Load actual list
         final LawSectionList sectionDB = new LawSectionList(LawSectionList.TYPE_ALL);
-        if( !sectionDB.isExecuted ) {
+        if( !adapter.isFinish ) {
             sectionDB.execute(adapter);
+
+            // And parallel update the list from network
+            UpdateLawList updater = new UpdateLawList();
+            updater.execute(adapter);
         }
 		
-		// And parallel update the list from network
-		UpdateLawList updater = new UpdateLawList();
-		updater.execute(adapter);
+
 
 	}
 

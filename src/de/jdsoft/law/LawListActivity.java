@@ -119,16 +119,17 @@ public class LawListActivity extends SherlockFragmentActivity implements
                         }
                         break;
                     case DrawerAdapter.ID_FAV:
-                        if( !lawListFragment.adapterFavs.isFinish ) {
-                            LawSectionList sectionDB = new LawSectionList(LawSectionList.TYPE_FAV);
-                            sectionDB.execute(lawListFragment.adapterFavs);
-                        } else {
+                        LawSectionList sectionDB = new LawSectionList(LawSectionList.TYPE_FAV);
+                        sectionDB.execute(lawListFragment.adapterFavs);
+
+                        if( lawListFragment.adapterFavs.isFinish ) {
                             lawListFragment.setListAdapter(lawListFragment.adapterFavs);
                         }
                         break;
                     default:
                         break;
                 }
+                mDrawerLayout.closeDrawer(mDrawerList);
             }
         });
 

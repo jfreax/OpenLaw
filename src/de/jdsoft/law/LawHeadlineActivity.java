@@ -102,9 +102,10 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 			//
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
 			//
-			NavUtils.navigateUpTo(this,
-					new Intent(this, LawListActivity.class));
-            overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
+//			NavUtils.navigateUpTo(this,
+//					new Intent(this, LawListActivity.class));
+//            overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
+            onBackPressed();
             return true;
 
         case OPTION_FAV:
