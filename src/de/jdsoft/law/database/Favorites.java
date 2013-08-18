@@ -49,7 +49,7 @@ public class Favorites implements Constants {
 
     public static List<Law> getFavLaws() {
         String selectQuery = "SELECT * FROM " + TABLE_LAWS + " l INNER JOIN " + TABLE_FAVS +
-                " f ON l." + KEY_ID + " = f." + KEY_ID;
+                " f ON l." + KEY_ID + " = f." + KEY_ID  + " ORDER BY l." + KEY_SHORT_NAME + " COLLATE LOCALIZED ASC";
         SQLiteDatabase db = LawListActivity.db.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(selectQuery, null);
