@@ -12,7 +12,7 @@
 
     <TextView
             android:id="@+id/headline"
-            style="?attr/HeadlineSmall"
+            style="@style/headline_small"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"/>

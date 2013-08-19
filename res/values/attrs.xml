@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="HeadlineSmall" format="reference" />
+    <!-- Color -->
+    <attr name="card_background" format="reference|color" />
+
+    <!-- Styles -->
+    <attr name="headline_small" format="reference" />
 </resources>
