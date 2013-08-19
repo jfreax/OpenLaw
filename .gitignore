@@ -26,11 +26,10 @@ local.properties
 
 *.lint.xml
 
-.idea/
-project.properties
-
 *.directory
-
 proguard_logs/
 
-LiquidLaw.iml
+.idea/workspace.xml
+.idea/tasks.xml
+
+*.iws
