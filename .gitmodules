@@ -1,0 +1,9 @@
+[submodule "extern/ActionBarSherlock"]
+	path = extern/ActionBarSherlock
+	url = git://github.com/JakeWharton/ActionBarSherlock.git
+[submodule "extern/Android-ViewPagerIndicator"]
+	path = extern/Android-ViewPagerIndicator
+	url = git://github.com/JakeWharton/Android-ViewPagerIndicator.git
+[submodule "extern/android-async-http"]
+	path = extern/android-async-http
+	url = git://github.com/loopj/android-async-http.git
