@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true"
+          android:drawable="@drawable/list_arrow_pressed_holo" />
+    <item android:state_selected="true"
+          android:drawable="@drawable/list_arrow_selected_holo" />
     <item android:state_activated="true"
           android:drawable="@drawable/list_arrow_activated_holo" />
     <item android:drawable="@color/dark_card_background" />

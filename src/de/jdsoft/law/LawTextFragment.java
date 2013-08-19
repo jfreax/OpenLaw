@@ -1,6 +1,7 @@
 package de.jdsoft.law;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -25,13 +26,18 @@ public class LawTextFragment extends SherlockFragment {
     public static final String ARG_ITEM_ID = "text_id";
     public static final String ARG_ITEM_SLUG = "law";
     public static final String ARG_ITEM_SHORT = "shortname";
+
     private Cache cache = null;
     private long id = 0;
     private String slug = "";
+
     private TweakedWebView webview = null;
     private LinearLayout loading = null;
     private LinearLayout text_overlay = null;
     private String lawText = "";
+
+    private String background_color;
+    private String font_color;
 
 
     /**
@@ -64,6 +70,18 @@ public class LawTextFragment extends SherlockFragment {
 
             getSherlockActivity().getSupportActionBar().setTitle(getArguments().getString(ARG_ITEM_SHORT));
         }
+
+        // Get webview background color from theme
+        TypedArray a = getActivity().getTheme().obtainStyledAttributes(R.style.AppThemeDark, new int[]{R.attr.card_background});
+        int attributeResourceId = a.getResourceId(0, 0);
+        background_color = Integer.toHexString(getResources().getColor(attributeResourceId) & 0x00ffffff);
+        a.recycle();
+
+        // And font color
+        a = getActivity().getTheme().obtainStyledAttributes(R.style.AppThemeDark, new int[]{R.attr.card_text_color});
+        attributeResourceId = a.getResourceId(0, 0);
+        font_color = Integer.toHexString(getResources().getColor(attributeResourceId) & 0x00ffffff);
+        a.recycle();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -222,7 +240,9 @@ public class LawTextFragment extends SherlockFragment {
         }
 
         if (webview != null) {
-            String html = "<html><body bgcolor=\"#eee\">" + lawText + "</body></html>";
+            String html = "<html>" +
+                    "<body bgcolor=\"#" + background_color + "\" text=\"" + font_color + "\">" +
+                    lawText + "</body></html>";
             try {
                 webview.loadData(URLEncoder.encode(html, "utf-8").replaceAll("\\+", " "), "text/html", "utf-8");
                 // Show webview

@@ -2,6 +2,7 @@
 <resources>
     <!-- Color -->
     <attr name="card_background" format="reference" />
+    <attr name="card_text_color" format="reference" />
 
     <!-- Selector -->
     <attr name="headline_selector" format="reference" />

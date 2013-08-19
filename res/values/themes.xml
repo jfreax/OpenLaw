@@ -21,6 +21,7 @@
 
         <item name="background">@color/background</item>
         <item name="card_background">@color/card_background</item>
+        <item name="card_text_color">@color/card_text_color</item>
 
         <item name="card_text">@style/card_text</item>
         <item name="card_title">@style/card_title</item>
@@ -40,10 +41,9 @@
     <style name="AppThemeDark" parent="AppBaseTheme">
         <item name="android:listViewStyle">@style/Widget.ListView</item>
 
-        <item name="android:textColor">#eee</item>
-
         <item name="background">@color/dark_background</item>
         <item name="card_background">@color/dark_card_background</item>
+        <item name="card_text_color">@color/dark_card_text_color</item>
 
         <item name="card_text">@style/dark_card_text</item>
         <item name="card_title">@style/dark_card_title</item>

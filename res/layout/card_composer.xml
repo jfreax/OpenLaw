@@ -27,13 +27,15 @@
                 android:id="@+id/shortName"
                 style="?attr/card_title"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"/>
 
         <TextView
                 android:id="@+id/fullName"
                 style="?attr/card_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
 
                 android:text="text"
                 android:paddingBottom="5dp"/>
