@@ -33,6 +33,7 @@
         <item name="headline_big_selector">@drawable/headline_big_selector</item>
         <item name="headline_biggest_selector">@drawable/headline_biggest_selector</item>
 
+        <item name="laws_selector">@drawable/laws_selector</item>
     </style>
 
 
@@ -55,5 +56,6 @@
         <item name="headline_big_selector">@drawable/headline_big_selector_dark</item>
         <item name="headline_biggest_selector">@drawable/headline_biggest_selector_dark</item>
 
+        <item name="laws_selector">@drawable/laws_selector_dark</item>
     </style>
 </resources>

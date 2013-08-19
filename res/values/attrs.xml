@@ -9,6 +9,8 @@
     <attr name="headline_big_selector" format="reference" />
     <attr name="headline_biggest_selector" format="reference" />
 
+    <attr name="laws_selector" format="reference" />
+
 
     <!-- Style -->
     <attr name="card_text" format="reference" />
