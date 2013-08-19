@@ -1,16 +1,16 @@
 package de.jdsoft.law.data;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 import android.os.AsyncTask;
 import android.util.Pair;
+import de.jdsoft.law.LawListFragment.SectionComposerAdapter;
+import de.jdsoft.law.data.helper.Law;
 import de.jdsoft.law.database.Favorites;
 import de.jdsoft.law.database.Laws;
 import de.jdsoft.law.helper.CallerInterface;
-import de.jdsoft.law.LawListFragment.SectionComposerAdapter;
-import de.jdsoft.law.data.helper.Law;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class LawSectionList extends AsyncTask<SectionComposerAdapter, Integer, List<Pair<String, List<Law>>>> implements CallerInterface {
 	public static final int TYPE_ALL = 1;

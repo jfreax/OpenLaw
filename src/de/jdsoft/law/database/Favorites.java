@@ -2,16 +2,13 @@ package de.jdsoft.law.database;
 
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import de.jdsoft.law.LawListActivity;
 import de.jdsoft.law.data.helper.Law;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Favorites implements Constants {

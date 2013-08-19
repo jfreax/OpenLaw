@@ -1,26 +1,10 @@
 package de.jdsoft.law;
 
-import android.content.Context;
-import android.content.res.Configuration;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.ListView;
+import android.os.Bundle;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.Window;
-
 import de.jdsoft.law.LawListFragment.Callbacks;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import de.jdsoft.law.database.Favorites;
 
 /**
  * An activity representing a single Book detail screen. This activity is only

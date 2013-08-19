@@ -1,13 +1,12 @@
 package de.jdsoft.law.data;
 
-import java.io.File;
-import java.io.IOException;
-
 import android.util.Log;
-
 import com.jakewharton.DiskLruCache;
 import com.jakewharton.DiskLruCache.Editor;
 import com.jakewharton.DiskLruCache.Snapshot;
+
+import java.io.File;
+import java.io.IOException;
 
 public class Cache {
 

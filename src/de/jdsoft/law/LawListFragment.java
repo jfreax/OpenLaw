@@ -1,28 +1,23 @@
 package de.jdsoft.law;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
 import android.widget.AbsListView.OnScrollListener;
-
+import android.widget.*;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.foound.widget.AmazingAdapter;
-
 import de.jdsoft.law.data.LawSectionList;
 import de.jdsoft.law.data.UpdateLawList;
 import de.jdsoft.law.data.helper.Law;
 import de.jdsoft.law.helper.CallbackInterface;
 import de.jdsoft.law.helper.CallerInterface;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A list fragment representing a list of Laws. This fragment also supports

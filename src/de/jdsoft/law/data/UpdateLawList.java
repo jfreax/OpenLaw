@@ -1,23 +1,19 @@
 package de.jdsoft.law.data;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import de.jdsoft.law.LawListActivity;
-import de.jdsoft.law.database.Connector;
+import android.os.AsyncTask;
+import android.util.Log;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import de.jdsoft.law.LawListFragment.SectionComposerAdapter;
+import de.jdsoft.law.data.helper.Law;
 import de.jdsoft.law.database.Laws;
+import de.jdsoft.law.helper.CallerInterface;
+import de.jdsoft.law.network.RestClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import android.os.AsyncTask;
-import android.util.Log;
-import de.jdsoft.law.helper.CallerInterface;
-import de.jdsoft.law.LawListFragment.SectionComposerAdapter;
-import de.jdsoft.law.data.helper.Law;
-import de.jdsoft.law.network.RestClient;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UpdateLawList extends AsyncTask<SectionComposerAdapter, Integer, Boolean> implements CallerInterface {
 	private static SectionComposerAdapter mCallback = null;
