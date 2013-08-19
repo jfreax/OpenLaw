@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -211,11 +212,11 @@ public class LawListActivity extends SherlockFragmentActivity implements
             public void onFocusChange(View view, boolean queryTextFocused) {
                 if(!queryTextFocused) {
                     // And reset
-                    search.setText("");
+//                    search.setText("");
                     // Hide keyboard
-                    InputMethodManager imm =
-                            (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(search.getWindowToken(), 0);
+//                    InputMethodManager imm =
+//                            (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+//                    imm.hideSoftInputFromWindow(search.getWindowToken(), 0);
                 }
             }
         });
@@ -223,7 +224,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
         // Settings button
         menu.add(0, OPTION_SETTINGS, 99, R.string.settings)
                 .setIcon(isLight ? R.drawable.ic_action_settings_inverse : R.drawable.ic_action_settings)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 
         return true;
     }
