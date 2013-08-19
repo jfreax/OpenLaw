@@ -10,13 +10,13 @@
               android:padding="1dp"
               android:clickable="false"
               android:showDividers="end"
-              android:background="?attr/headline_big_selector">
+              android:background="?attr/card_background">
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/header"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:textSize="@dimen/card_medium_text"
+              android:textSize="@dimen/card_large_text"
               android:padding="6dp"
               android:text="Header"
               android:textColor="@color/light_blue"
