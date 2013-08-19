@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import de.jdsoft.law.LawListActivity;
 import de.jdsoft.law.data.helper.Law;
@@ -63,21 +64,29 @@ public class Laws implements Constants {
     }
 
     static public Law getLaw(int id) {
-        SQLiteDatabase db = LawListActivity.db.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_LAWS, new String[] { KEY_ID,
-                KEY_SHORT_NAME, KEY_LONG_NAME, KEY_SLUG }, KEY_ID + "=?",
-                new String[] { String.valueOf(id) }, null, null, null, null);
-        if (cursor.getCount() == 0 ) {
-            Log.e(Connector.class.getName(), "No db entry for id " + id);
-            return null;
+        Cursor cursor;
+        Law law = null;
+
+        try {
+            SQLiteDatabase db = LawListActivity.db.getReadableDatabase();
+            cursor = db.query(TABLE_LAWS, new String[] { KEY_ID,
+                    KEY_SHORT_NAME, KEY_LONG_NAME, KEY_SLUG }, KEY_ID + "=?",
+                    new String[] { String.valueOf(id) }, null, null, null, null);
+            if (cursor.getCount() == 0 ) {
+                Log.e(Connector.class.getName(), "No db entry for id " + id);
+                return null;
+            }
+
+            if (cursor != null)
+                cursor.moveToFirst();
+            law = new Law(Integer.parseInt(cursor.getString(0)),
+                    cursor.getString(1), cursor.getString(3), cursor.getString(2));
+
+            cursor.close();
+        } catch (SQLiteException e) {
+            // FIXME do something... but most likely only the update process is running
         }
 
-        if (cursor != null)
-            cursor.moveToFirst();
-        Law law = new Law(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(3), cursor.getString(2));
-
-        cursor.close();
         return law;
     }
 
