@@ -409,22 +409,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
                     headline.setPadding(0,0,0,8);
                 }
 
-                switch (Math.abs(lineObj.depth)) {
-                    case 3:
-                        headline.setTextAppearance(getContext(), R.style.Headline3);
-                        break;
-                    case 4:
-                        headline.setTextAppearance(getContext(), R.style.Headline4);
-                        break;
-                    case 5:
-                        headline.setTextAppearance(getContext(), R.style.Headline5);
-                        break;
-                    case 6:
-                        headline.setTextAppearance(getContext(), R.style.Headline6);
-                        break;
-                    default:
-                        break;
-                }
                 // Set text
                 headline.setText(lineObj.headline);
             }
