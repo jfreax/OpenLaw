@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Color -->
-    <attr name="card_background" format="reference|color" />
+    <attr name="card_background" format="reference" />
 
-    <!-- Styles -->
+    <!-- Selector -->
+    <attr name="headline_selector" format="reference" />
+    <attr name="headline_big_selector" format="reference" />
+    <attr name="headline_biggest_selector" format="reference" />
+
+
+    <!-- Style -->
+    <attr name="card_text" format="reference" />
+    <attr name="card_title" format="reference" />
+    <attr name="card_title_bold" format="reference" />
+    <attr name="card_title_italic" format="reference" />
+
     <attr name="headline_small" format="reference" />
 </resources>

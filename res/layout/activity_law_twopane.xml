@@ -33,7 +33,7 @@
 
         <LinearLayout
             android:id="@+id/law_headline_container"
-            android:background="#ddd"
+            android:background="?attr/background"
             android:paddingLeft="6dp"
             android:paddingRight="6dp"
             android:layout_width="0dp"

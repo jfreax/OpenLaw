@@ -8,11 +8,11 @@
               android:paddingLeft="16dp"
               android:paddingRight="16dp"
               android:showDividers="none"
-              android:background="@drawable/headline_selector">
+              android:background="?attr/headline_selector">
 
     <TextView
             android:id="@+id/headline"
-            style="@style/headline_small"
+            style="?attr/headline_small"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"/>

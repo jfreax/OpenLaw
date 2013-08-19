@@ -9,7 +9,8 @@
               android:orientation="vertical"
               android:padding="1dp"
               android:clickable="false"
-              android:showDividers="end" >
+              android:showDividers="end"
+              android:background="?attr/card_background">
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/header"

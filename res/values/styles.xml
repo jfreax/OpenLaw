@@ -1,37 +1,5 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!--
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    -->
-    <style name="AppBaseTheme" parent="@style/Theme.Sherlock.Light.DarkActionBar">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
-    </style>
-
-    <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-
-    <!-- Light theme -->
-    <!-- =========== -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <item name="android:listViewStyle">@style/Widget.ListView</item>
-
-        <item name="card_background">@color/card_background</item>
-        <item name="headline_small">@style/headline_small</item>
-
-    </style>
-
-    <style name="card_title" parent="@card_text">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/card_large_text</item>
-        <item name="android:textColor">@color/card_title_text</item>
-        <item name="android:fontFamily">sans-serif-light</item>
-    </style>
-
     <style name="headline_small" parent="@style/card_title">
         <item name="android:textSize">16sp</item>
         <item name="android:paddingBottom">3dp</item>
@@ -46,19 +14,23 @@
         <item name="android:maxLines">2</item>
     </style>
 
-    <style name="CardLightText" parent="@card_text">
-        <item name="android:textColor">@color/card_light_text</item>
+    <style name="card_title" parent="@card_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/card_large_text</item>
+        <item name="android:textColor">@color/card_title_text</item>
+        <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
-
-    <style name="CardTitleBold" parent="@card_text">
+    <style name="card_title_bold" parent="@card_text">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/card_medium_text</item>
         <item name="android:textColor">@color/card_title_text</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
-    <style name="CardTitleItalic" parent="@card_text">
+
+    <style name="card_title_italic" parent="@card_text">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/card_medium_text</item>
@@ -66,6 +38,11 @@
         <item name="android:textStyle">italic</item>
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
+
+    <style name="CardLightText" parent="@card_text">
+        <item name="android:textColor">@color/card_light_text</item>
+    </style>
+
 
     <style name="StackTitle" parent="@card_text">
         <item name="android:layout_width">wrap_content</item>

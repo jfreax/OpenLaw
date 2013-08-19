@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="white">#fff</color>
+    <color name="background">#ddd</color>
+    <color name="card_background">#eee</color>
+    <color name="card_selected_background">#abd5e5</color>
 
-    <color name="stroke">#dddddd</color>
-    <color name="text_light">#66000000</color>
 
     <color name="card_text">#ff8d8d8d</color>
     <color name="card_title_text">#ff202020</color>
+
+    <color name="headline_big">#fff</color>
+    <color name="headline_biggest">#dddddd</color>
+
+
+
+    <!-- TODO -->
+
+
+    <color name="stroke">#dddddd</color>
+
+
     <color name="card_light_text">#ffb5b5b5</color>
     <color name="card_grid_text">#ff707070</color>
-    <color name="card_selected_background">#abd5e5</color>
-    <color name="card_background">#eee</color>
 
     <color name="light_blue">#37b3f3</color>
 

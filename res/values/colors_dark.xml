@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="dark_background">#333</color>
+
     <color name="dark_card_background">#222</color>
+    <color name="dark_card_selected_background">#3b2515</color>
+    <color name="dark_card_text">#ff8d8d8d</color>
+    <color name="dark_card_title_text">#ffd0d0d0</color>
+
+    <color name="dark_headline_big">#111</color>
+    <color name="dark_headline_biggest">@color/dark_background</color>
+
+
 </resources>

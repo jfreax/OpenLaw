@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="@style/Theme.Sherlock.Light.DarkActionBar">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+
+    <!-- Light theme -->
+    <!-- =========== -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:listViewStyle">@style/Widget.ListView</item>
+
+        <item name="background">@color/background</item>
+        <item name="card_background">@color/card_background</item>
+
+        <item name="card_text">@style/card_text</item>
+        <item name="card_title">@style/card_title</item>
+        <item name="card_title_bold">@style/card_title_bold</item>
+        <item name="card_title_italic">@style/card_title_italic</item>
+
+        <item name="headline_small">@style/headline_small</item>
+        <item name="headline_selector">@drawable/headline_selector</item>
+        <item name="headline_big_selector">@drawable/headline_big_selector</item>
+        <item name="headline_biggest_selector">@drawable/headline_biggest_selector</item>
+
+    </style>
+
+
+    <!-- Dark theme -->
+    <!-- =========== -->
+    <style name="AppThemeDark" parent="AppBaseTheme">
+        <item name="android:listViewStyle">@style/Widget.ListView</item>
+
+        <item name="android:textColor">#eee</item>
+
+        <item name="background">@color/dark_background</item>
+        <item name="card_background">@color/dark_card_background</item>
+
+        <item name="card_text">@style/dark_card_text</item>
+        <item name="card_title">@style/dark_card_title</item>
+        <item name="card_title_bold">@style/dark_card_title_bold</item>
+        <item name="card_title_italic">@style/dark_card_title_italic</item>
+
+        <item name="headline_small">@style/dark_headline_small</item>
+        <item name="headline_selector">@drawable/headline_selector_dark</item>
+        <item name="headline_big_selector">@drawable/headline_big_selector_dark</item>
+        <item name="headline_biggest_selector">@drawable/headline_biggest_selector_dark</item>
+
+    </style>
+</resources>

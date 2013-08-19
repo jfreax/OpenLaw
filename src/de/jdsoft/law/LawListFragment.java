@@ -5,7 +5,9 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
@@ -93,9 +95,6 @@ public class LawListFragment extends SherlockListFragment {
             UpdateLawList updater = new UpdateLawList();
             updater.execute(adapter);
         }
-		
-
-
 	}
 
 	public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -111,7 +110,11 @@ public class LawListFragment extends SherlockListFragment {
 		}
 
 		final ListView listView = getListView();
-        listView.setBackgroundColor(Color.rgb(238, 238, 238)); // FIXME hardcoded, but R.color.* does not work?
+//        listView.setBackgroundColor(Color.TRANSPARENT);
+        TypedArray a = getActivity().getTheme().obtainStyledAttributes(R.style.AppThemeDark, new int[]{R.attr.background});
+        int attributeResourceId = a.getResourceId(0, 0);
+        listView.setBackgroundColor(getResources().getColor(attributeResourceId));
+        a.recycle();
 
         // Enable fast scroll
 		listView.setFastScrollEnabled(true);

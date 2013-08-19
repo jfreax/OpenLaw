@@ -10,13 +10,13 @@
               android:showDividers="end"
               android:divider="@color/stroke"
               android:dividerPadding="0dp"
-              android:background="@drawable/headline_big_selector">
+              android:background="?attr/headline_big_selector">
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/headline"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              style="@style/CardTitleBold"
+              style="?attr/card_title_bold"
               android:padding="6dp"
               android:text="Header" />
 </LinearLayout>
