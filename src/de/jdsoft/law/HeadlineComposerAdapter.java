@@ -46,6 +46,10 @@ public class HeadlineComposerAdapter extends BaseAdapter {
             if ( cache == null || cache.isClosed() ) {
                 cache.openCache();
             }
+            if( slug == "" ) { // Work around when database is blocked
+                return;
+            }
+
             DiskLruCache.Snapshot snapshot = cache.get(slug);
             if ( snapshot != null ) {
                 makeHeadlines(snapshot.getString(0));
