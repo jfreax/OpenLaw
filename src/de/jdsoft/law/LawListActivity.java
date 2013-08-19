@@ -289,9 +289,6 @@ public class LawListActivity extends SherlockFragmentActivity implements
     public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-//                if ( isTwoPane() && headlineFragment != null && !headlineFragment.isCollapsed ) {
-//                    onBackPressed();
-//                }
                 if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
                     mDrawerLayout.closeDrawer(mDrawerList);
                 } else {
@@ -299,6 +296,11 @@ public class LawListActivity extends SherlockFragmentActivity implements
                 }
                 return true;
             case OPTION_SEARCH:
+                // Go back to law list in two pane mode if necessary
+                if( headlineFragment != null && !headlineFragment.isCollapsed ) {
+                    headlineFragment.fadeOut();
+                }
+
                 search = (EditText) item.getActionView();
                 search.addTextChangedListener(searchTextWatcher);
                 return true;
