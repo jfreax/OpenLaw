@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/extern/AmazingListView/AmazingListView.iml" filepath="$PROJECT_DIR$/extern/AmazingListView/AmazingListView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/extern/Android-ViewPagerIndicator/library/Android-ViewPagerIndicator.iml" filepath="$PROJECT_DIR$/extern/Android-ViewPagerIndicator/library/Android-ViewPagerIndicator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OpenLaw.iml" filepath="$PROJECT_DIR$/OpenLaw.iml" />
+      <module fileurl="file://$PROJECT_DIR$/extern/ActionBarSherlock/actionbarsherlock/actionbarsherlock.iml" filepath="$PROJECT_DIR$/extern/ActionBarSherlock/actionbarsherlock/actionbarsherlock.iml" />
+      <module fileurl="file://$PROJECT_DIR$/extern/android-async-http/android-async-http.iml" filepath="$PROJECT_DIR$/extern/android-async-http/android-async-http.iml" />
+    </modules>
+  </component>
+</project>
+
