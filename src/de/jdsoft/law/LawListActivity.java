@@ -46,6 +46,10 @@ import java.util.List;
 public class LawListActivity extends SherlockFragmentActivity implements
 		LawListFragment.Callbacks, ActionBar.OnNavigationListener {
 
+    private static final int OPTION_SEARCH = 3;
+    private static final int OPTION_SETTINGS = 2;
+
+
     public static Connector db;
 
     private DrawerLayout mDrawerLayout;
@@ -62,13 +66,23 @@ public class LawListActivity extends SherlockFragmentActivity implements
     public LawListActivity() {
         super();
 
-        if( db == null ) {
-            db = new Connector(this);
-        }
+
     }
 
 	@SuppressLint("NewApi")
 	public void onCreate(Bundle savedInstanceState) {
+        // Select theme
+        if ("dark".equalsIgnoreCase( getIntent().getStringExtra( "theme" ))) {
+            setTheme(R.style.AppThemeDark);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+
+        // Setup database
+        if( db == null ) {
+            db = new Connector(getApplicationContext());
+        }
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_law_list);
 
@@ -109,6 +123,11 @@ public class LawListActivity extends SherlockFragmentActivity implements
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Back to main list
+                if( headlineFragment != null && !headlineFragment.isCollapsed ) {
+                    headlineFragment.fadeOut();
+                }
+
                 switch (adapter.getItem(position).type) {
                     case DrawerAdapter.ID_GERMAN_BUND:
                         if( !lawListFragment.adapter.isFinish ) {
@@ -181,11 +200,10 @@ public class LawListActivity extends SherlockFragmentActivity implements
     	boolean isLight = true;
 
     	// Search button
-        menu.add(0, 3, 3, R.string.search)
+        menu.add(0, OPTION_SEARCH, 3, R.string.search)
             .setIcon(isLight ? R.drawable.ic_search_inverse : R.drawable.ic_search)
             .setActionView(R.layout.collapsible_search)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
-
 
         final EditText search = (EditText)menu.getItem(0).getActionView();
         search.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -201,6 +219,11 @@ public class LawListActivity extends SherlockFragmentActivity implements
                 }
             }
         });
+
+        // Settings button
+        menu.add(0, OPTION_SETTINGS, 99, R.string.settings)
+                .setIcon(isLight ? R.drawable.ic_action_settings_inverse : R.drawable.ic_action_settings)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
 
         return true;
     }
@@ -227,6 +250,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
             // for the selected item ID.
             Intent detailIntent = new Intent(this, LawHeadlineActivity.class);
             detailIntent.putExtra(LawHeadlineFragment.ARG_ITEM_ID, id);
+            detailIntent.putExtra("theme", getIntent().getStringExtra( "theme" ));
             startActivity(detailIntent);
             overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
         }
@@ -265,18 +289,25 @@ public class LawListActivity extends SherlockFragmentActivity implements
     public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                if ( isTwoPane() && headlineFragment != null && !headlineFragment.isCollapsed ) {
-                    onBackPressed();
-                }
+//                if ( isTwoPane() && headlineFragment != null && !headlineFragment.isCollapsed ) {
+//                    onBackPressed();
+//                }
                 if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
                     mDrawerLayout.closeDrawer(mDrawerList);
                 } else {
                     mDrawerLayout.openDrawer(mDrawerList);
                 }
                 return true;
-            case 3:
+            case OPTION_SEARCH:
                 search = (EditText) item.getActionView();
                 search.addTextChangedListener(searchTextWatcher);
+                return true;
+            case OPTION_SETTINGS:
+                Toast.makeText(getApplicationContext(), "Helloooo", Toast.LENGTH_LONG).show();
+                Intent intent = getIntent();
+                intent.putExtra( "theme", "dark" );
+                finish();
+                startActivity(intent);
                 return true;
         }
         return false;
@@ -285,9 +316,6 @@ public class LawListActivity extends SherlockFragmentActivity implements
 
     @Override
     protected void onDestroy() {
-        db.close();
-        db = null;
-
         super.onDestroy();
     }
 
@@ -336,7 +364,6 @@ public class LawListActivity extends SherlockFragmentActivity implements
 
         public DrawerAdapter(Activity activity) {
             inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
 
             entries.add( new Entry(
                     activity.getResources().getDrawable(R.drawable.flag_germany),

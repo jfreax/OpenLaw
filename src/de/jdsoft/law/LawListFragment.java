@@ -55,7 +55,7 @@ public class LawListFragment extends SherlockListFragment {
 	 */
 	private int mActivatedPosition = ListView.INVALID_POSITION;
 
-	/**
+    /**
 	 * A callback interface that all activities containing this fragment must
 	 * implement. This mechanism allows activities to be notified of item
 	 * selections.
@@ -110,11 +110,15 @@ public class LawListFragment extends SherlockListFragment {
 		}
 
 		final ListView listView = getListView();
-//        listView.setBackgroundColor(Color.TRANSPARENT);
-        TypedArray a = getActivity().getTheme().obtainStyledAttributes(R.style.AppThemeDark, new int[]{R.attr.background});
-        int attributeResourceId = a.getResourceId(0, 0);
-        listView.setBackgroundColor(getResources().getColor(attributeResourceId));
-        a.recycle();
+//        TypedArray a;
+//        if ("dark".equalsIgnoreCase( getSherlockActivity().getIntent().getStringExtra( "theme" ))) {
+//            a = getActivity().getTheme().obtainStyledAttributes(R.style.AppThemeDark, new int[]{R.attr.background});
+//        } else {
+//            a = getActivity().getTheme().obtainStyledAttributes(R.style.AppTheme, new int[]{R.attr.background});
+//        }
+//        int attributeResourceId = a.getResourceId(0, 0);
+//        listView.setBackgroundColor(getResources().getColor(attributeResourceId));
+//        a.recycle();
 
         // Enable fast scroll
 		listView.setFastScrollEnabled(true);

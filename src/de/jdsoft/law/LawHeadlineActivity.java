@@ -33,11 +33,17 @@ import de.jdsoft.law.database.Favorites;
 public class LawHeadlineActivity extends SherlockFragmentActivity implements Callbacks, ActionBar.OnNavigationListener {
 
     private LawHeadlineFragment fragment;
-    public LawHeadlineFragment headlineFragment;
 
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
+        // Select theme
+        if ("dark".equalsIgnoreCase( getIntent().getStringExtra( "theme" ))) {
+            setTheme(R.style.AppThemeDark);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_law_headline);
 

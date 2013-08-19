@@ -21,6 +21,13 @@ public class LawTextActivity extends SherlockFragmentActivity {
     private String lawShortName = "";
 
     protected void onCreate(Bundle savedInstanceState) {
+        // Select theme
+        if ("dark".equalsIgnoreCase( getIntent().getStringExtra( "theme" ))) {
+            setTheme(R.style.AppThemeDark);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_law_text);
 

@@ -71,14 +71,20 @@ public class LawTextFragment extends SherlockFragment {
             getSherlockActivity().getSupportActionBar().setTitle(getArguments().getString(ARG_ITEM_SHORT));
         }
 
+        // Get theme id
+        int theme = R.style.AppTheme;
+        if ("dark".equalsIgnoreCase( getSherlockActivity().getIntent().getStringExtra( "theme" ))) {
+            theme = R.style.AppThemeDark;
+        }
+
         // Get webview background color from theme
-        TypedArray a = getActivity().getTheme().obtainStyledAttributes(R.style.AppThemeDark, new int[]{R.attr.card_background});
+        TypedArray a = getActivity().getTheme().obtainStyledAttributes(theme, new int[]{R.attr.card_background});
         int attributeResourceId = a.getResourceId(0, 0);
         background_color = Integer.toHexString(getResources().getColor(attributeResourceId) & 0x00ffffff);
         a.recycle();
 
         // And font color
-        a = getActivity().getTheme().obtainStyledAttributes(R.style.AppThemeDark, new int[]{R.attr.card_text_color});
+        a = getActivity().getTheme().obtainStyledAttributes(theme, new int[]{R.attr.card_text_color});
         attributeResourceId = a.getResourceId(0, 0);
         font_color = Integer.toHexString(getResources().getColor(attributeResourceId) & 0x00ffffff);
         a.recycle();
