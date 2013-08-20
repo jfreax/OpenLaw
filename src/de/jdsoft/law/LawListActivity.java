@@ -251,7 +251,6 @@ public class LawListActivity extends SherlockFragmentActivity implements
             // for the selected item ID.
             Intent detailIntent = new Intent(this, LawHeadlineActivity.class);
             detailIntent.putExtra(LawHeadlineFragment.ARG_ITEM_ID, id);
-            detailIntent.putExtra("theme", getIntent().getStringExtra( "theme" ));
             startActivity(detailIntent);
             overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
         }
@@ -306,14 +305,8 @@ public class LawListActivity extends SherlockFragmentActivity implements
                 search.addTextChangedListener(searchTextWatcher);
                 return true;
             case OPTION_SETTINGS:
-                Toast.makeText(getApplicationContext(), "Helloooo", Toast.LENGTH_LONG).show();
-//                Intent intent = getIntent();
-//                intent.putExtra( "theme", "dark" );
-//                finish();
-//                startActivity(intent);
-                Intent detailIntent = new Intent(this, SettingsActivity.class);
-                detailIntent.putExtra("theme", getIntent().getStringExtra( "theme" ));
-                startActivity(detailIntent);
+                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                startActivity(settingsIntent);
                 return true;
         }
         return false;
