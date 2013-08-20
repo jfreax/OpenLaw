@@ -4,6 +4,7 @@
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/extern/ActionBarSherlock" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/extern/Android-ViewPagerIndicator" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/extern/UnifiedPreference" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/extern/android-async-http" vcs="Git" />
   </component>
 </project>

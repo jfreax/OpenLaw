@@ -7,3 +7,6 @@
 [submodule "extern/android-async-http"]
 	path = extern/android-async-http
 	url = git://github.com/loopj/android-async-http.git
+[submodule "extern/UnifiedPreference"]
+	path = extern/UnifiedPreference
+	url = https://github.com/saik0/UnifiedPreference.git
