@@ -11,6 +11,13 @@
     <string name="search">Suchen</string>
     <string name="favit">Favorisieren</string>
 
+    <!-- Settings -->
+    <string name="pref_general">Allgemein</string>
+    <string name="pref_advanced">Erweitert</string>
+
+    <string name="pref_dark_theme">Dark Theme</string>
+    <string name="pref_dark_theme_summery">Benutze ein dunkles Farbschema</string>
+
 
     <string name="flag">Flagge</string>
 
@@ -44,4 +51,5 @@
     <string name="icon">Icon</string>
     <string name="german_bund_law">Bundesgesetze</string>
     <string name="fav">Favoriten</string>
+
 </resources>

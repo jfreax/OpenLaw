@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -71,7 +72,8 @@ public class LawListActivity extends SherlockFragmentActivity implements
 	@SuppressLint("NewApi")
 	public void onCreate(Bundle savedInstanceState) {
         // Select theme
-        if ("dark".equalsIgnoreCase( getIntent().getStringExtra( "theme" ))) {
+        SharedPreferences pref =  getSharedPreferences("openlaw", Context.MODE_PRIVATE);
+        if( pref.getBoolean("dark_theme", false) ) {
             setTheme(R.style.AppThemeDark);
         } else {
             setTheme(R.style.AppTheme);
@@ -222,7 +224,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
         // Settings button
         menu.add(0, OPTION_SETTINGS, 99, R.string.settings)
                 .setIcon(isLight ? R.drawable.ic_action_settings_inverse : R.drawable.ic_action_settings)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER | MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         return true;
     }
@@ -305,10 +307,13 @@ public class LawListActivity extends SherlockFragmentActivity implements
                 return true;
             case OPTION_SETTINGS:
                 Toast.makeText(getApplicationContext(), "Helloooo", Toast.LENGTH_LONG).show();
-                Intent intent = getIntent();
-                intent.putExtra( "theme", "dark" );
-                finish();
-                startActivity(intent);
+//                Intent intent = getIntent();
+//                intent.putExtra( "theme", "dark" );
+//                finish();
+//                startActivity(intent);
+                Intent detailIntent = new Intent(this, SettingsActivity.class);
+                detailIntent.putExtra("theme", getIntent().getStringExtra( "theme" ));
+                startActivity(detailIntent);
                 return true;
         }
         return false;

@@ -1,5 +1,7 @@
 package de.jdsoft.law;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -22,7 +24,8 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
         // Select theme
-        if ("dark".equalsIgnoreCase( getIntent().getStringExtra( "theme" ))) {
+        SharedPreferences pref =  getSharedPreferences("openlaw", Context.MODE_PRIVATE);
+        if( pref.getBoolean("dark_theme", false) ) {
             setTheme(R.style.AppThemeDark);
         } else {
             setTheme(R.style.AppTheme);

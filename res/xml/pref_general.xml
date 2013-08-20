@@ -1,0 +1,9 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="dark_theme"
+            android:title="@string/pref_dark_theme"
+            android:summary="@string/pref_dark_theme_summery" />
+
+</PreferenceScreen>

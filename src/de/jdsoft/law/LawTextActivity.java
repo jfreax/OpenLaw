@@ -1,6 +1,8 @@
 package de.jdsoft.law;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,7 +21,8 @@ public class LawTextActivity extends SherlockFragmentActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         // Select theme
-        if ("dark".equalsIgnoreCase( getIntent().getStringExtra( "theme" ))) {
+        SharedPreferences pref =  getSharedPreferences("openlaw", Context.MODE_PRIVATE);
+        if( pref.getBoolean("dark_theme", false) ) {
             setTheme(R.style.AppThemeDark);
         } else {
             setTheme(R.style.AppTheme);

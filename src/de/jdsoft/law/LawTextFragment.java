@@ -1,6 +1,7 @@
 package de.jdsoft.law;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -73,6 +74,11 @@ public class LawTextFragment extends SherlockFragment {
 
         // Get theme id
         int theme = R.style.AppTheme;
+        SharedPreferences pref = getSherlockActivity().getSharedPreferences("openlaw", Context.MODE_PRIVATE);
+        if( pref.getBoolean("dark_theme", false) ) {
+            theme = R.style.AppThemeDark;
+        }
+
         if ("dark".equalsIgnoreCase( getSherlockActivity().getIntent().getStringExtra( "theme" ))) {
             theme = R.style.AppThemeDark;
         }
