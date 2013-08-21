@@ -106,6 +106,10 @@ public class LawListActivity extends SherlockFragmentActivity implements
 			
 			ListView listview = lawListFragment.getListView();
 
+            // Disable standard orange background selection
+            listview.setCacheColorHint(android.R.color.transparent);
+            listview.setSelector(android.R.color.transparent);
+
             if(Build.VERSION.SDK_INT >= 11) {
 			    listview.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
             }

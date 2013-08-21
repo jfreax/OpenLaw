@@ -149,7 +149,12 @@ public class LawHeadlineFragment extends SherlockListFragment {
 //                    .getInt(STATE_ACTIVATED_POSITION));
         }
 
+        // Remember listview
         final ListView listView = getListView();
+
+        // Disable standard orange background selection
+        listView.setCacheColorHint(android.R.color.transparent);
+        listView.setSelector(android.R.color.transparent);
 
         // Enable fast scroll
         listView.setFastScrollEnabled(true);
