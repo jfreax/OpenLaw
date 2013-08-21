@@ -14,7 +14,7 @@
         android:orientation="horizontal"
         android:showDividers="middle"
         android:baselineAligned="false"
-        android:background="?attr/background"
+        android:background="?android:attr/colorBackground"
         tools:context=".LawListActivity" >
 
         <!--
@@ -34,14 +34,14 @@
 
         <LinearLayout
             android:id="@+id/law_headline_container"
-            android:background="?attr/background"
+            android:background="?android:attr/colorBackground"
             android:paddingLeft="6dp"
             android:paddingRight="6dp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3">
 
-                <include
+                <includeeeef
                         android:layout_width="match_parent"
                         android:layout_height="fill_parent"
                         android:baselineAligned="false"
@@ -50,7 +50,7 @@
 
         <LinearLayout
             android:id="@+id/law_text_container"
-            android:background="?attr/background"
+            android:background="?android:attr/colorBackground"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0" />
