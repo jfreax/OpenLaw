@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.LinearLayout;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.jakewharton.DiskLruCache.Editor;
@@ -105,6 +106,10 @@ public class LawTextFragment extends SherlockFragment {
 
         // Initialize webview
         webview = (TweakedWebView) rootView.findViewById(R.id.text_webview);
+
+        // Hide ugly white scrollbar on API level <= 7
+        webview.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+
 //        webview.setLongClickable(false);
 //        webview.setOnLongClickListener(new View.OnLongClickListener() {
 //            @Override
