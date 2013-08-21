@@ -17,6 +17,10 @@
 
     <string name="pref_dark_theme">Dark Theme</string>
     <string name="pref_dark_theme_summery">Benutze ein dunkles Farbschema</string>
+    <string name="pref_reset_db">Datenbank zurücksetzen</string>
+    <string name="pref_reset_db_summery">Datenbank inkl. Favoriten und Markierungen löschen</string>
+    <string name="pref_cache_size">Cache Größe</string>
+    <string name="pref_cache_size_summery">Größe um Gesetzestexte auf der SD Karte zwischenzuspeichern.</string>
 
 
     <string name="flag">Flagge</string>
@@ -52,5 +56,4 @@
     <string name="eu">Europäische Union</string>
     <string name="germany">Deutschland</string>
     <string name="favorite">Favoriten</string>
-
 </resources>

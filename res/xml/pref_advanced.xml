@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+            android:key="cache_siez"
+            android:title="@string/pref_cache_size"
+            android:summary="@string/pref_cache_size_summery" />
+
     <Preference
             android:key="reset_db"
-            android:title="@string/pref_dark_theme"
-            android:summary="@string/pref_dark_theme_summery" />
+            android:title="@string/pref_reset_db"
+            android:summary="@string/pref_reset_db_summery" />
 
 
 </PreferenceScreen>
