@@ -63,6 +63,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
 	 */
     protected boolean mTwoPane;
 	public LawHeadlineFragment headlineFragment = null;
+    private LawListFragment lawListFragment;
 
 
     public LawListActivity() {
@@ -89,7 +90,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_law_list);
 
-        final LawListFragment lawListFragment =
+        lawListFragment =
                 ((LawListFragment) getSupportFragmentManager().findFragmentById(R.id.law_list));
 
         // Two pane mode
@@ -133,7 +134,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
                 }
 
                 switch (adapter.getItem(position).type) {
-                    case DrawerAdapter.ID_GERMAN_BUND:
+                    case DrawerAdapter.ID_GERMANY:
                         if( !lawListFragment.adapter.isFinish ) {
                             LawSectionList sectionDB = new LawSectionList(LawSectionList.TYPE_ALL);
                             sectionDB.execute(lawListFragment.adapter);
@@ -141,13 +142,9 @@ public class LawListActivity extends SherlockFragmentActivity implements
                             lawListFragment.setListAdapter(lawListFragment.adapter);
                         }
                         break;
-                    case DrawerAdapter.ID_FAV:
-                        LawSectionList sectionDB = new LawSectionList(LawSectionList.TYPE_FAV);
-                        sectionDB.execute(lawListFragment.adapterFavs);
+                    case DrawerAdapter.ID_EU:
+                        Toast.makeText(LawListActivity.this, "Coming soon.", Toast.LENGTH_SHORT).show();
 
-                        if( lawListFragment.adapterFavs.isFinish ) {
-                            lawListFragment.setListAdapter(lawListFragment.adapterFavs);
-                        }
                         break;
                     default:
                         break;
@@ -305,9 +302,25 @@ public class LawListActivity extends SherlockFragmentActivity implements
     }
 
 
+    // Handle button clicks
     public void clickDrawerSettings(View view) {
         Intent settingsIntent = new Intent(this, SettingsActivity.class);
         startActivity(settingsIntent);
+    }
+
+    public void clickDrawerFavorites(View view) {
+        if( headlineFragment != null && !headlineFragment.isCollapsed ) {
+            headlineFragment.fadeOut();
+        }
+
+        LawSectionList sectionDB = new LawSectionList(LawSectionList.TYPE_FAV);
+        sectionDB.execute(lawListFragment.adapterFavs);
+
+        if( lawListFragment.adapterFavs.isFinish ) {
+            lawListFragment.setListAdapter(lawListFragment.adapterFavs);
+        }
+
+        mDrawerLayout.closeDrawer(mDrawerView);
     }
 
 
@@ -327,8 +340,8 @@ public class LawListActivity extends SherlockFragmentActivity implements
 
 
     static private class DrawerAdapter extends BaseAdapter {
-        public static final int ID_GERMAN_BUND = 1;
-        public static final int ID_FAV = 2;
+        public static final int ID_EU = 1;
+        public static final int ID_GERMANY = 2;
 
         static private class Entry {
             public Entry(Drawable icon, int count, String text, int type) {
@@ -357,15 +370,16 @@ public class LawListActivity extends SherlockFragmentActivity implements
             inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             entries.add( new Entry(
+                    activity.getResources().getDrawable(R.drawable.flag_eu),
+                    10,
+                    activity.getString(R.string.eu),
+                    ID_EU));
+
+            entries.add( new Entry(
                     activity.getResources().getDrawable(R.drawable.flag_germany),
                     10,
-                    activity.getString(R.string.german_bund_law),
-                    ID_GERMAN_BUND));
-            entries.add( new Entry(
-                    activity.getResources().getDrawable(R.drawable.btn_star_on_convo_holo_light),
-                    10,
-                    activity.getString(R.string.favorite),
-                    ID_FAV));
+                    activity.getString(R.string.germany),
+                    ID_GERMANY));
         }
 
         @Override

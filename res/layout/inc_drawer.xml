@@ -11,6 +11,7 @@
               android:id="@+id/left_drawer"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
+              android:layout_marginTop="8dp"
               android:choiceMode="singleChoice"
               android:divider="@android:color/transparent"
               android:dividerHeight="0dp" />
@@ -25,16 +26,29 @@
 
         <Button
                 android:id="@+id/settings_text"
+                android:text="@string/favorite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/btn_star_on_convo_holo_light"
+                android:drawablePadding="8dp"
+                android:background="@drawable/abs__tab_indicator_ab_holo"
+                style="?attr/card_title_bold"
+                android:onClick="clickDrawerFavorites"
+                android:gravity="center|left"
+                android:layout_marginLeft="8dp"/>
+
+        <Button
+                android:id="@+id/settings_text"
                 android:text="@string/settings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="?attr/ic_action_settings"
                 android:drawablePadding="8dp"
                 android:background="@drawable/abs__tab_indicator_ab_holo"
-                android:layout_margin="8dp"
                 style="?attr/card_title_bold"
                 android:onClick="clickDrawerSettings"
-                android:gravity="center|left" />
+                android:gravity="center|left"
+                android:layout_marginLeft="8dp"/>
 
     </LinearLayout>
 

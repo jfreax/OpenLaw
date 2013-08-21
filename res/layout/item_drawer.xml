@@ -10,7 +10,7 @@
             android:id="@+id/icon"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_margin="8dp"
+            android:layout_marginLeft="8dp"
             android:contentDescription="@string/icon"
     />
 
