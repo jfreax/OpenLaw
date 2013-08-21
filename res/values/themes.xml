@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    -->
-    <style name="AppBaseTheme" parent="@style/Theme.Sherlock.Light.DarkActionBar">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
-    </style>
-
     <!-- All customizations that are NOT specific to a particular API-level can go here. -->
 
     <!-- Light theme -->
     <!-- =========== -->
-    <style name="AppTheme" parent="AppBaseTheme">
+    <style name="AppTheme" parent="@style/Theme.Sherlock.Light.DarkActionBar">
         <item name="android:listViewStyle">@style/Widget.ListView</item>
 
         <item name="android:colorBackground">@color/background</item>
@@ -42,7 +30,7 @@
 
     <!-- Dark theme -->
     <!-- =========== -->
-    <style name="AppThemeDark" parent="AppBaseTheme">
+    <style name="AppThemeDark" parent="@style/Theme.Sherlock">
         <item name="android:listViewStyle">@style/Widget.ListView</item>
 
         <item name="android:colorBackground">@color/dark_background</item>
@@ -64,4 +52,5 @@
 
         <item name="laws_selector">@drawable/laws_selector_dark</item>
     </style>
+
 </resources>
