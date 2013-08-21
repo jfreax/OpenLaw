@@ -2,12 +2,12 @@
                     xmlns:unified="http://schemas.android.com/apk/res-auto" >
 
     <header
-            unified:fragment="de.jdsoft.SettingsActivity$GeneralFragment"
+            unified:fragment="de.jdsoft.law.SettingsActivity$GeneralFragment"
             unified:title="@string/pref_general"
             unified:preferenceRes="@xml/pref_general" />
 
     <header
-            unified:fragment="de.jdsoft.SettingsActivity$AdvancedFragment"
+            unified:fragment="de.jdsoft.law.SettingsActivity$AdvancedFragment"
             unified:title="@string/pref_advanced"
             unified:preferenceRes="@xml/pref_advanced" />
 

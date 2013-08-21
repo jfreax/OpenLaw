@@ -61,8 +61,11 @@ public class SettingsActivity extends UnifiedSherlockPreferenceActivity {
     }
 
     public static class GeneralFragment extends UnifiedPreferenceFragment {
+        public GeneralFragment() {}
     }
 
-    public static class AdvancedFragment extends UnifiedPreferenceFragment {}
+    public static class AdvancedFragment extends UnifiedPreferenceFragment {
+        public AdvancedFragment() {}
+    }
 
 }
