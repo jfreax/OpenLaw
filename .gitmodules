@@ -10,3 +10,6 @@
 [submodule "extern/UnifiedPreference"]
 	path = extern/UnifiedPreference
 	url = https://github.com/saik0/UnifiedPreference.git
+[submodule "extern/Android-PanesLibrary"]
+	path = extern/Android-PanesLibrary
+	url = https://github.com/cricklet/Android-PanesLibrary.git
