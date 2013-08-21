@@ -20,7 +20,10 @@ public class UpdateLawList extends AsyncTask<SectionComposerAdapter, Integer, Bo
 
 	protected Boolean doInBackground(SectionComposerAdapter... params) {
 		mCallback = params[0];
-		this.getLawNames();
+
+        if( Laws.getLawsCount() == 0 ) {
+		    this.getLawNames();
+        }
 
 		return true;
 	}
