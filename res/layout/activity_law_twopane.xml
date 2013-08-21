@@ -14,7 +14,6 @@
         android:orientation="horizontal"
         android:showDividers="middle"
         android:baselineAligned="false"
-        android:background="?android:attr/colorBackground"
         tools:context=".LawListActivity" >
 
         <!--
@@ -34,7 +33,6 @@
 
         <LinearLayout
             android:id="@+id/law_headline_container"
-            android:background="?android:attr/colorBackground"
             android:paddingLeft="6dp"
             android:paddingRight="6dp"
             android:layout_width="0dp"

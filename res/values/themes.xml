@@ -8,7 +8,8 @@
         <item name="android:listViewStyle">@style/Widget.ListView</item>
 
         <item name="android:colorBackground">@color/background</item>
-        <item name="android:windowBackground">@color/card_background</item>
+        <item name="android:colorForeground">@color/card_background</item>
+        <item name="android:windowBackground">@color/background</item>
 
         <item name="android:textColorPrimary">@color/card_text_color</item>
         <item name="android:textColorSecondary">@color/card_text_color</item>
@@ -34,7 +35,8 @@
         <item name="android:listViewStyle">@style/Widget.ListView</item>
 
         <item name="android:colorBackground">@color/dark_background</item>
-        <item name="android:windowBackground">@color/dark_card_background</item>
+        <item name="android:colorForeground">@color/dark_card_background</item>
+        <item name="android:windowBackground">@color/dark_background</item>
 
         <item name="android:textColorPrimary">@color/dark_card_text_color</item>
         <item name="android:textColorSecondary">@color/dark_card_text_color</item>

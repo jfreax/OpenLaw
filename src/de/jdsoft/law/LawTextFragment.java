@@ -85,7 +85,7 @@ public class LawTextFragment extends SherlockFragment {
         }
 
         // Get webview background color from theme
-        TypedArray a = getActivity().getTheme().obtainStyledAttributes(theme, new int[]{android.R.attr.windowBackground});
+        TypedArray a = getActivity().getTheme().obtainStyledAttributes(theme, new int[]{android.R.attr.colorForeground});
         int attributeResourceId = a.getResourceId(0, 0);
         background_color = Integer.toHexString(getResources().getColor(attributeResourceId) & 0x00ffffff);
         a.recycle();
