@@ -90,7 +90,7 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
 }

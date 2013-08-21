@@ -76,7 +76,7 @@ public class LawTextActivity extends SherlockFragmentActivity {
 
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     class HeadlinePagerAdapter extends FragmentPagerAdapter {

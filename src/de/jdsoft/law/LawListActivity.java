@@ -252,7 +252,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
             Intent detailIntent = new Intent(this, LawHeadlineActivity.class);
             detailIntent.putExtra(LawHeadlineFragment.ARG_ITEM_ID, id);
             startActivity(detailIntent);
-            overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
 	}
 

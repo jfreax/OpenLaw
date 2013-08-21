@@ -241,7 +241,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
             // Replace fragment
 			FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.setCustomAnimations(R.anim.alpha_in, R.anim.alpha_out);
+            ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
 			ft.replace(R.id.law_text_container, text_fragment);
 			ft.commit();
 			
@@ -257,9 +257,8 @@ public class LawHeadlineFragment extends SherlockListFragment {
 			detailIntent.putExtra(LawTextFragment.ARG_ITEM_ID, id);
 			detailIntent.putExtra(LawTextFragment.ARG_ITEM_SLUG, law.getSlug());
             detailIntent.putExtra(LawTextFragment.ARG_ITEM_SHORT, law.getShortName());
-            detailIntent.putExtra("theme", getSherlockActivity().getIntent().getStringExtra( "theme" ));
 			startActivity(detailIntent);
-            getSherlockActivity().overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
+            getSherlockActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
 	}
 

@@ -37,10 +37,11 @@ public class SettingsActivity extends UnifiedSherlockPreferenceActivity {
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     finish();
                     startActivity(intent);
-                    overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 }
             }
         });
+
     }
 
 
@@ -53,7 +54,7 @@ public class SettingsActivity extends UnifiedSherlockPreferenceActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-            overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         } else {
             super.onBackPressed();
         }
