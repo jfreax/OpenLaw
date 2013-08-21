@@ -18,6 +18,6 @@
             android:layout_height="wrap_content"
             android:text="@string/loading"
             android:textSize="24sp"
-            android:textColor="#000" />
+            android:textColor="?android:attr/textColorPrimary" />
 </LinearLayout>
 
