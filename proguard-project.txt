@@ -72,3 +72,4 @@
   public void setPanel*Weight(float);
 }
 
+-keep class de.jdsoft.law.SettingsActivity$* { *; }
