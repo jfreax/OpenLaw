@@ -109,10 +109,8 @@ public class LawListActivity extends SherlockFragmentActivity implements
             // Disable standard orange background selection
             listview.setCacheColorHint(android.R.color.transparent);
             listview.setSelector(android.R.color.transparent);
+            listview.setScrollingCacheEnabled(false);
 
-            if(Build.VERSION.SDK_INT >= 11) {
-			    listview.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
-            }
 			listview.setScrollBarStyle(ScrollView.SCROLLBARS_INSIDE_INSET);
 
             // Do not show loading animation on start
