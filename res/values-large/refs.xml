@@ -8,7 +8,7 @@
     http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
     -->
     <item name="activity_law_list" type="layout">@layout/activity_law_twopane</item>
-    <item name="list_background" type="drawable">@drawable/list_arrow_background</item>
-    <item name="list_item_background" type="drawable">@drawable/list_item_noarrow_background</item>
+    <!--<item name="list_background" type="drawable">@drawable/list_arrow_background</item>-->
+    <!--<item name="list_item_background" type="drawable">@drawable/list_item_noarrow_background</item>-->
 
 </resources>

@@ -1,12 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/left_drawer_layout"
+              android:layout_width="240dp"
+              android:layout_height="fill_parent"
+              android:layout_gravity="start"
+              android:background="?attr/android:colorBackground" android:orientation="vertical"
+              android:gravity="start">
 
-<ListView  xmlns:android="http://schemas.android.com/apk/res/android"
-          android:id="@+id/left_drawer"
-          android:layout_width="240dp"
-          android:layout_height="match_parent"
-          android:layout_gravity="start"
-          android:choiceMode="singleChoice"
-          android:divider="@android:color/transparent"
-          android:dividerHeight="0dp"
-          android:background="?attr/android:colorBackground"
- />
+    <ListView  xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/left_drawer"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:choiceMode="singleChoice"
+              android:divider="@android:color/transparent"
+              android:dividerHeight="0dp" />
+
+
+    <LinearLayout
+            android:id="@+id/bottom_linear_layout_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+        <Button
+                android:id="@+id/settings_text"
+                android:text="@string/settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="?attr/ic_action_settings"
+                android:drawablePadding="8dp"
+                android:background="@drawable/abs__tab_indicator_ab_holo"
+                android:layout_margin="8dp"
+                style="?attr/card_title_bold"
+                android:onClick="clickDrawerSettings"
+                android:gravity="center|left" />
+
+    </LinearLayout>
+
+</LinearLayout>

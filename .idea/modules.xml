@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/extern/AmazingListView/AmazingListView.iml" filepath="$PROJECT_DIR$/extern/AmazingListView/AmazingListView.iml" />
-      <module fileurl="file://$PROJECT_DIR$/extern/Android-PanesLibrary/library/Android-PanesLibrary.iml" filepath="$PROJECT_DIR$/extern/Android-PanesLibrary/library/Android-PanesLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/extern/Android-ViewPagerIndicator/library/Android-ViewPagerIndicator.iml" filepath="$PROJECT_DIR$/extern/Android-ViewPagerIndicator/library/Android-ViewPagerIndicator.iml" />
       <module fileurl="file://$PROJECT_DIR$/OpenLaw.iml" filepath="$PROJECT_DIR$/OpenLaw.iml" />
       <module fileurl="file://$PROJECT_DIR$/extern/UnifiedPreference/library/UnifiedPreference.iml" filepath="$PROJECT_DIR$/extern/UnifiedPreference/library/UnifiedPreference.iml" />

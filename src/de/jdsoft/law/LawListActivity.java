@@ -47,7 +47,6 @@ public class LawListActivity extends SherlockFragmentActivity implements
 		LawListFragment.Callbacks, ActionBar.OnNavigationListener {
 
     private static final int OPTION_SEARCH = 3;
-    private static final int OPTION_SETTINGS = 2;
 
 
     public static Connector db;
@@ -55,13 +54,16 @@ public class LawListActivity extends SherlockFragmentActivity implements
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private ListView mDrawerList;
+    private LinearLayout mDrawerView;
 
-	/**
+
+    /**
 	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
 	 * device.
 	 */
     protected boolean mTwoPane;
 	public LawHeadlineFragment headlineFragment = null;
+
 
     public LawListActivity() {
         super();
@@ -117,6 +119,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
 
         // Locate ListView in drawer_main.xml
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        mDrawerView = (LinearLayout) findViewById(R.id.left_drawer_layout);
 
         // Set drawer adapter
         final DrawerAdapter adapter = new DrawerAdapter(this);
@@ -149,7 +152,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
                     default:
                         break;
                 }
-                mDrawerLayout.closeDrawer(mDrawerList);
+                mDrawerLayout.closeDrawer(mDrawerView);
             }
         });
 
@@ -210,21 +213,16 @@ public class LawListActivity extends SherlockFragmentActivity implements
         search.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean queryTextFocused) {
-                if(!queryTextFocused) {
-                    // And reset
+//                if(!queryTextFocused) {
+                // And reset
 //                    search.setText("");
-                    // Hide keyboard
+                // Hide keyboard
 //                    InputMethodManager imm =
 //                            (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 //                    imm.hideSoftInputFromWindow(search.getWindowToken(), 0);
-                }
+//                }
             }
         });
-
-        // Settings button
-        menu.add(0, OPTION_SETTINGS, 99, R.string.settings)
-                .setIcon(isLight ? R.drawable.ic_action_settings_inverse : R.drawable.ic_action_settings)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER | MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         return true;
     }
@@ -283,16 +281,14 @@ public class LawListActivity extends SherlockFragmentActivity implements
     	}
     }
 
-    private EditText search;
-
     @Override
     public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                    mDrawerLayout.closeDrawer(mDrawerList);
+                if (mDrawerLayout.isDrawerOpen(mDrawerView)) {
+                    mDrawerLayout.closeDrawer(mDrawerView);
                 } else {
-                    mDrawerLayout.openDrawer(mDrawerList);
+                    mDrawerLayout.openDrawer(mDrawerView);
                 }
                 return true;
             case OPTION_SEARCH:
@@ -301,21 +297,17 @@ public class LawListActivity extends SherlockFragmentActivity implements
                     headlineFragment.fadeOut();
                 }
 
-                search = (EditText) item.getActionView();
+                EditText search = (EditText) item.getActionView();
                 search.addTextChangedListener(searchTextWatcher);
-                return true;
-            case OPTION_SETTINGS:
-                Intent settingsIntent = new Intent(this, SettingsActivity.class);
-                startActivity(settingsIntent);
                 return true;
         }
         return false;
     }
 
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void clickDrawerSettings(View view) {
+        Intent settingsIntent = new Intent(this, SettingsActivity.class);
+        startActivity(settingsIntent);
     }
 
 
@@ -372,7 +364,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
             entries.add( new Entry(
                     activity.getResources().getDrawable(R.drawable.btn_star_on_convo_holo_light),
                     10,
-                    activity.getString(R.string.fav),
+                    activity.getString(R.string.favorite),
                     ID_FAV));
         }
 

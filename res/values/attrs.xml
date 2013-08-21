@@ -10,6 +10,9 @@
 
     <attr name="laws_selector" format="reference" />
 
+    <!-- Icon -->
+    <attr name="ic_action_settings" format="reference" />
+
 
     <!-- Style -->
     <attr name="card_text" format="reference" />

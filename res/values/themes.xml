@@ -26,6 +26,9 @@
         <item name="headline_biggest_selector">@drawable/headline_biggest_selector</item>
 
         <item name="laws_selector">@drawable/laws_selector</item>
+
+        <!-- Icon -->
+        <item name="ic_action_settings">@drawable/ic_action_settings</item>
     </style>
 
 
@@ -53,6 +56,9 @@
         <item name="headline_biggest_selector">@drawable/headline_biggest_selector_dark</item>
 
         <item name="laws_selector">@drawable/laws_selector_dark</item>
+
+        <!-- Icon -->
+        <item name="ic_action_settings">@drawable/ic_action_settings_inverse</item>
     </style>
 
 </resources>

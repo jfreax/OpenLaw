@@ -50,6 +50,6 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="icon">Icon</string>
     <string name="german_bund_law">Bundesgesetze</string>
-    <string name="fav">Favoriten</string>
+    <string name="favorite">Favoriten</string>
 
 </resources>
