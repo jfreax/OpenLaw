@@ -10,7 +10,7 @@
 
     <dimen name="cards_margin">16dip</dimen>
     <dimen name="card_padding">16.0dip</dimen>
-    <dimen name="card_small_padding">12.0dip</dimen>
+    <dimen name="card_small_padding">10.0dip</dimen>
 
     <dimen name="headline_seperator_distance">12.0dip</dimen>
 
