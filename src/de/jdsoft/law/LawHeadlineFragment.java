@@ -7,7 +7,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.*;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -20,7 +23,6 @@ import com.actionbarsherlock.view.MenuItem;
 import com.nineoldandroids.animation.AnimatorInflater;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.animation.PropertyValuesHolder;
 import de.jdsoft.law.LawListFragment.Callbacks;
 import de.jdsoft.law.data.helper.Law;
 import de.jdsoft.law.data.helper.LawHeadline;
@@ -88,6 +90,8 @@ public class LawHeadlineFragment extends SherlockListFragment {
     // Animations
     private AnimatorSet fadeInAnimation;
     private AnimatorSet fadeOutAnimation;
+    private AnimatorSet resetPanel;
+
 
     /**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -95,6 +99,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	 */
 	public LawHeadlineFragment() {
 	}
+
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -128,10 +133,15 @@ public class LawHeadlineFragment extends SherlockListFragment {
             panel3 = (ViewGroup) getSherlockActivity().findViewById(R.id.law_text_container);
 
             // Set pivot to center for law list and law text view
-            float listWidth = panel1.getWidth();
-            float listHeight = panel1.getHeight();
-            panel1.setPivotX(listWidth / 2.f);
-            panel1.setPivotY(listHeight / 2.f);
+//            float listWidth = panel1.getWidth();
+//            float listHeight = panel1.getHeight();
+//            panel1.setPivotX(listWidth / 2.f);
+//            panel1.setPivotY(listHeight / 2.f);
+
+//            panel1.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+//            panel1.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+//            panel1.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+
 
             // Animation
             initialzeAnimation();
@@ -142,6 +152,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
             loading.setVisibility(View.VISIBLE);
 	}
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup
             container, Bundle savedInstanceState) {
@@ -149,6 +160,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
         return super.onCreateView(inflater, container, savedInstanceState);
     }
+
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -179,6 +191,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
         setActivateOnItemClick(true);
     }
 
+
     @Override
     public void onCreateOptionsMenu (Menu menu, MenuInflater inflater) {
         boolean isLight = true; // TODO
@@ -195,6 +208,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
                 .setIcon(favDrawable)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -230,6 +244,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 		mCallbacks = (Callbacks) activity;
 
 	}
+
 
 	public void onDetach() {
 		super.onDetach();
@@ -281,6 +296,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
         }
 	}
 
+
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		if (mActivatedPosition != ListView.INVALID_POSITION) {
@@ -290,6 +306,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 //            outState.putSerializable(STATE_LAW, this.law);
 		}
 	}
+
 
     public void initialzeAnimation() {
         // Fade in //
@@ -361,38 +378,49 @@ public class LawHeadlineFragment extends SherlockListFragment {
                 leftIn,
                 animSet2
         );
+
+        // Reset "animation"
+        // Do not use panel3.setScaleX(1.0f) directly because its not available in API level < 11
+        resetPanel = new AnimatorSet();
+        resetPanel.playTogether(
+                ObjectAnimator.ofFloat(panel1, "scaleX", 1.0f),
+                ObjectAnimator.ofFloat(panel1, "scaleY", 1.0f),
+                ObjectAnimator.ofFloat(panel1, "alpha", 1.0f)
+        );
+        resetPanel.setDuration(0);
+
     }
-	
+
+
     public void fadeIn() {
         isCollapsed = false;
         getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Reset properties set by fadeOut()
-        panel3.setScaleX(1.0f);
-        panel3.setScaleY(1.0f);
-        panel3.setAlpha(1.0f);
+        resetPanel.setTarget(panel3);
+        resetPanel.start();
 
         fadeInAnimation.start();
     }
+
     
     public void fadeOut() {
     	isCollapsed = true;
 
-        // Disable up button
-        getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        // Fixme workaround
+        if( getSherlockActivity() != null ) {
+            // Disable up button
+            getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-        // Reset title
-        getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.title_law));
+            // Reset title
+            getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.title_law));
 
-        // Deselect
-        getListView().setItemChecked((int)selectedID, false);
-        selectedID = -1;
+            // Deselect
+            getListView().setItemChecked((int)selectedID, false);
+            selectedID = -1;
+        }
 
-
-        // Reset properties set by fadeIn()
-        panel1.setScaleX(1.0f);
-        panel1.setScaleY(1.0f);
-        panel1.setAlpha(1.0f);
+        resetPanel.setTarget(panel1);
+        resetPanel.start();
 
         fadeOutAnimation.start();
     }
@@ -401,7 +429,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
     /*
      * Our magic getters/setters below!
      */
-    
     public float getPanel1Weight() {
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) panel1.getLayoutParams();
         return params.weight;
