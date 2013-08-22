@@ -117,7 +117,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
             panel3 = (ViewGroup) getSherlockActivity().findViewById(R.id.law_text_container);
 
             // Animation
-            initialzeAnimation();
+            initializeAnimation();
         }
 
         loading = (LinearLayout)getSherlockActivity().findViewById(R.id.loading);
@@ -300,7 +300,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	}
 
 
-    public void initialzeAnimation() {
+    public void initializeAnimation() {
         // Fade in //
         //---------//
 
