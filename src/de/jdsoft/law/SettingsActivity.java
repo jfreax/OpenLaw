@@ -9,7 +9,6 @@ import net.saik0.android.unifiedpreference.UnifiedSherlockPreferenceActivity;
 
 
 public class SettingsActivity extends UnifiedSherlockPreferenceActivity {
-    boolean theme = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,7 +25,6 @@ public class SettingsActivity extends UnifiedSherlockPreferenceActivity {
         setSharedPreferencesMode(Context.MODE_PRIVATE);
 
         super.onCreate(savedInstanceState);
-
 
         pref.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
