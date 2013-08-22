@@ -21,7 +21,7 @@ import java.util.List;
 public class HeadlineComposerAdapter extends BaseAdapter {
     private final Context context;
     private String slug;
-    private List<Pair<Integer,String>> headlines = null;
+    private List<LawHeadline> headlines = null;
     Cache cache = null;
 
     private ArrayList<DataSetObserver> observers = new ArrayList<DataSetObserver>();
@@ -98,15 +98,15 @@ public class HeadlineComposerAdapter extends BaseAdapter {
     }
 
     protected void makeHeadlines(String raw) {
-        headlines = new ArrayList<Pair<Integer,String>>();
+        headlines = new ArrayList<LawHeadline>();
 
         if( raw.equals("") ) { // Error while downloading
-            headlines.add(new Pair<Integer, String>(1, context.getString(R.string.error_downloading)));
+            headlines.add(new LawHeadline(1, context.getString(R.string.error_downloading)));
         } else {
             for ( String line : raw.split("\\r?\\n")) {
                 if ( line.contains(":") ) {
                     String[] depthAndText = line.split(":");
-                    headlines.add(new Pair<Integer, String>(Integer.parseInt(depthAndText[0]), depthAndText[1].trim()));
+                    headlines.add(new LawHeadline(Integer.parseInt(depthAndText[0]), depthAndText[1].trim()));
                 }
             }
         }
@@ -127,7 +127,7 @@ public class HeadlineComposerAdapter extends BaseAdapter {
 
     public LawHeadline getItem(int position) {
         try {
-            return new LawHeadline(headlines.get(position).first, headlines.get(position).second);
+            return headlines.get(position);
         } catch(IndexOutOfBoundsException e){
             return null;
         }
