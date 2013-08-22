@@ -7,51 +7,55 @@
     <!-- The main content view -->
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main_twopane"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:orientation="horizontal"
-        android:showDividers="middle"
         android:baselineAligned="false"
+        android:weightSum="5"
         tools:context=".LawListActivity" >
 
         <!--
-        This layout is a two-pane layout for the Books
-        master/detail flow. See res/values-large/refs.xml and
-        res/values-sw600dp/refs.xml.
+        This layout is a two-pane layout master/detail flow.
+        See res/values-large/refs.xml and res/values-sw600dp/refs.xml.
 
         For more on layout aliases, see:
         http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
         -->
-        <fragment
-            android:id="@+id/law_list"
-            android:name="de.jdsoft.law.LawListFragment"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2" />
+            <LinearLayout
+                android:id="@+id/law_list_container"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2" >
 
-        <LinearLayout
-            android:id="@+id/law_headline_container"
-            android:paddingLeft="6dp"
-            android:paddingRight="6dp"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3">
+                <fragment
+                    android:id="@+id/law_list"
+                    android:name="de.jdsoft.law.LawListFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
 
-                <include
-                        android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
-                        android:baselineAligned="false"
-                        layout="@layout/loading_view" />
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/law_headline_container"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3">
 
-        <LinearLayout
-            android:id="@+id/law_text_container"
-            android:background="?android:attr/colorBackground"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0" />
+                    <include
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:baselineAligned="false"
+                            layout="@layout/loading_view" />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/law_text_container"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3" >
+            </LinearLayout>
+
     </LinearLayout>
 
     <!-- The navigation drawer -->

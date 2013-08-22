@@ -7,19 +7,20 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.Interpolator;
+import android.view.animation.*;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.app.SherlockListFragment;
-import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
-import com.actionbarsherlock.internal.nineoldandroids.animation.PropertyValuesHolder;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.nineoldandroids.animation.AnimatorInflater;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.animation.PropertyValuesHolder;
 import de.jdsoft.law.LawListFragment.Callbacks;
 import de.jdsoft.law.data.helper.Law;
 import de.jdsoft.law.data.helper.LawHeadline;
@@ -117,9 +118,15 @@ public class LawHeadlineFragment extends SherlockListFragment {
             }
 //        }
 		
-        panel1 = (ViewGroup) getSherlockActivity().findViewById(R.id.law_list);
+        panel1 = (ViewGroup) getSherlockActivity().findViewById(R.id.law_list_container);
         panel2 = (ViewGroup) getSherlockActivity().findViewById(R.id.law_headline_container);
         panel3 = (ViewGroup) getSherlockActivity().findViewById(R.id.law_text_container);
+
+        // Set pivot to center for law list and law text view
+        float listWidth = panel1.getWidth();
+        float listHeight = panel1.getHeight();
+        panel1.setPivotX(listWidth / 2.f);
+        panel1.setPivotY(listHeight / 2.f);
 
         loading = (LinearLayout)getSherlockActivity().findViewById(R.id.loading);
         if( loading != null )
@@ -281,15 +288,44 @@ public class LawHeadlineFragment extends SherlockListFragment {
         isCollapsed = false;
         getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //Most of the magic here can be attributed to: http://android.amberfog.com/?p=758
-        PropertyValuesHolder[] arrayOfPropertyValuesHolder = new PropertyValuesHolder[3];
-        arrayOfPropertyValuesHolder[0] = PropertyValuesHolder.ofFloat("Panel1Weight", 1.0f, 0.0f);
-        arrayOfPropertyValuesHolder[1] = PropertyValuesHolder.ofFloat("Panel2Weight", 2.0f, 1.0f);
-        arrayOfPropertyValuesHolder[2] = PropertyValuesHolder.ofFloat("Panel3Weight", 0.0f, 2.0f);
-        ObjectAnimator localObjectAnimator = ObjectAnimator.ofPropertyValuesHolder(this, arrayOfPropertyValuesHolder).setDuration(ANIM_DURATION);
-        localObjectAnimator.setInterpolator(interpolator);
-        localObjectAnimator.start();
+        float listWidth = panel1.getWidth();
 
+        // Reset properties set by fadeOut()
+        panel3.setScaleX(1.0f);
+        panel3.setScaleY(1.0f);
+        panel3.setAlpha(1.0f);
+
+        // Scale list view and fade it a little bit
+        AnimatorSet scaleDownAndFadeOut =
+                (AnimatorSet) AnimatorInflater.loadAnimator(getSherlockActivity(),
+                        R.anim.scale_down_and_fadeout);
+        scaleDownAndFadeOut.setTarget(panel1);
+        scaleDownAndFadeOut.setInterpolator(new AccelerateDecelerateInterpolator());
+
+        // Move it to left (out of screen)
+        ObjectAnimator leftOut = ObjectAnimator.ofFloat(panel1, "translationX", -listWidth);
+        leftOut.setDuration(150);
+        leftOut.setStartDelay(80);
+        leftOut.setInterpolator(new AccelerateInterpolator());
+
+
+        // Move and change size for second (headline) panel at once
+        AnimatorSet animSet = new AnimatorSet();
+        animSet.playTogether(
+                leftOut,
+                ObjectAnimator.ofFloat(this, "Panel1Weight", 2.0f, 0.0f).setDuration(200),
+                ObjectAnimator.ofFloat(this, "Panel2Weight", 3.0f, 2.0f).setDuration(80)
+        );
+        animSet.setStartDelay(30);
+
+        // Altgether, fade out, translate out together and after a small delay changes headline size
+        // and move to left side
+        AnimatorSet endAnimSet = new AnimatorSet();
+        endAnimSet.playTogether(
+                scaleDownAndFadeOut,
+                animSet
+        );
+        endAnimSet.start();
     }
     
     public void fadeOut() {
@@ -305,14 +341,43 @@ public class LawHeadlineFragment extends SherlockListFragment {
         getListView().setItemChecked((int)selectedID, false);
         selectedID = -1;
 
-        // Animation
-        PropertyValuesHolder[] arrayOfPropertyValuesHolder = new PropertyValuesHolder[3];
-        arrayOfPropertyValuesHolder[0] = PropertyValuesHolder.ofFloat("Panel1Weight", 0.0f, 1.0f);
-        arrayOfPropertyValuesHolder[1] = PropertyValuesHolder.ofFloat("Panel2Weight", 1.0f, 2.0f);
-        arrayOfPropertyValuesHolder[2] = PropertyValuesHolder.ofFloat("Panel3Weight", 2.0f, 0.0f);
-        ObjectAnimator localObjectAnimator = ObjectAnimator.ofPropertyValuesHolder(this, arrayOfPropertyValuesHolder).setDuration(ANIM_DURATION);
-        localObjectAnimator.setInterpolator(interpolator);
-        localObjectAnimator.start();
+
+        // Reset properties set by fadeIn()
+        panel1.setScaleX(1.0f);
+        panel1.setScaleY(1.0f);
+        panel1.setAlpha(1.0f);
+
+        // Move law list to right (into the screen)
+        ObjectAnimator leftIn = ObjectAnimator.ofFloat(panel1, "translationX", 0);
+        leftIn.setDuration(150);
+        leftIn.setStartDelay(80);
+        leftIn.setInterpolator(new AccelerateInterpolator());
+
+        // Scale law text down and fade it a little bit
+        AnimatorSet scaleDownAndFadeOut =
+                (AnimatorSet) AnimatorInflater.loadAnimator(getSherlockActivity(),
+                        R.anim.scale_down_and_fadeout);
+        scaleDownAndFadeOut.setTarget(panel3);
+        scaleDownAndFadeOut.setInterpolator(new AccelerateDecelerateInterpolator());
+
+
+        // Move and change size for second (headline) panel at once
+        AnimatorSet animSet = new AnimatorSet();
+        animSet.playTogether(
+                ObjectAnimator.ofFloat(this, "Panel1Weight", 0.0f, 2.0f).setDuration(200),
+                ObjectAnimator.ofFloat(this, "Panel2Weight", 2.0f, 3.0f).setDuration(80)
+        );
+        animSet.setStartDelay(100);
+
+        // Altgether, fade out, translate out together and after a small delay changes headline size
+        // and move to left side
+        AnimatorSet endAnimSet = new AnimatorSet();
+        endAnimSet.playTogether(
+                scaleDownAndFadeOut,
+                leftIn,
+                animSet
+        );
+        endAnimSet.start();
     }
     
 
@@ -321,7 +386,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
      */
     
     public float getPanel1Weight() {
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)     panel1.getLayoutParams();
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) panel1.getLayoutParams();
         return params.weight;
     }
 

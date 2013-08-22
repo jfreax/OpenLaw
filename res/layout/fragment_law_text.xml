@@ -22,9 +22,9 @@
                                          android:visibility="gone">
     </de.jdsoft.law.helper.TweakedWebView>
 
-    <include
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/text_overlay" />
+    <!--<include-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--layout="@layout/text_overlay" />-->
 
 </FrameLayout>
