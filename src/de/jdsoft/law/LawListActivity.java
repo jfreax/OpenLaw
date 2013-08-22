@@ -62,7 +62,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
 	 * device.
 	 */
     protected boolean mTwoPane;
-	public LawHeadlineFragment headlineFragment = null;
+	private LawHeadlineFragment headlineFragment = null;
     private LawListFragment lawListFragment;
 
 

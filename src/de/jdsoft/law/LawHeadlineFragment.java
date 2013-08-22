@@ -272,8 +272,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
             ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
 			ft.replace(R.id.law_text_container, text_fragment);
 			ft.commit();
-			
-			((LawListActivity)getActivity()).headlineFragment = this;
 
             // Fade in
 			if ( isCollapsed )
