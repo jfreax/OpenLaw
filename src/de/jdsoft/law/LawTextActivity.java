@@ -85,7 +85,7 @@ public class LawTextActivity extends SherlockFragmentActivity {
         public HeadlinePagerAdapter(FragmentManager fm, Activity activity, String slug) {
             super(fm);
 
-            mAdapter = new HeadlineComposerAdapter(activity, slug) {
+            mAdapter = new HeadlineComposerAdapter(activity) {
                 @Override
                 protected void makeHeadlines(String raw) {
                     super.makeHeadlines(raw);
@@ -97,6 +97,7 @@ public class LawTextActivity extends SherlockFragmentActivity {
                     }
                 }
             };
+            mAdapter.initialize(slug);
 
         }
 

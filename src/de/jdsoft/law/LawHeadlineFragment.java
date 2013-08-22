@@ -1,7 +1,9 @@
 package de.jdsoft.law;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -121,8 +123,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
         }
 
         loading = (LinearLayout)getSherlockActivity().findViewById(R.id.loading);
-        if( loading != null )
-            loading.setVisibility(View.VISIBLE);
 	}
 
 
@@ -147,8 +147,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
                 && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
             getListView().setSelection(savedInstanceState
                     .getInt(STATE_ACTIVATED_POSITION));
-//            setActivatedPosition(savedInstanceState
-//                    .getInt(STATE_ACTIVATED_POSITION));
         }
 
         // Remember listview
@@ -167,6 +165,9 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
 
     void updateAdapter(int lawID) {
+        if( loading != null )
+            loading.setVisibility(View.VISIBLE);
+
         law = Laws.getLaw(lawID);
 
         if (law != null) {
@@ -181,7 +182,19 @@ public class LawHeadlineFragment extends SherlockListFragment {
             this.slug = law.getSlug();
         }
 
-        adapter = new HeadlineComposerAdapterWithView(getSherlockActivity(), slug);
+        adapter = new HeadlineComposerAdapterWithView(
+                getSherlockActivity().getBaseContext(),
+                slug,
+                new DataSetObserver() { // Wait for data changed on
+                    @Override
+                    public void onChanged() {
+                        super.onChanged();
+
+                        // Then hide loading indicator
+                        loading.setVisibility(View.GONE);
+                    }
+                }
+        );
         setListAdapter(adapter);
     }
 
@@ -460,57 +473,78 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	}
 
 
-    public class HeadlineComposerAdapterWithView extends HeadlineComposerAdapter {
+    static public class HeadlineComposerAdapterWithView extends HeadlineComposerAdapter {
 
-        public HeadlineComposerAdapterWithView(Activity activity, String slug) {
-            super(activity, slug);
+        private static final int TYPE_MAX_COUNT = 3;
+        private static final int TYPE_BIGGEST = 0;
+        private static final int TYPE_BIG = 1;
+        private static final int TYPE_NORMAL = 2;
+        private final LayoutInflater mInflater;
+
+        static private class ViewHolder {
+
+            final TextView headline;
+            ViewHolder(TextView headline) {
+                this.headline = headline;
+            }
+
+        }
+
+        public HeadlineComposerAdapterWithView(Context baseContext, String slug, DataSetObserver dataSetObserver) {
+            super(baseContext);
+            registerDataSetObserver(dataSetObserver);
+            mInflater = (LayoutInflater)baseContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            initialize(slug);
+        }
+
+
+        public HeadlineComposerAdapterWithView(Context baseContext, String slug) {
+            super(baseContext);
+            mInflater = (LayoutInflater)baseContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            initialize(slug);
         }
 
         protected void makeHeadlines(String raw) {
-            SherlockFragmentActivity activity = getSherlockActivity();
-            if( activity == null )
-                return;
-
-            if( loading != null )
-                loading.setVisibility(View.GONE);
-
             super.makeHeadlines(raw);
         }
 
-        // TODO performance!
+        @Override
+        public int getItemViewType(int position) {
+            return Math.abs(getItem(position).depth) - 1;
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return TYPE_MAX_COUNT;
+        }
+
         public View getView(int position, View convertView, ViewGroup parent) {
-            View res = convertView;
-
-            LawHeadline lineObj = getItem(position);
-            if( Math.abs(lineObj.depth) == 1) {
-                res = getActivity().getLayoutInflater().inflate(R.layout.item_headline_biggest, parent, false);
-                TextView headline = (TextView) res.findViewById(R.id.headline);
-                headline.setText(lineObj.headline);
-
-            } else if( Math.abs(lineObj.depth) == 2) {
-                res = getActivity().getLayoutInflater().inflate(R.layout.item_headline_big, parent, false);
-                TextView headline = (TextView) res.findViewById(R.id.headline);
-                headline.setText(lineObj.headline);
-
+            ViewHolder holder;
+            int type = getItemViewType(position);
+            if (convertView == null) {
+                switch (type) {
+                    case TYPE_BIGGEST:
+                        convertView = mInflater.inflate(R.layout.item_headline_biggest, null);
+                        break;
+                    case TYPE_BIG:
+                        convertView = mInflater.inflate(R.layout.item_headline_big, null);
+                        break;
+                    case TYPE_NORMAL:
+                    default:
+                        convertView = mInflater.inflate(R.layout.item_headline, null);
+                        break;
+                }
+                holder = new ViewHolder((TextView)convertView.findViewById(R.id.headline));
+                convertView.setTag(holder);
             } else {
-                res = getActivity().getLayoutInflater().inflate(R.layout.item_headline, parent, false);
-                TextView headline = (TextView) res.findViewById(R.id.headline);
-
-                // Add margin for first element
-                if( position == 0 ) {
-                    getListView().setPadding(0, 8, 0, 0);
-                }
-
-                // Add padding for last or for last not big/biggest headline
-                if( position == getCount()-1 || getItem(position).depth < lineObj.depth ) {
-                    headline.setPadding(0,0,0,8);
-                }
-
-                // Set text
-                headline.setText(lineObj.headline);
+                holder = (ViewHolder)convertView.getTag();
             }
 
-            return res;
+            holder.headline.setText(getItem(position).headline);
+
+            return convertView;
         }
     }
 

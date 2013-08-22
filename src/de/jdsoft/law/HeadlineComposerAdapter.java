@@ -2,6 +2,7 @@ package de.jdsoft.law;
 
 import android.app.Activity;
 import android.content.Context;
+import android.database.DataSetObserver;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
@@ -18,15 +19,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HeadlineComposerAdapter extends BaseAdapter {
-    private final Activity activity;
-    private final String slug;
+    private final Context context;
+    private String slug;
     private List<Pair<Integer,String>> headlines = null;
     Cache cache = null;
 
+    private ArrayList<DataSetObserver> observers = new ArrayList<DataSetObserver>();
 
-    public HeadlineComposerAdapter(Activity activity, String slug) {
+
+    public HeadlineComposerAdapter(Context context) {
         this.cache = new Cache();
-        this.activity = activity;
+        this.context = context;
+    }
+
+    public void initialize(String slug) {
         this.slug = slug;
         getHeadlinesRaw();
     }
@@ -95,7 +101,7 @@ public class HeadlineComposerAdapter extends BaseAdapter {
         headlines = new ArrayList<Pair<Integer,String>>();
 
         if( raw.equals("") ) { // Error while downloading
-            headlines.add(new Pair<Integer, String>(1, activity.getString(R.string.error_downloading)));
+            headlines.add(new Pair<Integer, String>(1, context.getString(R.string.error_downloading)));
         } else {
             for ( String line : raw.split("\\r?\\n")) {
                 if ( line.contains(":") ) {
@@ -109,7 +115,7 @@ public class HeadlineComposerAdapter extends BaseAdapter {
     }
 
     public Context getContext() {
-        return activity.getApplicationContext();
+        return context;
     }
 
     public int getCount() {
@@ -138,5 +144,22 @@ public class HeadlineComposerAdapter extends BaseAdapter {
 
     public String getSlug() {
         return slug;
+    }
+
+    @Override
+    public void registerDataSetObserver(DataSetObserver arg0) {
+        observers.add(arg0);
+    }
+
+    @Override
+    public void unregisterDataSetObserver(DataSetObserver arg0) {
+        observers.remove(arg0);
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        for (DataSetObserver d : observers) {
+            d.onChanged();
+        }
     }
 }
