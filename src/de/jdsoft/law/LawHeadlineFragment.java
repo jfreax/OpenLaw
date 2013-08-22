@@ -23,6 +23,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.nineoldandroids.animation.AnimatorInflater;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.view.ViewHelper;
 import de.jdsoft.law.LawListFragment.Callbacks;
 import de.jdsoft.law.data.helper.Law;
 import de.jdsoft.law.data.helper.LawHeadline;
@@ -90,7 +91,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
     // Animations
     private AnimatorSet fadeInAnimation;
     private AnimatorSet fadeOutAnimation;
-    private AnimatorSet resetPanel;
 
 
     /**
@@ -372,17 +372,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
                 leftIn,
                 animSet2
         );
-
-        // Reset "animation"
-        // Do not use panel3.setScaleX(1.0f) directly because its not available in API level < 11
-        resetPanel = new AnimatorSet();
-        resetPanel.playTogether(
-                ObjectAnimator.ofFloat(panel1, "scaleX", 1.0f),
-                ObjectAnimator.ofFloat(panel1, "scaleY", 1.0f),
-                ObjectAnimator.ofFloat(panel1, "alpha", 1.0f)
-        );
-        resetPanel.setDuration(0);
-
     }
 
 
@@ -390,8 +379,9 @@ public class LawHeadlineFragment extends SherlockListFragment {
         isCollapsed = false;
         getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        resetPanel.setTarget(panel3);
-        resetPanel.start();
+        ViewHelper.setScaleX(panel3, 1.0f);
+        ViewHelper.setScaleY(panel3, 1.0f);
+        ViewHelper.setAlpha(panel3, 1.0f);
 
         fadeInAnimation.start();
     }
@@ -413,8 +403,9 @@ public class LawHeadlineFragment extends SherlockListFragment {
             selectedID = -1;
         }
 
-        resetPanel.setTarget(panel1);
-        resetPanel.start();
+        ViewHelper.setScaleX(panel1, 1.0f);
+        ViewHelper.setScaleY(panel1, 1.0f);
+        ViewHelper.setAlpha(panel1, 1.0f);
 
         fadeOutAnimation.start();
     }
@@ -465,8 +456,8 @@ public class LawHeadlineFragment extends SherlockListFragment {
 		// When setting CHOICE_MODE_SINGLE, ListView will automatically
 		// give items the 'activated' state when touched.
 		getListView().setChoiceMode(
-				activateOnItemClick ? ListView.CHOICE_MODE_SINGLE
-						: ListView.CHOICE_MODE_NONE);
+                activateOnItemClick ? ListView.CHOICE_MODE_SINGLE
+                        : ListView.CHOICE_MODE_NONE);
 
 	}
 
