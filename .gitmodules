@@ -11,3 +11,6 @@
 	path = extern/UnifiedPreference
 	url = https://github.com/saik0/UnifiedPreference.git
 
+[submodule "extern/NineOldAndroids"]
+	path = extern/NineOldAndroids
+	url = https://github.com/JakeWharton/NineOldAndroids.git
