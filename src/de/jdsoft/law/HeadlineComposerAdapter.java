@@ -62,8 +62,8 @@ public class HeadlineComposerAdapter extends BaseAdapter {
                 return;
             }
         } catch (IOException e) {
-//            Log.e(HeadlineComposerAdapter.class.getName(), "Error while reading cache!");
-//            Log.e(HeadlineComposerAdapter.class.getName(), e.getCause().getMessage());
+            Log.e(HeadlineComposerAdapter.class.getName(), "Error while reading cache!");
+            Log.e(HeadlineComposerAdapter.class.getName(), e.getCause().getMessage());
         }
 
         // Not in cache, try to read from network
@@ -106,7 +106,7 @@ public class HeadlineComposerAdapter extends BaseAdapter {
             for ( String line : raw.split("\\r?\\n")) {
                 if ( line.contains(":") ) {
                     String[] depthAndText = line.split(":");
-                    headlines.add(new Pair<Integer, String>(Integer.parseInt(depthAndText[0]), depthAndText[1]));
+                    headlines.add(new Pair<Integer, String>(Integer.parseInt(depthAndText[0]), depthAndText[1].trim()));
                 }
             }
         }
