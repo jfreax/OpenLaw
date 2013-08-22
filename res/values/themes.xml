@@ -25,6 +25,8 @@
         <item name="headline_big_selector">@drawable/headline_big_selector</item>
         <item name="headline_biggest_selector">@drawable/headline_biggest_selector</item>
 
+        <item name="headline_big">@color/headline_big</item>
+
         <item name="laws_selector">@drawable/laws_selector</item>
 
         <!-- Icon -->
@@ -55,10 +57,16 @@
         <item name="headline_big_selector">@drawable/headline_big_selector_dark</item>
         <item name="headline_biggest_selector">@drawable/headline_biggest_selector_dark</item>
 
+        <item name="headline_big">@color/dark_headline_big</item>
+
         <item name="laws_selector">@drawable/laws_selector_dark</item>
 
         <!-- Icon -->
         <item name="ic_action_settings">@drawable/ic_action_settings_inverse</item>
+
+        <!-- Actionbar -->
+        <item name="actionBarStyle">@style/Widget.AppThemDark.ActionBar</item>
+        <item name="android:actionBarStyle">@style/Widget.AppThemDark.ActionBar</item>
     </style>
 
 </resources>

@@ -242,12 +242,20 @@ public class LawListFragment extends SherlockListFragment {
 		}
 
 		protected void bindSectionHeader(View view, int position, boolean displaySectionHeader) {
-			if (displaySectionHeader) {
-				view.findViewById(R.id.card_header).setVisibility(View.VISIBLE);
-				TextView lSectionTitle = (TextView) view.findViewById(R.id.header);
-				lSectionTitle.setText(getSections()[getSectionForPosition(position)]);
-			} else {
-				view.findViewById(R.id.card_header).setVisibility(View.GONE);
+            TextView textView = (TextView) view.findViewById(R.id.card_header);
+
+            if (displaySectionHeader) {
+                textView.setText(getSections()[getSectionForPosition(position)]);
+
+                // No margin on first headline
+                if( position == 0 ) {
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    lp.setMargins(0, 0, 0, 0);
+                    textView.setLayoutParams(lp);
+                }
+                textView.setVisibility(View.VISIBLE);
+            } else {
+                textView.setVisibility(View.GONE);
 			}
 		}
 

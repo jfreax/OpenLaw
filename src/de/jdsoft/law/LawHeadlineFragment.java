@@ -142,15 +142,15 @@ public class LawHeadlineFragment extends SherlockListFragment {
             updateAdapter(Integer.parseInt(getArguments().getString(ARG_ITEM_ID)));
         }
 
+        // Remember listview
+        final ListView listView = getListView();
+
         // Restore the previously serialized activated item position.
         if (savedInstanceState != null
                 && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
-            getListView().setSelection(savedInstanceState
+            listView.setSelection(savedInstanceState
                     .getInt(STATE_ACTIVATED_POSITION));
         }
-
-        // Remember listview
-        final ListView listView = getListView();
 
         // Disable standard orange background selection
         listView.setCacheColorHint(android.R.color.transparent);

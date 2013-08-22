@@ -30,16 +30,18 @@
                 <fragment
                     android:id="@+id/law_list"
                     android:name="de.jdsoft.law.LawListFragment"
+                    android:layout_margin="@dimen/cards_margin"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/law_headline_container"
-                android:paddingLeft="6dp"
-                android:paddingRight="6dp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/cards_margin"
+                android:layout_marginBottom="@dimen/cards_margin"
+                android:layout_marginRight="@dimen/cards_margin"
                 android:layout_weight="3">
 
                     <include

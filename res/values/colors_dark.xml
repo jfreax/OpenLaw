@@ -7,7 +7,7 @@
     <color name="dark_card_text_color">#ffd0d0d0</color>
 
     <color name="dark_headline_big">#222</color>
-    <color name="dark_headline_biggest">@color/dark_background</color>
+    <color name="dark_headline_biggest">#222</color>
 
 
 </resources>

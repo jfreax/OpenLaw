@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Color -->
-
+    <attr name="headline_big" format="reference|color" />
 
     <!-- Selector -->
     <attr name="headline_selector" format="reference" />

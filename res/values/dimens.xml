@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-     <dimen name="sticky_height">120dp</dimen>
+    <dimen name="card_grid_font_size">14.0sp</dimen>
+    <dimen name="card_temperature_size">90.0dip</dimen>
+    <dimen name="card_xl_text">35.0sp</dimen>
+    <dimen name="card_large_text">20.0sp</dimen>
+    <dimen name="card_medium_text">18.0sp</dimen>
+    <dimen name="card_small_text">14.0sp</dimen>
+    <dimen name="card_action_small_text">12.0sp</dimen>
+    <dimen name="card_action_text">16.0sp</dimen>
+
+    <dimen name="cards_margin">16dip</dimen>
+    <dimen name="card_padding">16.0dip</dimen>
+    <dimen name="card_small_padding">12.0dip</dimen>
+
+
+    <dimen name="sticky_height">120dp</dimen>
     <dimen name="photo_crop_width">280.0dip</dimen>
     <dimen name="photo_crop_stroke_width">1.0dip</dimen>
     <dimen name="photo_preview_size">200.0dip</dimen>
@@ -145,15 +159,6 @@
     <dimen name="ime_padding_bottom">8.0dip</dimen>
     <dimen name="ime_padding_top">8.0dip</dimen>
     <dimen name="intent_api_mic_area_size">145.0dip</dimen>
-    <dimen name="card_grid_font_size">14.0sp</dimen>
-    <dimen name="card_temperature_size">90.0dip</dimen>
-    <dimen name="card_xl_text">35.0sp</dimen>
-    <dimen name="card_large_text">20.0sp</dimen>
-    <dimen name="card_medium_text">18.0sp</dimen>
-    <dimen name="card_small_text">14.0sp</dimen>
-    <dimen name="card_action_small_text">12.0sp</dimen>
-    <dimen name="card_action_text">16.0sp</dimen>
-    <dimen name="card_padding">16.0dip</dimen>
     <dimen name="first_run_padding">24.0dip</dimen>
     <dimen name="text_block_top_padding">14.0dip</dimen>
     <dimen name="text_block_bottom_padding">20.0dip</dimen>
@@ -161,7 +166,6 @@
     <dimen name="card_horizontal_map_height">150.0dip</dimen>
     <dimen name="horizontal_static_map_height">150.0dip</dimen>
     <dimen name="card_action_button_height">48.0dip</dimen>
-    <dimen name="card_small_padding">12.0dip</dimen>
     <dimen name="card_spacer_margin">8.0dip</dimen>
     <dimen name="load_more_button_margin">40.0dip</dimen>
     <dimen name="sample_card_width">375.0dip</dimen>

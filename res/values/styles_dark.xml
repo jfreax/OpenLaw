@@ -37,4 +37,9 @@
         <item name="android:textStyle">italic</item>
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
+
+    <style name="Widget.AppThemDark.ActionBar" parent="Widget.Sherlock.ActionBar">
+        <item name="android:background">@drawable/action_bar_background</item>
+        <item name="background">@drawable/action_bar_background</item>
+    </style>
 </resources>

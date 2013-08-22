@@ -1,33 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!-- We need a LinearLayout here.
+     Without we would not have any margin
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/card_header_container"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:clickable="false">
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/card_header"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:divider="@color/light_blue"
-              android:dividerPadding="0dp"
-              android:orientation="vertical"
-              android:padding="1dp"
-              android:clickable="false"
-              android:showDividers="end"
-              android:background="?attr/android:colorBackground">
-
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/header"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:textSize="@dimen/card_large_text"
-              android:padding="6dp"
+              android:textSize="@dimen/card_xl_text"
               android:text="Header"
               android:textColor="@color/light_blue"
-              android:textStyle="bold" />
-
-    <View xmlns:android="http://schemas.android.com/apk/res/android"
-          android:id="@+id/stroke"
-          android:layout_width="fill_parent"
-          android:layout_height="1dp"
-          android:layout_marginTop="2dp"
-          android:background="@color/stroke"
-          android:visibility="visible" />
+              android:textStyle="bold"
+              android:paddingBottom="0dp"
+              android:paddingLeft="24dp"
+              android:paddingRight="0dp"
+              android:layout_marginTop="@dimen/cards_margin"
+              android:background="?attr/headline_big" />
 
 </LinearLayout>
