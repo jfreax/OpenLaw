@@ -108,22 +108,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
 //            this.law = (Law)savedInstanceState.getSerializable(STATE_LAW);
 //            Connector dbHandler = new Connector(this.getActivity().getApplicationContext());
 //        } else {
-            if ( getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)) {
-                law = Laws.getLaw(Integer.parseInt(getArguments().getString(ARG_ITEM_ID)));
-
-
-                if (law != null) {
-                    // Change title
-                    if( getSherlockActivity() instanceof LawHeadlineActivity) {
-                        getSherlockActivity().getSupportActionBar().setTitle(law.getShortName());
-                    } else {
-                        getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.title_law));
-                    }
-
-                    // Save slug for later
-                    this.slug = law.getSlug();
-                }
-            }
 //        }
 
         // Initialize the three panels in tablet mode
@@ -131,17 +115,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
             panel1 = (ViewGroup) getSherlockActivity().findViewById(R.id.law_list_container);
             panel2 = (ViewGroup) getSherlockActivity().findViewById(R.id.law_headline_container);
             panel3 = (ViewGroup) getSherlockActivity().findViewById(R.id.law_text_container);
-
-            // Set pivot to center for law list and law text view
-//            float listWidth = panel1.getWidth();
-//            float listHeight = panel1.getHeight();
-//            panel1.setPivotX(listWidth / 2.f);
-//            panel1.setPivotY(listHeight / 2.f);
-
-//            panel1.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-//            panel1.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-//            panel1.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-
 
             // Animation
             initialzeAnimation();
@@ -165,8 +138,9 @@ public class LawHeadlineFragment extends SherlockListFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        adapter = new HeadlineComposerAdapterWithView(getSherlockActivity(), slug);
-        setListAdapter(adapter);
+        if ( getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)) {
+            updateAdapter(Integer.parseInt(getArguments().getString(ARG_ITEM_ID)));
+        }
 
         // Restore the previously serialized activated item position.
         if (savedInstanceState != null
@@ -189,6 +163,26 @@ public class LawHeadlineFragment extends SherlockListFragment {
         listView.setScrollBarStyle(ScrollView.SCROLLBARS_OUTSIDE_OVERLAY);
 
         setActivateOnItemClick(true);
+    }
+
+
+    void updateAdapter(int lawID) {
+        law = Laws.getLaw(lawID);
+
+        if (law != null) {
+            // Change title
+            if( getSherlockActivity() instanceof LawHeadlineActivity) {
+                getSherlockActivity().getSupportActionBar().setTitle(law.getShortName());
+            } else {
+                getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.title_law));
+            }
+
+            // Save slug for later
+            this.slug = law.getSlug();
+        }
+
+        adapter = new HeadlineComposerAdapterWithView(getSherlockActivity(), slug);
+        setListAdapter(adapter);
     }
 
 

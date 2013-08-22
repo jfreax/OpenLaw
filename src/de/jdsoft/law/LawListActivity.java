@@ -232,15 +232,20 @@ public class LawListActivity extends SherlockFragmentActivity implements
 	 */
 	public void onItemSelected(String id) {
 		if (mTwoPane) {
-			// In two-pane mode, show the detail view in this activity by
-			// adding or replacing the detail fragment using a
-			// fragment transaction.
-			Bundle arguments = new Bundle();
-			arguments.putString(LawHeadlineFragment.ARG_ITEM_ID, id);
-			LawHeadlineFragment fragment = new LawHeadlineFragment();
-			fragment.setArguments(arguments);
-			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.law_headline_container, fragment).commit();
+            if( headlineFragment != null ) {
+                headlineFragment.updateAdapter(Integer.parseInt(id));
+            } else {
+
+                // In two-pane mode, show the detail view in this activity by
+                // adding or replacing the detail fragment using a
+                // fragment transaction.
+                Bundle arguments = new Bundle();
+                arguments.putString(LawHeadlineFragment.ARG_ITEM_ID, id);
+                headlineFragment = new LawHeadlineFragment();
+                headlineFragment.setArguments(arguments);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.law_headline_container, headlineFragment).commit();
+            }
 
 		} else {
 
