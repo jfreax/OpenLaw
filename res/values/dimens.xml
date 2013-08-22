@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="card_grid_font_size">14.0sp</dimen>
-    <dimen name="card_temperature_size">90.0dip</dimen>
-    <dimen name="card_xl_text">35.0sp</dimen>
+    <dimen name="card_xl_text">30.0sp</dimen>
     <dimen name="card_large_text">20.0sp</dimen>
     <dimen name="card_medium_text">18.0sp</dimen>
     <dimen name="card_small_text">14.0sp</dimen>
@@ -12,6 +11,8 @@
     <dimen name="cards_margin">16dip</dimen>
     <dimen name="card_padding">16.0dip</dimen>
     <dimen name="card_small_padding">12.0dip</dimen>
+
+    <dimen name="headline_seperator_distance">12.0dip</dimen>
 
 
     <dimen name="sticky_height">120dp</dimen>

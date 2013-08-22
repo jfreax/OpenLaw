@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/card_header"
+              android:id="@+id/headline_container"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:layout_marginTop="8dp"
-              android:paddingBottom="0dp"
-              android:paddingLeft="0dp"
-              android:paddingRight="0dp"
-              android:background="?attr/headline_biggest_selector">
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
+
+    <include
+            layout="@layout/headline_separator" />
 
     <TextView
             android:id="@+id/headline"
             style="?attr/card_title_italic"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:paddingLeft="10dp"
+            android:paddingLeft="@dimen/headline_seperator_distance"
             android:clickable="false"
-            android:enabled="false"/>
+            android:enabled="false"
+            android:background="?attr/headline_biggest_selector" />
 </LinearLayout>

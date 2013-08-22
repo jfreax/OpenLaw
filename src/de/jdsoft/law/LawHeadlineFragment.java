@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.DataSetObserver;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -17,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -481,11 +481,26 @@ public class LawHeadlineFragment extends SherlockListFragment {
         private static final int TYPE_NORMAL = 2;
         private final LayoutInflater mInflater;
 
+        private int[] color = {
+                Color.rgb(10, 230, 54),
+                Color.rgb(100, 30, 4),
+                Color.rgb(10, 20, 244),
+                Color.rgb(140, 230, 34),
+                Color.rgb(72, 103, 92),
+                Color.rgb(92, 123, 142)
+        };
+
+        private int lastUsedColor = 1;
+        private int[] colorForDepth = new int[32];
+
         static private class ViewHolder {
 
             final TextView headline;
-            ViewHolder(TextView headline) {
+            final View separator;
+
+            ViewHolder(TextView headline, View separator) {
                 this.headline = headline;
+                this.separator = separator;
             }
 
         }
@@ -536,16 +551,86 @@ public class LawHeadlineFragment extends SherlockListFragment {
                         convertView = mInflater.inflate(R.layout.item_headline, null);
                         break;
                 }
-                holder = new ViewHolder((TextView)convertView.findViewById(R.id.headline));
+                holder = new ViewHolder(
+                        (TextView) convertView.findViewById(R.id.headline),
+                        convertView.findViewById(R.id.seperator)
+                );
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder)convertView.getTag();
             }
 
+            // Set text
             holder.headline.setText(getItem(position).headline);
+
+
+            // Set color and intend
+            // TODO clean up this mess
+            LawHeadline item = getItem(position);
+            int currentDepth = Math.abs(item.depth);
+
+            if( item.color == -1 ) {
+                if( position == 0) {
+                    currentDepth = 0;
+                    colorForDepth[currentDepth] = color[0];
+                    setPseudoDepthOnPosition(position, 0);
+                } else {
+                    int lastDepth = getDepthOfPosition(position-1);
+
+                    if ( getPseudoDepthOnPosition(position-1) != -1 ) {
+
+                        if( currentDepth == lastDepth ) {
+                            setPseudoDepthOnPosition(position, getPseudoDepthOnPosition(position-1));
+                            currentDepth = getPseudoDepthOnPosition(position-1);
+                        }
+                        lastDepth = getPseudoDepthOnPosition(position-1);
+                    }
+
+                    if( currentDepth > lastDepth ) {
+                        if( currentDepth-lastDepth > 1 ) {
+                            setPseudoDepthOnPosition(position, lastDepth+1);
+                            currentDepth = lastDepth+1;
+                        }
+
+                        colorForDepth[currentDepth] = color[lastUsedColor % color.length];
+                        lastUsedColor++;
+
+                    } else {
+                        if( colorForDepth[currentDepth] == 0 ) {
+                            lastUsedColor++;
+                            colorForDepth[currentDepth] = color[lastUsedColor % color.length];
+                        }
+                    }
+                }
+                item.color = colorForDepth[currentDepth];
+                item.intend = currentDepth; // save new depth
+            } else {
+                currentDepth = item.intend; // load saved intend depth
+            }
+
+            holder.separator.setBackgroundColor(item.color);
+
+            // Intend
+            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) holder.separator.getLayoutParams();
+            lp.leftMargin = 10*currentDepth;
+            holder.separator.setLayoutParams(lp);
+
 
             return convertView;
         }
+
+        int getDepthOfPosition(int position) {
+            return Math.abs(getItem(position).depth);
+        }
+
+        void setPseudoDepthOnPosition(int position, int pseudo) {
+            getItem(position).pseudoDepth = pseudo;
+        }
+
+        int getPseudoDepthOnPosition(int position) {
+            return getItem(position).pseudoDepth;
+        }
+
     }
 
 }
