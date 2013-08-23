@@ -21,49 +21,53 @@
         For more on layout aliases, see:
         http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
         -->
-            <LinearLayout
-                android:id="@+id/law_list_container"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2" >
 
-                <fragment
-                    android:id="@+id/law_list"
-                    android:name="de.jdsoft.law.LawListFragment"
-                    android:layout_marginTop="@dimen/cards_margin"
-                    android:layout_marginBottom="@dimen/cards_margin"
-                    android:layout_marginLeft="@dimen/cards_margin"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
+        <!-- Law list -->
+        <LinearLayout
+            android:id="@+id/law_list_container"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2" >
 
-            <LinearLayout
-                android:id="@+id/law_headline_container"
+            <fragment
+                android:id="@+id/law_list"
+                android:name="de.jdsoft.law.LawListFragment"
+                android:layout_marginTop="@dimen/cards_margin"
+                android:layout_marginBottom="@dimen/cards_margin"
+                android:layout_marginLeft="@dimen/cards_margin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <!-- Law headline -->
+        <LinearLayout
+            android:id="@+id/law_headline_container"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/cards_margin"
+            android:layout_marginBottom="@dimen/cards_margin"
+            android:layout_marginRight="@dimen/cards_margin"
+            android:layout_marginLeft="@dimen/card_small_padding"
+            android:layout_weight="3">
+
+                <include
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:baselineAligned="false"
+                        layout="@layout/loading_view" />
+        </LinearLayout>
+
+        <!-- Law text -->
+        <LinearLayout
+                android:id="@+id/law_text_container"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/cards_margin"
                 android:layout_marginBottom="@dimen/cards_margin"
                 android:layout_marginRight="@dimen/cards_margin"
                 android:layout_marginLeft="@dimen/card_small_padding"
-                android:layout_weight="3">
-
-                    <include
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:baselineAligned="false"
-                            layout="@layout/loading_view" />
-            </LinearLayout>
-
-            <LinearLayout
-                    android:id="@+id/law_text_container"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/cards_margin"
-                    android:layout_marginBottom="@dimen/cards_margin"
-                    android:layout_marginRight="@dimen/cards_margin"
-                    android:layout_marginLeft="@dimen/card_small_padding"
-                    android:layout_weight="3" >
-            </LinearLayout>
+                android:layout_weight="3" >
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -22,6 +22,8 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.ObjectAnimator;
 import de.jdsoft.law.data.LawSectionList;
 import de.jdsoft.law.database.Connector;
 
@@ -230,10 +232,38 @@ public class LawListActivity extends SherlockFragmentActivity implements
 	 * Callback method from {@link LawListFragment.Callbacks} indicating that
 	 * the item with the given ID was selected.
 	 */
-	public void onItemSelected(String id) {
+	public void onItemSelected(final String id) {
 		if (mTwoPane) {
             if( headlineFragment != null ) {
-                headlineFragment.updateAdapter(Integer.parseInt(id));
+                // Fade in and fade out animation
+                ObjectAnimator fadeOut = ObjectAnimator.ofFloat(
+                        headlineFragment.getListView(),
+                        "alpha", 0.f
+                ).setDuration(50);
+
+                fadeOut.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        headlineFragment.updateAdapter(Integer.parseInt(id));
+                        ObjectAnimator.ofFloat(
+                                headlineFragment.getListView(),
+                                "alpha", 1.f
+                        ).setDuration(80).start();
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+                    }
+                });
+                fadeOut.start();
             } else {
 
                 // In two-pane mode, show the detail view in this activity by
