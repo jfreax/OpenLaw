@@ -128,7 +128,16 @@ public class LawHeadlineFragment extends SherlockListFragment {
             initializeAnimation();
         }
 
+        // Referenc to loading indicator view
         loading = (LinearLayout)getSherlockActivity().findViewById(R.id.loading);
+
+        // Set color collection
+        SharedPreferences pref = getSherlockActivity().getSharedPreferences("openlaw", Context.MODE_PRIVATE);
+        if( pref.getBoolean("dark_theme", false) ) {
+            LawHeadlineFragment.COLOR = ColorList.LIGHT_COLOR;
+        } else {
+            LawHeadlineFragment.COLOR = ColorList.DARK_COLOR;
+        }
 	}
 
 
@@ -174,13 +183,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
         // Show loading indicator
         if( loading != null )
             loading.setVisibility(View.VISIBLE);
-
-
-        // Set color collection
-        SharedPreferences pref = getSherlockActivity().getSharedPreferences("openlaw", Context.MODE_PRIVATE);
-        if( pref.getBoolean("dark_theme", false) ) {
-            LawHeadlineFragment.COLOR = ColorList.LIGHT_COLOR;
-        }
 
         law = Laws.getLaw(lawID);
         if (law != null) {
