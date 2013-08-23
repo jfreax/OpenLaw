@@ -94,6 +94,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
     // Animations
     private AnimatorSet fadeInAnimation;
     private AnimatorSet fadeOutAnimation;
+    private MenuItem favMenu;
 
 
     /**
@@ -197,6 +198,15 @@ public class LawHeadlineFragment extends SherlockListFragment {
                 }
         );
         setListAdapter(adapter);
+
+        // Refresh fav icon in actionbar
+        if( favMenu != null ) {
+            if( Favorites.isFav(""+law.getID()) ) {
+                favMenu.setIcon(R.drawable.btn_star_on_convo_holo_light);
+            } else {
+                favMenu.setIcon(R.drawable.btn_star_off_convo_holo_light);
+            }
+        }
     }
 
 
@@ -215,6 +225,8 @@ public class LawHeadlineFragment extends SherlockListFragment {
         menu.add(0, OPTION_FAV, 2, R.string.favit)
                 .setIcon(favDrawable)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+
+        favMenu = menu.findItem(OPTION_FAV);
     }
 
 
