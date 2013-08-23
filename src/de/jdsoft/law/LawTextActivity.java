@@ -18,6 +18,7 @@ public class LawTextActivity extends SherlockFragmentActivity {
     private HeadlinePagerAdapter mAdapter;
 
     private String lawShortName = "";
+    private String lawLongName = "";
 
     protected void onCreate(Bundle savedInstanceState) {
         // Select theme
@@ -36,6 +37,7 @@ public class LawTextActivity extends SherlockFragmentActivity {
                 getIntent().getStringExtra(LawTextFragment.ARG_ITEM_SLUG));
 
         lawShortName = getIntent().getStringExtra(LawTextFragment.ARG_ITEM_SHORT);
+        lawLongName = getIntent().getStringExtra(LawTextFragment.ARG_ITEM_LONG);
         int selectID = (int)getIntent().getLongExtra(LawTextFragment.ARG_ITEM_ID, 0L);
 
         mPager = (ViewPager)findViewById(R.id.pager);
@@ -103,7 +105,7 @@ public class LawTextActivity extends SherlockFragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return LawTextFragment.newInstance(position, mAdapter.getSlug(), lawShortName);
+            return LawTextFragment.newInstance(position, mAdapter.getSlug(), lawShortName, lawLongName);
         }
 
         @Override

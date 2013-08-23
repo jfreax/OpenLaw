@@ -28,6 +28,7 @@ public class LawTextFragment extends SherlockFragment {
     public static final String ARG_ITEM_ID = "text_id";
     public static final String ARG_ITEM_SLUG = "law";
     public static final String ARG_ITEM_SHORT = "shortname";
+    public static final String ARG_ITEM_LONG = "longname";
 
     private Cache cache = null;
     private long id = 0;
@@ -49,13 +50,14 @@ public class LawTextFragment extends SherlockFragment {
     public LawTextFragment() {
     }
 
-    public static Fragment newInstance(long id, String slug, String shortName) {
+    public static Fragment newInstance(long id, String slug, String shortName, String longName) {
         LawTextFragment fragment = new LawTextFragment();
 
         Bundle args = new Bundle();
         args.putLong(ARG_ITEM_ID, id);
         args.putString(ARG_ITEM_SLUG, slug);
         args.putString(ARG_ITEM_SHORT, shortName);
+        args.putString(ARG_ITEM_LONG, longName);
         fragment.setArguments(args);
 
         return fragment;
@@ -70,7 +72,12 @@ public class LawTextFragment extends SherlockFragment {
             id = getArguments().getLong(ARG_ITEM_ID);
             slug = getArguments().getString(ARG_ITEM_SLUG);
 
-            getSherlockActivity().getSupportActionBar().setTitle(getArguments().getString(ARG_ITEM_SHORT));
+            // Set law name in actionbar title
+            if( getSherlockActivity() instanceof LawTextActivity) { // short name on phone
+                getSherlockActivity().getSupportActionBar().setTitle(getArguments().getString(ARG_ITEM_SHORT));
+            } else { // long name on tablet
+                getSherlockActivity().getSupportActionBar().setTitle(getArguments().getString(ARG_ITEM_LONG));
+            }
         }
 
         // Get theme id

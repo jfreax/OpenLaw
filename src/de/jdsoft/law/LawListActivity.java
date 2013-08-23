@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
@@ -248,7 +247,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        headlineFragment.updateAdapter(Integer.parseInt(id));
+                        headlineFragment.update(Integer.parseInt(id));
                         ObjectAnimator.ofFloat(
                                 headlineFragment.getListView(),
                                 "alpha", 1.f

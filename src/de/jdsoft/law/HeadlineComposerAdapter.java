@@ -103,15 +103,27 @@ public class HeadlineComposerAdapter extends BaseAdapter {
         if( raw.equals("") ) { // Error while downloading
             headlines.add(new LawHeadline(1, context.getString(R.string.error_downloading)));
         } else {
-            for ( String line : raw.split("\\r?\\n")) {
+            String[] splitted = raw.split("\\r?\\n");
+            
+            for ( String line : splitted) {
                 if ( line.contains(":") ) {
                     String[] depthAndText = line.split(":");
                     headlines.add(new LawHeadline(Integer.parseInt(depthAndText[0]), depthAndText[1].trim()));
                 }
             }
+            if( splitted.length == 1 ) {
+                notifyOnlyOneHeader();
+                return;
+            }
         }
 
         notifyDataSetChanged();
+    }
+
+    public void notifyOnlyOneHeader() {
+        for (DataSetObserver d : observers) {
+            d.onInvalidated();
+        }
     }
 
     public Context getContext() {

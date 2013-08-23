@@ -14,10 +14,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.TextView;
+import android.widget.*;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -146,7 +143,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
             container, Bundle savedInstanceState) {
 
         if ( getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)) {
-            updateAdapter(Integer.parseInt(getArguments().getString(ARG_ITEM_ID)));
+            update(Integer.parseInt(getArguments().getString(ARG_ITEM_ID)));
         }
 
         setHasOptionsMenu(true);
@@ -180,7 +177,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
     }
 
 
-    void updateAdapter(int lawID) {
+    void update(int lawID) {
         // Show loading indicator
         if( loading != null )
             loading.setVisibility(View.VISIBLE);
@@ -191,11 +188,16 @@ public class LawHeadlineFragment extends SherlockListFragment {
             if( getSherlockActivity() instanceof LawHeadlineActivity) {
                 getSherlockActivity().getSupportActionBar().setTitle(law.getShortName());
             } else {
-                getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.title_law));
+                getSherlockActivity().getSupportActionBar().setTitle(law.getLongName());
             }
 
             // Save slug for later
             this.slug = law.getSlug();
+        }
+
+        // Reset panel weight
+        if ( getActivity() instanceof LawListActivity && ((LawListActivity)getActivity()).isTwoPane() ) {
+            setPanel2Weight(3);
         }
 
         adapter = new HeadlineComposerAdapterWithView(
@@ -208,6 +210,26 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
                         // Then hide loading indicator
                         loading.setVisibility(View.GONE);
+                    }
+
+                    // There is only on header
+                    // Show text fragment directly
+                    @Override
+                    public void onInvalidated() {
+                        replaceLawText(0);
+
+                        if ( getActivity() instanceof LawListActivity && ((LawListActivity)getActivity()).isTwoPane() ) {
+                            // Hide headline fragment
+                            setPanel2Weight(0);
+
+                            // Reset values from animation
+                            ViewHelper.setScaleX(panel3, 1.0f);
+                            ViewHelper.setScaleY(panel3, 1.0f);
+                            ViewHelper.setAlpha(panel3, 1.0f);
+
+                            // Fade in
+                            ObjectAnimator.ofFloat(panel3, "alpha", 0.0f, 1.0f).setDuration(500).start();
+                        }
                     }
                 }
         );
@@ -295,38 +317,50 @@ public class LawHeadlineFragment extends SherlockListFragment {
         if( selectedID == id ) {
             return;
         }
-
+        // Remember last clicked id (this one)
         selectedID = id;
 
-        // In two pane mode
-		if ( getActivity() instanceof LawListActivity && ((LawListActivity)getActivity()).isTwoPane() ) {
-			Bundle arguments = new Bundle();
-			arguments.putLong(LawTextFragment.ARG_ITEM_ID, id);
-			arguments.putString(LawTextFragment.ARG_ITEM_SLUG, law.getSlug());
-            arguments.putString(LawTextFragment.ARG_ITEM_SHORT, law.getShortName());
-			LawTextFragment text_fragment = new LawTextFragment();
-			text_fragment.setArguments(arguments);
+        // Start activity or replace fragment
+        replaceLawText(id);
 
-            // Replace fragment
-			FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-			ft.replace(R.id.law_text_container, text_fragment);
-			ft.commit();
-
-            // Fade in
-			if ( isCollapsed )
-				fadeIn();
-		} else {
-			// In single-pane mode, simply start the text activity
-			// for the selected item ID.
-			Intent detailIntent = new Intent(getActivity(), LawTextActivity.class);
-			detailIntent.putExtra(LawTextFragment.ARG_ITEM_ID, id);
-			detailIntent.putExtra(LawTextFragment.ARG_ITEM_SLUG, law.getSlug());
-            detailIntent.putExtra(LawTextFragment.ARG_ITEM_SHORT, law.getShortName());
-			startActivity(detailIntent);
-            getSherlockActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        // In two pane mode...
+        if ( getActivity() instanceof LawListActivity && ((LawListActivity)getActivity()).isTwoPane() ) {
+            // fade in
+            if ( isCollapsed )
+                fadeIn();
         }
 	}
+
+
+    private void replaceLawText(long id) {
+        // In two pane mode
+        if ( getActivity() instanceof LawListActivity && ((LawListActivity)getActivity()).isTwoPane() ) {
+            Bundle arguments = new Bundle();
+            arguments.putLong(LawTextFragment.ARG_ITEM_ID, id);
+            arguments.putString(LawTextFragment.ARG_ITEM_SLUG, law.getSlug());
+            arguments.putString(LawTextFragment.ARG_ITEM_SHORT, law.getShortName());
+            arguments.putString(LawTextFragment.ARG_ITEM_LONG, law.getLongName());
+            LawTextFragment text_fragment = new LawTextFragment();
+            text_fragment.setArguments(arguments);
+
+            // Replace fragment
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+            ft.replace(R.id.law_text_container, text_fragment);
+            ft.commit();
+
+        } else {
+            // In single-pane mode, simply start the text activity
+            // for the selected item ID.
+            Intent detailIntent = new Intent(getActivity(), LawTextActivity.class);
+            detailIntent.putExtra(LawTextFragment.ARG_ITEM_ID, id);
+            detailIntent.putExtra(LawTextFragment.ARG_ITEM_SLUG, law.getSlug());
+            detailIntent.putExtra(LawTextFragment.ARG_ITEM_SHORT, law.getShortName());
+            detailIntent.putExtra(LawTextFragment.ARG_ITEM_LONG, law.getLongName());
+            startActivity(detailIntent);
+            getSherlockActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }
+    }
 
 
 	public void onSaveInstanceState(Bundle outState) {
@@ -647,8 +681,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
                 holder.container.setPadding(0, item.padding, 0, 0);
             }
 
-
-
             return convertView;
         }
 
@@ -663,7 +695,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
         int getPseudoDepthOnPosition(int position) {
             return getItem(position).pseudoDepth;
         }
-
     }
 
 }
