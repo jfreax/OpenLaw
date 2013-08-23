@@ -1,6 +1,7 @@
 package de.jdsoft.law;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import com.actionbarsherlock.app.ActionBar;
@@ -19,6 +20,9 @@ import de.jdsoft.law.LawListFragment.Callbacks;
 public class LawHeadlineActivity extends SherlockFragmentActivity implements Callbacks, ActionBar.OnNavigationListener {
 
     private LawHeadlineFragment fragment;
+
+    // Resume from back button click?
+    private boolean fromBackButton = false;
 
 
     @Override
@@ -88,6 +92,7 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 		return true;
 	}
 
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -95,13 +100,19 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 
     @Override
     public void onResume() {
-        // Fragments exists only after 2nd call, so we are here, because
-        // someone pressed back on text view on a phone!
-        // If there is no headline, we have to go back one more time.
+        super.onResume();
+
+        // Someone pressed back on law text activity on a phone!
+        // If we have no headline to show, then go back one more time.
         if( fragment != null && fragment.getListAdapter().getCount() <= 1 ) {
             onBackPressed();
         }
-        super.onResume();
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        fromBackButton = true;
     }
 
 }

@@ -357,7 +357,8 @@ public class LawHeadlineFragment extends SherlockListFragment {
             detailIntent.putExtra(LawTextFragment.ARG_ITEM_SLUG, law.getSlug());
             detailIntent.putExtra(LawTextFragment.ARG_ITEM_SHORT, law.getShortName());
             detailIntent.putExtra(LawTextFragment.ARG_ITEM_LONG, law.getLongName());
-            startActivity(detailIntent);
+//            startActivity(detailIntent);
+            startActivityForResult(detailIntent, 0);
             getSherlockActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
     }
