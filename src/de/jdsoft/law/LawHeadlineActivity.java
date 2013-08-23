@@ -104,7 +104,10 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
 
         // Someone pressed back on law text activity on a phone!
         // If we have no headline to show, then go back one more time.
-        if( fragment != null && fragment.getListAdapter().getCount() <= 1 ) {
+        if( fragment != null
+                && fragment.getListAdapter().getCount() <= 1
+                && fromBackButton ) {
+            fromBackButton = false;
             onBackPressed();
         }
     }
