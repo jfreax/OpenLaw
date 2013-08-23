@@ -3,5 +3,5 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_activated="true"
           android:drawable="@color/dark_card_selected_background" />
-    <item android:drawable="@color/dark_headline_big" />
+    <item android:drawable="@color/dark_card_background" />
 </selector>

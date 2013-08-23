@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.DataSetObserver;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -31,6 +30,8 @@ import de.jdsoft.law.data.helper.Law;
 import de.jdsoft.law.data.helper.LawHeadline;
 import de.jdsoft.law.database.Favorites;
 import de.jdsoft.law.database.Laws;
+
+import java.util.Random;
 
 /**
  * A fragment representing a single Book detail screen. This fragment is either
@@ -153,7 +154,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
         }
 
         // Disable standard orange background selection
-        listView.setCacheColorHint(android.R.color.transparent);
+//        listView.setCacheColorHint(android.R.color.transparent);
         listView.setSelector(android.R.color.transparent);
 
         // Enable fast scroll
@@ -475,30 +476,25 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
     static public class HeadlineComposerAdapterWithView extends HeadlineComposerAdapter {
 
+        private Random rand = new Random();
+
         private static final int TYPE_MAX_COUNT = 3;
         private static final int TYPE_BIGGEST = 0;
         private static final int TYPE_BIG = 1;
         private static final int TYPE_NORMAL = 2;
         private final LayoutInflater mInflater;
 
-        private int[] color = {
-                Color.rgb(10, 230, 54),
-                Color.rgb(100, 30, 4),
-                Color.rgb(10, 20, 244),
-                Color.rgb(140, 230, 34),
-                Color.rgb(72, 103, 92),
-                Color.rgb(92, 123, 142)
-        };
-
-        private int lastUsedColor = 1;
-        private int[] colorForDepth = new int[32];
+        private int[] color = ColorList.DARK_COLOR;
+        private int[] colorForDepth = new int[128];
 
         static private class ViewHolder {
 
+            final View container;
             final TextView headline;
             final View separator;
 
-            ViewHolder(TextView headline, View separator) {
+            ViewHolder(View container, TextView headline, View separator) {
+                this.container = container;
                 this.headline = headline;
                 this.separator = separator;
             }
@@ -552,6 +548,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
                         break;
                 }
                 holder = new ViewHolder(
+                        (LinearLayout) convertView.findViewById(R.id.headline_container),
                         (TextView) convertView.findViewById(R.id.headline),
                         convertView.findViewById(R.id.seperator)
                 );
@@ -570,9 +567,9 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
             if( item.color == -1 ) {
                 if( position == 0) {
-                    currentDepth = 0;
-                    colorForDepth[currentDepth] = color[0];
-                    setPseudoDepthOnPosition(position, 0);
+                    currentDepth = 1;
+                    colorForDepth[currentDepth] = color[rand.nextInt(color.length)];
+//                    setPseudoDepthOnPosition(position, 0);
                 } else {
                     int lastDepth = getDepthOfPosition(position-1);
 
@@ -585,19 +582,23 @@ public class LawHeadlineFragment extends SherlockListFragment {
                         lastDepth = getPseudoDepthOnPosition(position-1);
                     }
 
+                    // One depth deeper, so we need a new color
                     if( currentDepth > lastDepth ) {
                         if( currentDepth-lastDepth > 1 ) {
                             setPseudoDepthOnPosition(position, lastDepth+1);
                             currentDepth = lastDepth+1;
                         }
 
-                        colorForDepth[currentDepth] = color[lastUsedColor % color.length];
-                        lastUsedColor++;
+                        colorForDepth[currentDepth] = color[rand.nextInt(color.length)];
 
                     } else {
+                        // We are now more then one depth higher, add some space
+                        if( lastDepth-currentDepth > 1 ) {
+                            item.padding = 24;
+                        }
+
                         if( colorForDepth[currentDepth] == 0 ) {
-                            lastUsedColor++;
-                            colorForDepth[currentDepth] = color[lastUsedColor % color.length];
+                            colorForDepth[currentDepth] = color[rand.nextInt(color.length)];
                         }
                     }
                 }
@@ -610,9 +611,17 @@ public class LawHeadlineFragment extends SherlockListFragment {
             holder.separator.setBackgroundColor(item.color);
 
             // Intend
-            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) holder.separator.getLayoutParams();
-            lp.leftMargin = 10*currentDepth;
-            holder.separator.setLayoutParams(lp);
+            LinearLayout.LayoutParams separatorLayout = (LinearLayout.LayoutParams) holder.separator.getLayoutParams();
+            separatorLayout.leftMargin = 10*currentDepth;
+            holder.separator.setLayoutParams(separatorLayout);
+
+            // Set top padding
+            if( type == TYPE_BIGGEST &&
+                    item.padding > 0 &&
+                    position != 0 ) {
+                holder.container.setPadding(0, item.padding, 0, 0);
+            }
+
 
 
             return convertView;
