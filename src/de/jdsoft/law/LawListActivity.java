@@ -16,6 +16,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -213,14 +214,18 @@ public class LawListActivity extends SherlockFragmentActivity implements
         search.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean queryTextFocused) {
-//                if(!queryTextFocused) {
-                // And reset
-//                    search.setText("");
-                // Hide keyboard
-//                    InputMethodManager imm =
-//                            (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-//                    imm.hideSoftInputFromWindow(search.getWindowToken(), 0);
-//                }
+                final InputMethodManager imm =
+                        (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                if(!queryTextFocused) {
+                    // Reset search
+                    search.setText("");
+                    // Hide keyboard
+                    imm.hideSoftInputFromWindow(search.getWindowToken(), 0);
+                } else {
+                    // show keyboard
+                    imm.showSoftInput(view, 0);
+                }
             }
         });
 
@@ -362,6 +367,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
 
     private TextWatcher searchTextWatcher = new TextWatcher() {
         public void afterTextChanged(Editable s) {
+            int x = 5;
         }
 
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
