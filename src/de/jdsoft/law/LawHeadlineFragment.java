@@ -48,7 +48,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
 	private HeadlineComposerAdapter adapter;
 
     public static final int ANIM_DURATION =100;
-    private static final Interpolator interpolator = new DecelerateInterpolator();
 
     boolean isCollapsed = true;
     private ViewGroup panel1, panel2, panel3;
@@ -352,7 +351,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
         } else {
             // In single-pane mode, simply start the text activity
             // for the selected item ID.
-            Intent detailIntent = new Intent(getActivity(), LawTextActivity.class);
+            Intent detailIntent = new Intent(getSherlockActivity(), LawTextActivity.class);
             detailIntent.putExtra(LawTextFragment.ARG_ITEM_ID, id);
             detailIntent.putExtra(LawTextFragment.ARG_ITEM_SLUG, law.getSlug());
             detailIntent.putExtra(LawTextFragment.ARG_ITEM_SHORT, law.getShortName());
