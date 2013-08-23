@@ -50,9 +50,6 @@ public class LawTextActivity extends SherlockFragmentActivity {
         mIndicator.setCurrentItem(selectID);
 
 
-        // Show the Up button in the action bar.
-//		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
@@ -80,6 +77,7 @@ public class LawTextActivity extends SherlockFragmentActivity {
         super.onBackPressed();
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
+
 
     class HeadlinePagerAdapter extends FragmentPagerAdapter {
         private HeadlineComposerAdapter mAdapter;

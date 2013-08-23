@@ -93,4 +93,15 @@ public class LawHeadlineActivity extends SherlockFragmentActivity implements Cal
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
+    @Override
+    public void onResume() {
+        // Fragments exists only after 2nd call, so we are here, because
+        // someone pressed back on text view on a phone!
+        // If there is no headline, we have to go back one more time.
+        if( fragment != null && fragment.getListAdapter().getCount() <= 1 ) {
+            onBackPressed();
+        }
+        super.onResume();
+    }
+
 }

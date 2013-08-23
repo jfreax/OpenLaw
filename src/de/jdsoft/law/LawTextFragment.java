@@ -29,6 +29,7 @@ public class LawTextFragment extends SherlockFragment {
     public static final String ARG_ITEM_SLUG = "law";
     public static final String ARG_ITEM_SHORT = "shortname";
     public static final String ARG_ITEM_LONG = "longname";
+    public static final String ARG_NO_HEADLINE = "no_headline";
 
     private Cache cache = null;
     private long id = 0;
