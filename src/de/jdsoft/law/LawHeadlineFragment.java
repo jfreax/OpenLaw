@@ -464,9 +464,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
         // Fixme workaround
         if( getSherlockActivity() != null ) {
-            // Disable up button
-            getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
             // Reset title
             getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.title_law));
 
