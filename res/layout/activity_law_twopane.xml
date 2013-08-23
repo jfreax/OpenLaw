@@ -46,7 +46,6 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/cards_margin"
             android:layout_marginBottom="@dimen/cards_margin"
-            android:layout_marginRight="@dimen/cards_margin"
             android:layout_marginLeft="@dimen/card_small_padding"
             android:layout_weight="3">
 

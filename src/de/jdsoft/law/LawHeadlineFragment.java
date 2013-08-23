@@ -3,6 +3,7 @@ package de.jdsoft.law;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -59,8 +60,11 @@ public class LawHeadlineFragment extends SherlockListFragment {
     public static final String STATE_SLUG = "STATE_SLUG";
     public static final String STATE_LAW = "STATE_LAW";
 
-	
-	/**
+    // Dark color for light themes
+    static int[] COLOR = ColorList.DARK_COLOR;
+
+
+    /**
 	 * The serialization (saved instance state) Bundle key representing the
 	 * activated item position. Only used on tablets.
 	 */
@@ -167,11 +171,18 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
 
     void updateAdapter(int lawID) {
+        // Show loading indicator
         if( loading != null )
             loading.setVisibility(View.VISIBLE);
 
-        law = Laws.getLaw(lawID);
 
+        // Set color collection
+        SharedPreferences pref = getSherlockActivity().getSharedPreferences("openlaw", Context.MODE_PRIVATE);
+        if( pref.getBoolean("dark_theme", false) ) {
+            LawHeadlineFragment.COLOR = ColorList.LIGHT_COLOR;
+        }
+
+        law = Laws.getLaw(lawID);
         if (law != null) {
             // Change title
             if( getSherlockActivity() instanceof LawHeadlineActivity) {
@@ -496,7 +507,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
         private static final int TYPE_NORMAL = 2;
         private final LayoutInflater mInflater;
 
-        private int[] color = ColorList.DARK_COLOR;
         private int[] colorForDepth = new int[128];
 
         static private class ViewHolder {
@@ -580,7 +590,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
             if( item.color == -1 ) {
                 if( position == 0) {
                     currentDepth = 1;
-                    colorForDepth[currentDepth] = color[rand.nextInt(color.length)];
+                    colorForDepth[currentDepth] = COLOR[rand.nextInt(COLOR.length)];
 //                    setPseudoDepthOnPosition(position, 0);
                 } else {
                     int lastDepth = getDepthOfPosition(position-1);
@@ -601,7 +611,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
                             currentDepth = lastDepth+1;
                         }
 
-                        colorForDepth[currentDepth] = color[rand.nextInt(color.length)];
+                        colorForDepth[currentDepth] = COLOR[rand.nextInt(COLOR.length)];
 
                     } else {
                         // We are now more then one depth higher, add some space
@@ -610,7 +620,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
                         }
 
                         if( colorForDepth[currentDepth] == 0 ) {
-                            colorForDepth[currentDepth] = color[rand.nextInt(color.length)];
+                            colorForDepth[currentDepth] = COLOR[rand.nextInt(COLOR.length)];
                         }
                     }
                 }

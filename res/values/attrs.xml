@@ -2,6 +2,7 @@
 <resources>
     <!-- Color -->
     <attr name="headline_big" format="reference|color" />
+    <attr name="headline_biggest" format="reference|color" />
 
     <!-- Selector -->
     <attr name="headline_selector" format="reference" />

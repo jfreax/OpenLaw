@@ -26,6 +26,7 @@
         <item name="headline_biggest_selector">@drawable/headline_biggest_selector</item>
 
         <item name="headline_big">@color/headline_big</item>
+        <item name="headline_biggest">@color/headline_biggest</item>
 
         <item name="laws_selector">@drawable/laws_selector</item>
 
@@ -60,6 +61,7 @@
         <item name="headline_biggest_selector">@drawable/headline_biggest_selector_dark</item>
 
         <item name="headline_big">@color/dark_headline_big</item>
+        <item name="headline_biggest">@color/dark_headline_biggest</item>
 
         <item name="laws_selector">@drawable/laws_selector_dark</item>
 

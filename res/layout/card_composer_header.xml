@@ -22,6 +22,6 @@
               android:paddingLeft="18dp"
               android:paddingRight="0dp"
               android:layout_marginTop="@dimen/cards_margin"
-              android:background="?attr/headline_big" />
+              android:background="?attr/headline_biggest" />
 
 </LinearLayout>
