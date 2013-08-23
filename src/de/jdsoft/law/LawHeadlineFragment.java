@@ -637,7 +637,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
             // Intend
             LinearLayout.LayoutParams separatorLayout = (LinearLayout.LayoutParams) holder.separator.getLayoutParams();
-            separatorLayout.leftMargin = 10*currentDepth;
+            separatorLayout.leftMargin = 10*(currentDepth-1);
             holder.separator.setLayoutParams(separatorLayout);
 
             // Set top padding
