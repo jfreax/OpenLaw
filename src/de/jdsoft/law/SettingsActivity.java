@@ -46,7 +46,6 @@ public class SettingsActivity extends UnifiedSherlockPreferenceActivity {
     @Override
     public void onBackPressed() {
         // Recreate main activity when themes was changed
-        SharedPreferences pref =  getSharedPreferences("openlaw", Context.MODE_PRIVATE);
         if( getIntent().getBooleanExtra("themeChanged", false) ) {
             Intent intent = new Intent(this, LawListActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
