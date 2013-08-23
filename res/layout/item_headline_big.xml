@@ -13,7 +13,7 @@
               android:id="@+id/headline"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:paddingLeft="@dimen/headline_seperator_distance"
+              android:paddingLeft="@dimen/headline_separator_distance"
               style="?attr/card_title_bold"
               android:text="Header"
               android:background="?attr/headline_big_selector" />

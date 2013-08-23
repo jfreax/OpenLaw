@@ -21,4 +21,6 @@
     <attr name="card_title_italic" format="reference" />
 
     <attr name="headline_small" format="reference" />
+
+    <!-- Dimension -->
 </resources>

@@ -31,6 +31,8 @@
 
         <!-- Icon -->
         <item name="ic_action_settings">@drawable/ic_action_settings</item>
+
+        <!-- Dimension -->
     </style>
 
 

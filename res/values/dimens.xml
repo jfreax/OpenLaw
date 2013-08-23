@@ -8,11 +8,13 @@
     <dimen name="card_action_small_text">12.0sp</dimen>
     <dimen name="card_action_text">16.0sp</dimen>
 
-    <dimen name="cards_margin">16dip</dimen>
+    <dimen name="cards_margin">0dip</dimen> <!-- set extra for tablet mode -->
+    <dimen name="card_spacer_margin">8.0dip</dimen>
     <dimen name="card_padding">16.0dip</dimen>
     <dimen name="card_small_padding">10.0dip</dimen>
 
-    <dimen name="headline_seperator_distance">12.0dip</dimen>
+    <dimen name="headline_separator_distance">12.0dip</dimen>
+    <dimen name="headline_separator_size">5dip</dimen>
 
 
     <dimen name="sticky_height">120dp</dimen>
@@ -167,7 +169,6 @@
     <dimen name="card_horizontal_map_height">150.0dip</dimen>
     <dimen name="horizontal_static_map_height">150.0dip</dimen>
     <dimen name="card_action_button_height">48.0dip</dimen>
-    <dimen name="card_spacer_margin">8.0dip</dimen>
     <dimen name="load_more_button_margin">40.0dip</dimen>
     <dimen name="sample_card_width">375.0dip</dimen>
     <dimen name="table_row_vertical_padding">8.0dip</dimen>

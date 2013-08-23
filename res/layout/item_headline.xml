@@ -13,7 +13,7 @@
             style="?attr/headline_small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/headline_seperator_distance"
+            android:paddingLeft="@dimen/headline_separator_distance"
             android:maxLines="1"
             android:background="?attr/headline_selector" />
 

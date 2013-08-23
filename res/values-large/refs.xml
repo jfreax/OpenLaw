@@ -11,4 +11,6 @@
     <!--<item name="list_background" type="drawable">@drawable/list_arrow_background</item>-->
     <!--<item name="list_item_background" type="drawable">@drawable/list_item_noarrow_background</item>-->
 
+    <item name="cards_margin" type="dimen">16dp</item>
+    <item name="card_spacer_margin" type="dimen">0dp</item>
 </resources>

@@ -563,7 +563,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
             // Set text
             holder.headline.setText(getItem(position).headline);
 
-
             // Set color and intend
             // TODO clean up this mess
             LawHeadline item = getItem(position);
