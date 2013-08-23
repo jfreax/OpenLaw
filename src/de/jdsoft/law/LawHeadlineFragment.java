@@ -144,6 +144,11 @@ public class LawHeadlineFragment extends SherlockListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup
             container, Bundle savedInstanceState) {
+
+        if ( getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)) {
+            updateAdapter(Integer.parseInt(getArguments().getString(ARG_ITEM_ID)));
+        }
+
         setHasOptionsMenu(true);
 
         return super.onCreateView(inflater, container, savedInstanceState);
@@ -152,10 +157,6 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        if ( getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)) {
-            updateAdapter(Integer.parseInt(getArguments().getString(ARG_ITEM_ID)));
-        }
 
         // Remember listview
         final ListView listView = getListView();
