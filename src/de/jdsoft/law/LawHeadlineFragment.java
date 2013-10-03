@@ -624,48 +624,57 @@ public class LawHeadlineFragment extends SherlockListFragment {
             LawHeadline item = getItem(position);
             int currentDepth = Math.abs(item.depth);
 
-            if (item.color == -1) {
-                if (position == 0) {
-                    currentDepth = 1;
-                    colorForDepth[currentDepth] = COLOR[rand.nextInt(COLOR.length)];
-//                    setPseudoDepthOnPosition(position, 0);
-                } else {
-                    int lastDepth = getDepthOfPosition(position - 1);
 
-                    if (getPseudoDepthOnPosition(position - 1) != -1) {
-
-                        if (currentDepth == lastDepth) {
-                            setPseudoDepthOnPosition(position, getPseudoDepthOnPosition(position - 1));
-                            currentDepth = getPseudoDepthOnPosition(position - 1);
-                        }
-                        lastDepth = getPseudoDepthOnPosition(position - 1);
-                    }
-
-                    // One depth deeper, so we need a new color
-                    if (currentDepth > lastDepth) {
-                        if (currentDepth - lastDepth > 1) {
-                            setPseudoDepthOnPosition(position, lastDepth + 1);
-                            currentDepth = lastDepth + 1;
-                        }
-
-                        colorForDepth[currentDepth] = COLOR[rand.nextInt(COLOR.length)];
-
-                    } else {
-                        // We are now more then one depth higher, add some space
-                        if (lastDepth - currentDepth > 1) {
-                            item.padding = 24;
-                        }
-
-                        if (colorForDepth[currentDepth] == 0) {
-                            colorForDepth[currentDepth] = COLOR[rand.nextInt(COLOR.length)];
-                        }
-                    }
-                }
-                item.color = colorForDepth[currentDepth];
-                item.intend = currentDepth; // save new depth
-            } else {
-                currentDepth = item.intend; // load saved intend depth
+            if (colorForDepth[currentDepth] == 0) {
+                colorForDepth[currentDepth] = COLOR[rand.nextInt(COLOR.length)];
             }
+
+            item.color = colorForDepth[currentDepth];
+            item.intend = currentDepth; // save new depth
+
+
+//            if (item.color == -1) {
+//                if (position == 0) {
+//                    currentDepth = 1;
+//                    colorForDepth[currentDepth] = COLOR[rand.nextInt(COLOR.length)];
+////                    setPseudoDepthOnPosition(position, 0);
+//                } else {
+//                    int lastDepth = getDepthOfPosition(position - 1);
+//
+//                    if (getPseudoDepthOnPosition(position - 1) != -1) {
+//
+//                        if (currentDepth == lastDepth) {
+//                            setPseudoDepthOnPosition(position, getPseudoDepthOnPosition(position - 1));
+//                            currentDepth = getPseudoDepthOnPosition(position - 1);
+//                        }
+//                        lastDepth = getPseudoDepthOnPosition(position - 1);
+//                    }
+//
+//                    // One depth deeper, so we need a new color
+//                    if (currentDepth > lastDepth) {
+//                        if (currentDepth - lastDepth > 1) {
+//                            setPseudoDepthOnPosition(position, lastDepth + 1);
+//                            currentDepth = lastDepth + 1;
+//                        }
+//
+//                        colorForDepth[currentDepth] = COLOR[rand.nextInt(COLOR.length)];
+//
+//                    } else {
+//                        // We are now more then one depth higher, add some space
+//                        if (lastDepth - currentDepth > 1) {
+//                            item.padding = 24;
+//                        }
+//
+//                        if (colorForDepth[currentDepth] == 0) {
+//                            colorForDepth[currentDepth] = COLOR[rand.nextInt(COLOR.length)];
+//                        }
+//                    }
+//                }
+//                item.color = colorForDepth[currentDepth];
+//                item.intend = currentDepth; // save new depth
+//            } else {
+//                currentDepth = item.intend; // load saved intend depth
+//            }
 
             holder.separator.setBackgroundColor(item.color);
 
