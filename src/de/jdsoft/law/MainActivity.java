@@ -12,89 +12,89 @@ import com.actionbarsherlock.view.Menu;
 
 public class MainActivity extends SherlockActivity {
 
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_flags);
-		
-		GridView gridview = (GridView) findViewById(R.id.flagview);
-	    gridview.setAdapter(new FlagAdapter(this));
-	    
-	    gridview.setOnItemClickListener(new OnItemClickListener() {
-	        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-	            Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
-	        }
-	    });
-	    
-        gridview.setColumnWidth( getRowWidth() );
-	}
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_flags);
 
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		//getSupportMenuInflater().inflate(R.menu.activity_main, menu);
-		return true;
-	}
-	
-    public void onConfigurationChanged(Configuration newConfig) {
-    	super.onConfigurationChanged(newConfig);
-    	
-    	// TODO save and restore position (if possible)
-    	GridView gridview = (GridView) findViewById(R.id.flagview);
-    	gridview.setAdapter(new FlagAdapter(this));
-    	
+        GridView gridview = (GridView) findViewById(R.id.flagview);
+        gridview.setAdapter(new FlagAdapter(this));
+
+        gridview.setOnItemClickListener(new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        gridview.setColumnWidth(getRowWidth());
     }
-	
-	private int getRowWidth() {
-	  int iDisplayWidth = getResources().getDisplayMetrics().widthPixels ;
-      int iImageWidth = iDisplayWidth / 2; 
-      
-      if ( iImageWidth > 400 ) {
-    	  iImageWidth = 400;
-      }
-      
-      return iImageWidth;
-	}
 
-	public class FlagAdapter extends BaseAdapter {
-	    private Context mContext;
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        //getSupportMenuInflater().inflate(R.menu.activity_main, menu);
+        return true;
+    }
 
-	    public FlagAdapter(Context c) {
-	        mContext = c;
-	    }
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
 
-	    public int getCount() {
-	        return mFlags.length;
-	    }
+        // TODO save and restore position (if possible)
+        GridView gridview = (GridView) findViewById(R.id.flagview);
+        gridview.setAdapter(new FlagAdapter(this));
 
-	    public Object getItem(int position) {
-	        return null;
-	    }
+    }
 
-	    public long getItemId(int position) {
-	        return 0;
-	    }
+    private int getRowWidth() {
+        int iDisplayWidth = getResources().getDisplayMetrics().widthPixels;
+        int iImageWidth = iDisplayWidth / 2;
 
-	    // create a new ImageView for each item referenced by the Adapter
-	    public View getView(int position, View convertView, ViewGroup parent) {
-	        View view = convertView;
-	        if (view == null) {
-	        	view = getLayoutInflater().inflate(R.layout.item_flags, null);
-	        	
-	        	ImageView imageView = (ImageView) view.findViewById(R.id.flag_image);
-	            imageView.setLayoutParams(new LinearLayout.LayoutParams(getRowWidth(), (getRowWidth()*3) / 5));
-	            imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-	            imageView.setPadding(8, 8, 8, 8);
-	        }
-	        
-	        ImageView imageView = (ImageView) view.findViewById(R.id.flag_image);
-			TextView text = (TextView) view.findViewById(R.id.flag_text);
+        if (iImageWidth > 400) {
+            iImageWidth = 400;
+        }
 
-	        imageView.setImageResource(mFlags[position]); 
-	        text.setText(mFlagNames[position]);
+        return iImageWidth;
+    }
 
-	        return view;
-	    }
+    public class FlagAdapter extends BaseAdapter {
+        private Context mContext;
 
-	    // references to all flags
+        public FlagAdapter(Context c) {
+            mContext = c;
+        }
+
+        public int getCount() {
+            return mFlags.length;
+        }
+
+        public Object getItem(int position) {
+            return null;
+        }
+
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        // create a new ImageView for each item referenced by the Adapter
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view = convertView;
+            if (view == null) {
+                view = getLayoutInflater().inflate(R.layout.item_flags, null);
+
+                ImageView imageView = (ImageView) view.findViewById(R.id.flag_image);
+                imageView.setLayoutParams(new LinearLayout.LayoutParams(getRowWidth(), (getRowWidth() * 3) / 5));
+                imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                imageView.setPadding(8, 8, 8, 8);
+            }
+
+            ImageView imageView = (ImageView) view.findViewById(R.id.flag_image);
+            TextView text = (TextView) view.findViewById(R.id.flag_text);
+
+            imageView.setImageResource(mFlags[position]);
+            text.setText(mFlagNames[position]);
+
+            return view;
+        }
+
+        // references to all flags
         private Integer[] mFlags = {};
 //	    private Integer[] mFlags = {
 //	            R.drawable.flag_of_baden, R.drawable.flag_of_bayern,
@@ -106,7 +106,7 @@ public class MainActivity extends SherlockActivity {
 //	            R.drawable.flag_of_saxony, R.drawable.flag_of_saxony_anhalt,
 //	            R.drawable.flag_of_schleswig_holstein, R.drawable.flag_of_thuringia
 //	    };
-	    
-	    private String[] mFlagNames = getResources().getStringArray(R.array.LanderNames);
-	}
+
+        private String[] mFlagNames = getResources().getStringArray(R.array.LanderNames);
+    }
 }

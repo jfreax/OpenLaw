@@ -1,10 +1,8 @@
 package de.jdsoft.law;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -40,7 +38,7 @@ public class HeadlineComposerAdapter extends BaseAdapter {
     protected void finalize() throws Throwable {
         super.finalize();
 
-        if ( cache != null && !cache.isClosed() ) {
+        if (cache != null && !cache.isClosed()) {
             cache.close();
             cache = null;
         }
@@ -49,15 +47,15 @@ public class HeadlineComposerAdapter extends BaseAdapter {
     private void getHeadlinesRaw() {
         // Try to read from cache
         try {
-            if ( cache == null || cache.isClosed() ) {
+            if (cache == null || cache.isClosed()) {
                 cache.openCache();
             }
-            if( slug == "" ) { // Work around when database is blocked
+            if (slug == "") { // Work around when database is blocked
                 return;
             }
 
             DiskLruCache.Snapshot snapshot = cache.get(slug);
-            if ( snapshot != null ) {
+            if (snapshot != null) {
                 makeHeadlines(snapshot.getString(0));
                 return;
             }
@@ -100,18 +98,18 @@ public class HeadlineComposerAdapter extends BaseAdapter {
     protected void makeHeadlines(String raw) {
         headlines = new ArrayList<LawHeadline>();
 
-        if( raw.equals("") ) { // Error while downloading
+        if (raw.equals("")) { // Error while downloading
             headlines.add(new LawHeadline(1, context.getString(R.string.error_downloading)));
         } else {
             String[] splitted = raw.split("\\r?\\n");
-            
-            for ( String line : splitted) {
-                if ( line.contains(":") ) {
+
+            for (String line : splitted) {
+                if (line.contains(":")) {
                     String[] depthAndText = line.split(":");
                     headlines.add(new LawHeadline(Integer.parseInt(depthAndText[0]), depthAndText[1].trim()));
                 }
             }
-            if( splitted.length == 1 ) {
+            if (splitted.length == 1) {
                 notifyOnlyOneHeader();
                 return;
             }
@@ -131,7 +129,7 @@ public class HeadlineComposerAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        if ( headlines == null ) {
+        if (headlines == null) {
             return 0;
         }
         return headlines.size();
@@ -140,7 +138,7 @@ public class HeadlineComposerAdapter extends BaseAdapter {
     public LawHeadline getItem(int position) {
         try {
             return headlines.get(position);
-        } catch(IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             return null;
         }
     }

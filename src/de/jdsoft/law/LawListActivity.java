@@ -37,16 +37,16 @@ import java.util.List;
  * {@link LawHeadlineActivity} representing item details. On tablets, the
  * activity presents the list of items and item details side-by-side using two
  * vertical panes.
- * <p>
+ * <p/>
  * The activity makes heavy use of fragments. The list of items is a
  * {@link LawListFragment} and the item details (if present) is a
  * {@link LawHeadlineFragment}.
- * <p>
+ * <p/>
  * This activity also implements the required {@link LawListFragment.Callbacks}
  * interface to listen for item selections.
  */
 public class LawListActivity extends SherlockFragmentActivity implements
-		LawListFragment.Callbacks, ActionBar.OnNavigationListener {
+        LawListFragment.Callbacks, ActionBar.OnNavigationListener {
 
     private static final int OPTION_SEARCH = 3;
 
@@ -60,11 +60,11 @@ public class LawListActivity extends SherlockFragmentActivity implements
 
 
     /**
-	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-	 * device.
-	 */
+     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
+     * device.
+     */
     protected boolean mTwoPane;
-	private LawHeadlineFragment headlineFragment = null;
+    private LawHeadlineFragment headlineFragment = null;
     private LawListFragment lawListFragment;
 
 
@@ -74,53 +74,53 @@ public class LawListActivity extends SherlockFragmentActivity implements
 
     }
 
-	@SuppressLint("NewApi")
-	public void onCreate(Bundle savedInstanceState) {
+    @SuppressLint("NewApi")
+    public void onCreate(Bundle savedInstanceState) {
         // Select theme
-        SharedPreferences pref =  getSharedPreferences("openlaw", Context.MODE_PRIVATE);
-        if( pref.getBoolean("dark_theme", false) ) {
+        SharedPreferences pref = getSharedPreferences("openlaw", Context.MODE_PRIVATE);
+        if (pref.getBoolean("dark_theme", false)) {
             setTheme(R.style.AppThemeDark);
         } else {
             setTheme(R.style.AppTheme);
         }
 
         // Setup database
-        if( db == null ) {
+        if (db == null) {
             db = new Connector(getApplicationContext());
         }
 
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_law_list);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_law_list);
 
         lawListFragment =
                 ((LawListFragment) getSupportFragmentManager().findFragmentById(R.id.law_list));
 
         // Two pane mode
-		if (findViewById(R.id.law_headline_container ) != null) {
-			// The detail container view will be present only in the
-			// large-screen layouts (res/values-large and
-			// res/values-sw600dp). If this view is present, then the
-			// activity should be in two-pane mode.
-			mTwoPane = true;
-			// In two-pane mode, list items should be given the
-			// 'activated' state when touched.
-			lawListFragment.setActivateOnItemClick(true);
-			
-			ListView listview = lawListFragment.getListView();
+        if (findViewById(R.id.law_headline_container) != null) {
+            // The detail container view will be present only in the
+            // large-screen layouts (res/values-large and
+            // res/values-sw600dp). If this view is present, then the
+            // activity should be in two-pane mode.
+            mTwoPane = true;
+            // In two-pane mode, list items should be given the
+            // 'activated' state when touched.
+            lawListFragment.setActivateOnItemClick(true);
+
+            ListView listview = lawListFragment.getListView();
 
             // Disable standard orange background selection
             listview.setCacheColorHint(android.R.color.transparent);
             listview.setSelector(android.R.color.transparent);
             listview.setScrollingCacheEnabled(false);
 
-			listview.setScrollBarStyle(ScrollView.SCROLLBARS_INSIDE_INSET);
+            listview.setScrollBarStyle(ScrollView.SCROLLBARS_INSIDE_INSET);
 
             // Do not show loading animation on start
-            LinearLayout loading = (LinearLayout)findViewById(R.id.loading);
+            LinearLayout loading = (LinearLayout) findViewById(R.id.loading);
             loading.setVisibility(View.GONE);
         }
-		
-		final com.actionbarsherlock.app.ActionBar actionbar = getSupportActionBar();
+
+        final com.actionbarsherlock.app.ActionBar actionbar = getSupportActionBar();
 
         // Locate ListView in drawer_main.xml
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -133,13 +133,13 @@ public class LawListActivity extends SherlockFragmentActivity implements
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Back to main list
-                if( headlineFragment != null && !headlineFragment.isCollapsed ) {
+                if (headlineFragment != null && !headlineFragment.isCollapsed) {
                     headlineFragment.fadeOut();
                 }
 
                 switch (adapter.getItem(position).type) {
                     case DrawerAdapter.ID_GERMANY:
-                        if( !lawListFragment.adapter.isFinish ) {
+                        if (!lawListFragment.adapter.isFinish) {
                             LawSectionList sectionDB = new LawSectionList(LawSectionList.TYPE_ALL);
                             sectionDB.execute(lawListFragment.adapter);
                         } else {
@@ -185,9 +185,9 @@ public class LawListActivity extends SherlockFragmentActivity implements
         actionbar.setHomeButtonEnabled(true);
 
         // Show title
-		actionbar.setDisplayShowTitleEnabled(true);
+        actionbar.setDisplayShowTitleEnabled(true);
         actionbar.setTitle(getResources().getString(R.string.title_law));
-	}
+    }
 
 
     @Override
@@ -197,27 +197,27 @@ public class LawListActivity extends SherlockFragmentActivity implements
         mDrawerToggle.syncState();
     }
 
-	
+
     @SuppressLint("AlwaysShowAction")
-	public boolean onCreateOptionsMenu(final Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         //Used to put dark icons on light action bar
         //boolean isLight = SampleList.THEME == R.style.Theme_Sherlock_Light;
-    	boolean isLight = true;
+        boolean isLight = true;
 
-    	// Search button
+        // Search button
         menu.add(0, OPTION_SEARCH, 3, R.string.search)
-            .setIcon(isLight ? R.drawable.ic_search_inverse : R.drawable.ic_search)
-            .setActionView(R.layout.collapsible_search)
-            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+                .setIcon(isLight ? R.drawable.ic_search_inverse : R.drawable.ic_search)
+                .setActionView(R.layout.collapsible_search)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
 
-        final EditText search = (EditText)menu.getItem(0).getActionView();
+        final EditText search = (EditText) menu.getItem(0).getActionView();
         search.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean queryTextFocused) {
                 final InputMethodManager imm =
-                        (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 
-                if(!queryTextFocused) {
+                if (!queryTextFocused) {
                     // Reset search
                     search.setText("");
                     // Hide keyboard
@@ -232,13 +232,13 @@ public class LawListActivity extends SherlockFragmentActivity implements
         return true;
     }
 
-	/**
-	 * Callback method from {@link LawListFragment.Callbacks} indicating that
-	 * the item with the given ID was selected.
-	 */
-	public void onItemSelected(final String id) {
-		if (mTwoPane) {
-            if( headlineFragment != null ) {
+    /**
+     * Callback method from {@link LawListFragment.Callbacks} indicating that
+     * the item with the given ID was selected.
+     */
+    public void onItemSelected(final String id) {
+        if (mTwoPane) {
+            if (headlineFragment != null) {
                 // Fade in and fade out animation
                 ObjectAnimator fadeOut = ObjectAnimator.ofFloat(
                         headlineFragment.getListView(),
@@ -281,7 +281,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
                         .replace(R.id.law_headline_container, headlineFragment).commit();
             }
 
-		} else {
+        } else {
 
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
@@ -290,13 +290,13 @@ public class LawListActivity extends SherlockFragmentActivity implements
             startActivity(detailIntent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
-	}
+    }
 
 
-	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-		// TODO Auto-generated method stub
-		return true;
-	}
+    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+        // TODO Auto-generated method stub
+        return true;
+    }
 
 
     @Override
@@ -305,23 +305,23 @@ public class LawListActivity extends SherlockFragmentActivity implements
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-	
-	public boolean isTwoPane() {
-		return mTwoPane;
-	}
 
-	
+    public boolean isTwoPane() {
+        return mTwoPane;
+    }
+
+
     public void onBackPressed() {
-    	if ( isTwoPane() && headlineFragment != null && !headlineFragment.isCollapsed ) {
-    		headlineFragment.fadeOut();
-    	} else {
-    		super.onBackPressed();
-    	}
+        if (isTwoPane() && headlineFragment != null && !headlineFragment.isCollapsed) {
+            headlineFragment.fadeOut();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 if (mDrawerLayout.isDrawerOpen(mDrawerView)) {
                     mDrawerLayout.closeDrawer(mDrawerView);
@@ -331,7 +331,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
                 return true;
             case OPTION_SEARCH:
                 // Go back to law list in two pane mode if necessary
-                if( headlineFragment != null && !headlineFragment.isCollapsed ) {
+                if (headlineFragment != null && !headlineFragment.isCollapsed) {
                     headlineFragment.fadeOut();
                 }
 
@@ -350,14 +350,14 @@ public class LawListActivity extends SherlockFragmentActivity implements
     }
 
     public void clickDrawerFavorites(View view) {
-        if( headlineFragment != null && !headlineFragment.isCollapsed ) {
+        if (headlineFragment != null && !headlineFragment.isCollapsed) {
             headlineFragment.fadeOut();
         }
 
         LawSectionList sectionDB = new LawSectionList(LawSectionList.TYPE_FAV);
         sectionDB.execute(lawListFragment.adapterFavs);
 
-        if( lawListFragment.adapterFavs.isFinish ) {
+        if (lawListFragment.adapterFavs.isFinish) {
             lawListFragment.setListAdapter(lawListFragment.adapterFavs);
         }
 
@@ -376,7 +376,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             LawListFragment fragment = ((LawListFragment) getSupportFragmentManager().findFragmentById(
                     R.id.law_list));
-            ((LawListFragment.SectionComposerAdapter)fragment.getListAdapter()).getFilter().filter(s);
+            ((LawListFragment.SectionComposerAdapter) fragment.getListAdapter()).getFilter().filter(s);
         }
     };
 
@@ -409,15 +409,15 @@ public class LawListActivity extends SherlockFragmentActivity implements
         private final List<Entry> entries = new LinkedList<Entry>();
 
         public DrawerAdapter(Activity activity) {
-            inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            entries.add( new Entry(
+            entries.add(new Entry(
                     activity.getResources().getDrawable(R.drawable.flag_eu),
                     10,
                     activity.getString(R.string.eu),
                     ID_EU));
 
-            entries.add( new Entry(
+            entries.add(new Entry(
                     activity.getResources().getDrawable(R.drawable.flag_germany),
                     10,
                     activity.getString(R.string.germany),
@@ -451,7 +451,7 @@ public class LawListActivity extends SherlockFragmentActivity implements
                 holder.icon = (ImageView) convertView.findViewById(R.id.icon);
                 convertView.setTag(holder);
             } else {
-                holder = (ViewHolder)convertView.getTag();
+                holder = (ViewHolder) convertView.getTag();
             }
 
             Entry item = getItem(position);

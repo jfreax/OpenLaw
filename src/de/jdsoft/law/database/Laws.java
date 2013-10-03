@@ -44,7 +44,7 @@ public class Laws implements Constants {
 
         try {
             db.beginTransaction();
-            for( Law law : laws) {
+            for (Law law : laws) {
                 // Need to tell the helper you are inserting (rather than replacing)
                 iHelp.prepareForInsert();
 
@@ -57,8 +57,7 @@ public class Laws implements Constants {
                 iHelp.execute();
             }
             db.setTransactionSuccessful();
-        }
-        finally {
+        } finally {
             db.endTransaction();
         }
     }
@@ -69,10 +68,10 @@ public class Laws implements Constants {
 
         try {
             SQLiteDatabase db = LawListActivity.db.getReadableDatabase();
-            cursor = db.query(TABLE_LAWS, new String[] { KEY_ID,
-                    KEY_SHORT_NAME, KEY_LONG_NAME, KEY_SLUG }, KEY_ID + "=?",
-                    new String[] { String.valueOf(id) }, null, null, null, null);
-            if (cursor.getCount() == 0 ) {
+            cursor = db.query(TABLE_LAWS, new String[]{KEY_ID,
+                    KEY_SHORT_NAME, KEY_LONG_NAME, KEY_SLUG}, KEY_ID + "=?",
+                    new String[]{String.valueOf(id)}, null, null, null, null);
+            if (cursor.getCount() == 0) {
                 Log.e(Connector.class.getName(), "No db entry for id " + id);
                 return null;
             }
@@ -94,9 +93,9 @@ public class Laws implements Constants {
     static public Law getLaw(String shortName) {
         SQLiteDatabase db = LawListActivity.db.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_LAWS, new String[] { KEY_ID,
-                KEY_SHORT_NAME, KEY_LONG_NAME, KEY_SLUG }, KEY_SHORT_NAME + "=?",
-                new String[] { shortName }, null, null, null, null);
+        Cursor cursor = db.query(TABLE_LAWS, new String[]{KEY_ID,
+                KEY_SHORT_NAME, KEY_LONG_NAME, KEY_SLUG}, KEY_SHORT_NAME + "=?",
+                new String[]{shortName}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
@@ -109,6 +108,7 @@ public class Laws implements Constants {
 
     /**
      * Do not forget to close the cursor!
+     *
      * @return
      */
     static public List<Law> getAllLaws() {
@@ -117,7 +117,7 @@ public class Laws implements Constants {
 
         Cursor cursor = db.rawQuery(selectQuery, null);
         List<Law> result = new ArrayList<Law>();
-        Log.e("LawDb", "size "+cursor.getCount());
+        Log.e("LawDb", "size " + cursor.getCount());
         if (cursor.moveToFirst()) {
             do {
                 Law law = new Law();
@@ -153,8 +153,8 @@ public class Laws implements Constants {
         values.put(KEY_LONG_NAME, law.getLongName());
         values.put(KEY_SLUG, law.getSlug());
 
-        int ret =  db.update(TABLE_LAWS, values, KEY_ID + " = ?",
-                new String[] { String.valueOf(law.getID()) });
+        int ret = db.update(TABLE_LAWS, values, KEY_ID + " = ?",
+                new String[]{String.valueOf(law.getID())});
 
         return ret;
     }
@@ -162,6 +162,6 @@ public class Laws implements Constants {
     static public void deleteLaw(Law law) {
         SQLiteDatabase db = LawListActivity.db.getWritableDatabase();
         db.delete(TABLE_LAWS, KEY_ID + " = ?",
-                new String[] { String.valueOf(law.getID()) });
+                new String[]{String.valueOf(law.getID())});
     }
 }

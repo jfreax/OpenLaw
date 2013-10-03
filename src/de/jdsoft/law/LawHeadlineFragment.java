@@ -12,9 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.Interpolator;
-import android.widget.*;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -37,17 +38,17 @@ import java.util.Random;
  * {@link LawHeadlineActivity} on handsets.
  */
 public class LawHeadlineFragment extends SherlockListFragment {
-	/**
-	 * The fragment argument representing the item ID that this fragment
-	 * represents.
-	 */
-	public static final String ARG_ITEM_ID = "item_id";
+    /**
+     * The fragment argument representing the item ID that this fragment
+     * represents.
+     */
+    public static final String ARG_ITEM_ID = "item_id";
     public static final int OPTION_FAV = 4;
 
     private String slug = "";
-	private HeadlineComposerAdapter adapter;
+    private HeadlineComposerAdapter adapter;
 
-    public static final int ANIM_DURATION =100;
+    public static final int ANIM_DURATION = 100;
 
     boolean isCollapsed = true;
     private ViewGroup panel1, panel2, panel3;
@@ -61,33 +62,33 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
 
     /**
-	 * The serialization (saved instance state) Bundle key representing the
-	 * activated item position. Only used on tablets.
-	 */
-	private static final String STATE_ACTIVATED_POSITION = "activated_position";
-	
-	/**
-	 * The fragment's current callback object, which is notified of list item
-	 * clicks.
-	 */
-	private Callbacks mCallbacks = sDummyCallbacks;
+     * The serialization (saved instance state) Bundle key representing the
+     * activated item position. Only used on tablets.
+     */
+    private static final String STATE_ACTIVATED_POSITION = "activated_position";
 
-	/**
-	 * A dummy implementation of the interface that does
-	 * nothing. Used only when this fragment is not attached to an activity.
-	 */
-	private static Callbacks sDummyCallbacks = new Callbacks() {
-		public void onItemSelected(String id) {
-		}
-	};
-	
-	/**
-	 * The current activated item position. Only used on tablets.
-	 */
-	private int mActivatedPosition = ListView.INVALID_POSITION;
+    /**
+     * The fragment's current callback object, which is notified of list item
+     * clicks.
+     */
+    private Callbacks mCallbacks = sDummyCallbacks;
+
+    /**
+     * A dummy implementation of the interface that does
+     * nothing. Used only when this fragment is not attached to an activity.
+     */
+    private static Callbacks sDummyCallbacks = new Callbacks() {
+        public void onItemSelected(String id) {
+        }
+    };
+
+    /**
+     * The current activated item position. Only used on tablets.
+     */
+    private int mActivatedPosition = ListView.INVALID_POSITION;
 
 
-	private Law law = null;
+    private Law law = null;
     private long selectedID = -1L;
     private LinearLayout loading;
 
@@ -98,15 +99,15 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
 
     /**
-	 * Mandatory empty constructor for the fragment manager to instantiate the
-	 * fragment (e.g. upon screen orientation changes).
-	 */
-	public LawHeadlineFragment() {
-	}
+     * Mandatory empty constructor for the fragment manager to instantiate the
+     * fragment (e.g. upon screen orientation changes).
+     */
+    public LawHeadlineFragment() {
+    }
 
 
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 //        if( savedInstanceState != null ) {
 //            this.slug = savedInstanceState.getString(STATE_SLUG);
 //            this.law = (Law)savedInstanceState.getSerializable(STATE_LAW);
@@ -115,7 +116,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 //        }
 
         // Initialize the three panels in tablet mode
-        if ( getActivity() instanceof LawListActivity && ((LawListActivity)getActivity()).isTwoPane() ) {
+        if (getActivity() instanceof LawListActivity && ((LawListActivity) getActivity()).isTwoPane()) {
             panel1 = (ViewGroup) getSherlockActivity().findViewById(R.id.law_list_container);
             panel2 = (ViewGroup) getSherlockActivity().findViewById(R.id.law_headline_container);
             panel3 = (ViewGroup) getSherlockActivity().findViewById(R.id.law_text_container);
@@ -125,23 +126,23 @@ public class LawHeadlineFragment extends SherlockListFragment {
         }
 
         // Referenc to loading indicator view
-        loading = (LinearLayout)getSherlockActivity().findViewById(R.id.loading);
+        loading = (LinearLayout) getSherlockActivity().findViewById(R.id.loading);
 
         // Set color collection
         SharedPreferences pref = getSherlockActivity().getSharedPreferences("openlaw", Context.MODE_PRIVATE);
-        if( pref.getBoolean("dark_theme", false) ) {
+        if (pref.getBoolean("dark_theme", false)) {
             LawHeadlineFragment.COLOR = ColorList.LIGHT_COLOR;
         } else {
             LawHeadlineFragment.COLOR = ColorList.DARK_COLOR;
         }
-	}
+    }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup
             container, Bundle savedInstanceState) {
 
-        if ( getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)) {
+        if (getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)) {
             update(Integer.parseInt(getArguments().getString(ARG_ITEM_ID)));
         }
 
@@ -178,13 +179,13 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
     void update(int lawID) {
         // Show loading indicator
-        if( loading != null )
+        if (loading != null)
             loading.setVisibility(View.VISIBLE);
 
         law = Laws.getLaw(lawID);
         if (law != null) {
             // Change title
-            if( getSherlockActivity() instanceof LawHeadlineActivity) {
+            if (getSherlockActivity() instanceof LawHeadlineActivity) {
                 getSherlockActivity().getSupportActionBar().setTitle(law.getShortName());
             } else {
                 getSherlockActivity().getSupportActionBar().setTitle(law.getLongName());
@@ -195,7 +196,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
         }
 
         // Reset panel weight
-        if ( getActivity() instanceof LawListActivity && ((LawListActivity)getActivity()).isTwoPane() ) {
+        if (getActivity() instanceof LawListActivity && ((LawListActivity) getActivity()).isTwoPane()) {
             setPanel2Weight(3);
         }
 
@@ -217,7 +218,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
                     public void onInvalidated() {
                         replaceLawText(0);
 
-                        if ( getActivity() instanceof LawListActivity && ((LawListActivity)getActivity()).isTwoPane() ) {
+                        if (getActivity() instanceof LawListActivity && ((LawListActivity) getActivity()).isTwoPane()) {
                             // Hide headline fragment
                             setPanel2Weight(0);
 
@@ -235,8 +236,8 @@ public class LawHeadlineFragment extends SherlockListFragment {
         setListAdapter(adapter);
 
         // Refresh fav icon in actionbar
-        if( favMenu != null ) {
-            if( Favorites.isFav(""+law.getID()) ) {
+        if (favMenu != null) {
+            if (Favorites.isFav("" + law.getID())) {
                 favMenu.setIcon(R.drawable.btn_star_on_convo_holo_light);
             } else {
                 favMenu.setIcon(R.drawable.btn_star_off_convo_holo_light);
@@ -246,12 +247,12 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
 
     @Override
-    public void onCreateOptionsMenu (Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         boolean isLight = true; // TODO
 
         // Favorite
         int favDrawable = 0;
-        if( Favorites.isFav(""+law.getID()) ) {
+        if (Favorites.isFav("" + law.getID())) {
             favDrawable = R.drawable.btn_star_on_convo_holo_light;
         } else {
             favDrawable = R.drawable.btn_star_off_convo_holo_light;
@@ -272,8 +273,8 @@ public class LawHeadlineFragment extends SherlockListFragment {
         switch (item.getItemId()) {
 
             case LawHeadlineFragment.OPTION_FAV:
-                String id = ""+law.getID();
-                if( Favorites.isFav(id) ) {
+                String id = "" + law.getID();
+                if (Favorites.isFav(id)) {
                     Favorites.removeFav(id);
                     item.setIcon(R.drawable.btn_star_off_convo_holo_light);
                 } else {
@@ -285,35 +286,35 @@ public class LawHeadlineFragment extends SherlockListFragment {
         }
         return super.onOptionsItemSelected(item);
     }
-	
-
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-
-		// Activities containing this fragment must implement its callbacks.
-		if (!(activity instanceof Callbacks)) {
-			throw new IllegalStateException(
-					"Activity must implement fragment's callbacks.");
-		}
-
-		mCallbacks = (Callbacks) activity;
-
-	}
 
 
-	public void onDetach() {
-		super.onDetach();
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
 
-		// Reset the active callbacks interface to the dummy implementation.
-		mCallbacks = sDummyCallbacks;
-	}
+        // Activities containing this fragment must implement its callbacks.
+        if (!(activity instanceof Callbacks)) {
+            throw new IllegalStateException(
+                    "Activity must implement fragment's callbacks.");
+        }
+
+        mCallbacks = (Callbacks) activity;
+
+    }
 
 
-	public void onListItemClick(ListView listView, View view, int position,
-			long id) {
+    public void onDetach() {
+        super.onDetach();
+
+        // Reset the active callbacks interface to the dummy implementation.
+        mCallbacks = sDummyCallbacks;
+    }
+
+
+    public void onListItemClick(ListView listView, View view, int position,
+                                long id) {
         super.onListItemClick(listView, view, position, id);
         // Refresh law text only at new clicked id
-        if( selectedID == id ) {
+        if (selectedID == id) {
             return;
         }
         // Remember last clicked id (this one)
@@ -323,17 +324,17 @@ public class LawHeadlineFragment extends SherlockListFragment {
         replaceLawText(id);
 
         // In two pane mode...
-        if ( getActivity() instanceof LawListActivity && ((LawListActivity)getActivity()).isTwoPane() ) {
+        if (getActivity() instanceof LawListActivity && ((LawListActivity) getActivity()).isTwoPane()) {
             // fade in
-            if ( isCollapsed )
+            if (isCollapsed)
                 fadeIn();
         }
-	}
+    }
 
 
     private void replaceLawText(long id) {
         // In two pane mode
-        if ( getActivity() instanceof LawListActivity && ((LawListActivity)getActivity()).isTwoPane() ) {
+        if (getActivity() instanceof LawListActivity && ((LawListActivity) getActivity()).isTwoPane()) {
             Bundle arguments = new Bundle();
             arguments.putLong(LawTextFragment.ARG_ITEM_ID, id);
             arguments.putString(LawTextFragment.ARG_ITEM_SLUG, law.getSlug());
@@ -363,15 +364,15 @@ public class LawHeadlineFragment extends SherlockListFragment {
     }
 
 
-	public void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		if (mActivatedPosition != ListView.INVALID_POSITION) {
-			// Serialize and persist the activated item position.
-			outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (mActivatedPosition != ListView.INVALID_POSITION) {
+            // Serialize and persist the activated item position.
+            outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
 //            outState.putString(STATE_SLUG, this.slug);
 //            outState.putSerializable(STATE_LAW, this.law);
-		}
-	}
+        }
+    }
 
 
     public void initializeAnimation() {
@@ -458,17 +459,17 @@ public class LawHeadlineFragment extends SherlockListFragment {
         fadeInAnimation.start();
     }
 
-    
+
     public void fadeOut() {
-    	isCollapsed = true;
+        isCollapsed = true;
 
         // Fixme workaround
-        if( getSherlockActivity() != null ) {
+        if (getSherlockActivity() != null) {
             // Reset title
             getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.title_law));
 
             // Deselect
-            getListView().setItemChecked((int)selectedID, false);
+            getListView().setItemChecked((int) selectedID, false);
             selectedID = -1;
         }
 
@@ -478,7 +479,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
         fadeOutAnimation.start();
     }
-    
+
 
     /*
      * Our magic getters/setters below!
@@ -500,9 +501,11 @@ public class LawHeadlineFragment extends SherlockListFragment {
     }
 
     public void setPanel2Weight(float newWeight) {
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) panel2.getLayoutParams();
-        params.weight = newWeight;
-        panel2.setLayoutParams(params);
+        if (panel2 != null) {
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) panel2.getLayoutParams();
+            params.weight = newWeight;
+            panel2.setLayoutParams(params);
+        }
     }
 
     public float getPanel3Weight() {
@@ -515,20 +518,20 @@ public class LawHeadlineFragment extends SherlockListFragment {
         params.weight = newWeight;
         panel3.setLayoutParams(params);
     }
-    
 
-	/**
-	 * Turns on activate-on-click mode. When this mode is on, list items will be
-	 * given the 'activated' state when touched.
-	 */
-	public void setActivateOnItemClick(boolean activateOnItemClick) {
-		// When setting CHOICE_MODE_SINGLE, ListView will automatically
-		// give items the 'activated' state when touched.
-		getListView().setChoiceMode(
+
+    /**
+     * Turns on activate-on-click mode. When this mode is on, list items will be
+     * given the 'activated' state when touched.
+     */
+    public void setActivateOnItemClick(boolean activateOnItemClick) {
+        // When setting CHOICE_MODE_SINGLE, ListView will automatically
+        // give items the 'activated' state when touched.
+        getListView().setChoiceMode(
                 activateOnItemClick ? ListView.CHOICE_MODE_SINGLE
                         : ListView.CHOICE_MODE_NONE);
 
-	}
+    }
 
 
     static public class HeadlineComposerAdapterWithView extends HeadlineComposerAdapter {
@@ -560,7 +563,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
         public HeadlineComposerAdapterWithView(Context baseContext, String slug, DataSetObserver dataSetObserver) {
             super(baseContext);
             registerDataSetObserver(dataSetObserver);
-            mInflater = (LayoutInflater)baseContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            mInflater = (LayoutInflater) baseContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             initialize(slug);
         }
@@ -568,7 +571,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
         public HeadlineComposerAdapterWithView(Context baseContext, String slug) {
             super(baseContext);
-            mInflater = (LayoutInflater)baseContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            mInflater = (LayoutInflater) baseContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             initialize(slug);
         }
@@ -610,7 +613,7 @@ public class LawHeadlineFragment extends SherlockListFragment {
                 );
                 convertView.setTag(holder);
             } else {
-                holder = (ViewHolder)convertView.getTag();
+                holder = (ViewHolder) convertView.getTag();
             }
 
             // Set text
@@ -621,39 +624,39 @@ public class LawHeadlineFragment extends SherlockListFragment {
             LawHeadline item = getItem(position);
             int currentDepth = Math.abs(item.depth);
 
-            if( item.color == -1 ) {
-                if( position == 0) {
+            if (item.color == -1) {
+                if (position == 0) {
                     currentDepth = 1;
                     colorForDepth[currentDepth] = COLOR[rand.nextInt(COLOR.length)];
 //                    setPseudoDepthOnPosition(position, 0);
                 } else {
-                    int lastDepth = getDepthOfPosition(position-1);
+                    int lastDepth = getDepthOfPosition(position - 1);
 
-                    if ( getPseudoDepthOnPosition(position-1) != -1 ) {
+                    if (getPseudoDepthOnPosition(position - 1) != -1) {
 
-                        if( currentDepth == lastDepth ) {
-                            setPseudoDepthOnPosition(position, getPseudoDepthOnPosition(position-1));
-                            currentDepth = getPseudoDepthOnPosition(position-1);
+                        if (currentDepth == lastDepth) {
+                            setPseudoDepthOnPosition(position, getPseudoDepthOnPosition(position - 1));
+                            currentDepth = getPseudoDepthOnPosition(position - 1);
                         }
-                        lastDepth = getPseudoDepthOnPosition(position-1);
+                        lastDepth = getPseudoDepthOnPosition(position - 1);
                     }
 
                     // One depth deeper, so we need a new color
-                    if( currentDepth > lastDepth ) {
-                        if( currentDepth-lastDepth > 1 ) {
-                            setPseudoDepthOnPosition(position, lastDepth+1);
-                            currentDepth = lastDepth+1;
+                    if (currentDepth > lastDepth) {
+                        if (currentDepth - lastDepth > 1) {
+                            setPseudoDepthOnPosition(position, lastDepth + 1);
+                            currentDepth = lastDepth + 1;
                         }
 
                         colorForDepth[currentDepth] = COLOR[rand.nextInt(COLOR.length)];
 
                     } else {
                         // We are now more then one depth higher, add some space
-                        if( lastDepth-currentDepth > 1 ) {
+                        if (lastDepth - currentDepth > 1) {
                             item.padding = 24;
                         }
 
-                        if( colorForDepth[currentDepth] == 0 ) {
+                        if (colorForDepth[currentDepth] == 0) {
                             colorForDepth[currentDepth] = COLOR[rand.nextInt(COLOR.length)];
                         }
                     }
@@ -668,13 +671,13 @@ public class LawHeadlineFragment extends SherlockListFragment {
 
             // Intend
             LinearLayout.LayoutParams separatorLayout = (LinearLayout.LayoutParams) holder.separator.getLayoutParams();
-            separatorLayout.leftMargin = 10*(currentDepth-1);
+            separatorLayout.leftMargin = 10 * (currentDepth - 1);
             holder.separator.setLayoutParams(separatorLayout);
 
             // Set top padding
-            if( type == TYPE_BIGGEST &&
+            if (type == TYPE_BIGGEST &&
                     item.padding > 0 &&
-                    position != 0 ) {
+                    position != 0) {
                 holder.container.setPadding(0, item.padding, 0, 0);
             }
 

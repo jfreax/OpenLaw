@@ -278,7 +278,7 @@ public class ColorList {
             0x7FFF00, // Chartreuse (color)
             0xDE3163, // Cherry]]}}
             0xFFB7C5, // Shades of pink#Cherry blossom pink
-            0x954535 , // Chestnut (color)
+            0x954535, // Chestnut (color)
             0xDE6FA1, // Shades of pink#China pink
             0xA8516E, // Rose (color)#China Rose
             0xAA381E, // Vermilion#Chinese red

@@ -22,7 +22,7 @@ public class Favorites implements Constants {
         int count = cursor.getCount();
         cursor.close();
 
-        if( count > 0 ) {
+        if (count > 0) {
             return true;
         } else {
             return false;
@@ -41,12 +41,12 @@ public class Favorites implements Constants {
     static public void removeFav(String id) {
         SQLiteDatabase db = LawListActivity.db.getWritableDatabase();
         db.delete(TABLE_FAVS, KEY_ID + " = ?",
-                new String[] { id });
+                new String[]{id});
     }
 
     public static List<Law> getFavLaws() {
         String selectQuery = "SELECT * FROM " + TABLE_LAWS + " l INNER JOIN " + TABLE_FAVS +
-                " f ON l." + KEY_ID + " = f." + KEY_ID  + " ORDER BY l." + KEY_SHORT_NAME + " COLLATE LOCALIZED ASC";
+                " f ON l." + KEY_ID + " = f." + KEY_ID + " ORDER BY l." + KEY_SHORT_NAME + " COLLATE LOCALIZED ASC";
         SQLiteDatabase db = LawListActivity.db.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(selectQuery, null);

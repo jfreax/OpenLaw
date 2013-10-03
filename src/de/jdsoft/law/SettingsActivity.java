@@ -14,7 +14,7 @@ public class SettingsActivity extends UnifiedSherlockPreferenceActivity {
     public void onCreate(Bundle savedInstanceState) {
         // Select theme
         SharedPreferences pref = getSharedPreferences("openlaw", Context.MODE_PRIVATE);
-        if( pref.getBoolean("dark_theme", false) ) {
+        if (pref.getBoolean("dark_theme", false)) {
             setTheme(R.style.AppThemeDark);
         } else {
             setTheme(R.style.AppTheme);
@@ -29,7 +29,7 @@ public class SettingsActivity extends UnifiedSherlockPreferenceActivity {
         pref.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                if( key.equals("dark_theme") ) {
+                if (key.equals("dark_theme")) {
                     Intent intent = getIntent();
                     intent.putExtra("themeChanged", true);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
@@ -46,7 +46,7 @@ public class SettingsActivity extends UnifiedSherlockPreferenceActivity {
     @Override
     public void onBackPressed() {
         // Recreate main activity when themes was changed
-        if( getIntent().getBooleanExtra("themeChanged", false) ) {
+        if (getIntent().getBooleanExtra("themeChanged", false)) {
             Intent intent = new Intent(this, LawListActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -58,11 +58,13 @@ public class SettingsActivity extends UnifiedSherlockPreferenceActivity {
     }
 
     public static class GeneralFragment extends UnifiedPreferenceFragment {
-        public GeneralFragment() {}
+        public GeneralFragment() {
+        }
     }
 
     public static class AdvancedFragment extends UnifiedPreferenceFragment {
-        public AdvancedFragment() {}
+        public AdvancedFragment() {
+        }
     }
 
 }

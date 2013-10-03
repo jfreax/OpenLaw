@@ -22,8 +22,8 @@ public class LawTextActivity extends SherlockFragmentActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         // Select theme
-        SharedPreferences pref =  getSharedPreferences("openlaw", Context.MODE_PRIVATE);
-        if( pref.getBoolean("dark_theme", false) ) {
+        SharedPreferences pref = getSharedPreferences("openlaw", Context.MODE_PRIVATE);
+        if (pref.getBoolean("dark_theme", false)) {
             setTheme(R.style.AppThemeDark);
         } else {
             setTheme(R.style.AppTheme);
@@ -38,17 +38,16 @@ public class LawTextActivity extends SherlockFragmentActivity {
 
         lawShortName = getIntent().getStringExtra(LawTextFragment.ARG_ITEM_SHORT);
         lawLongName = getIntent().getStringExtra(LawTextFragment.ARG_ITEM_LONG);
-        int selectID = (int)getIntent().getLongExtra(LawTextFragment.ARG_ITEM_ID, 0L);
+        int selectID = (int) getIntent().getLongExtra(LawTextFragment.ARG_ITEM_ID, 0L);
 
-        mPager = (ViewPager)findViewById(R.id.pager);
+        mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
         mPager.setCurrentItem(selectID);
 
-        mIndicator = (TabPageIndicator)findViewById(R.id.indicator);
+        mIndicator = (TabPageIndicator) findViewById(R.id.indicator);
         mIndicator.setViewPager(mPager, selectID);
 
         mIndicator.setCurrentItem(selectID);
-
 
 
         if (savedInstanceState == null) {
@@ -91,8 +90,8 @@ public class LawTextActivity extends SherlockFragmentActivity {
                     super.makeHeadlines(raw);
 
                     // Set position after loading all headlines
-                    if( mIndicator != null ) {
-                        int selectID = (int)getIntent().getLongExtra(LawTextFragment.ARG_ITEM_ID, 0L);
+                    if (mIndicator != null) {
+                        int selectID = (int) getIntent().getLongExtra(LawTextFragment.ARG_ITEM_ID, 0L);
                         mIndicator.setCurrentItem(selectID);
                     }
                 }

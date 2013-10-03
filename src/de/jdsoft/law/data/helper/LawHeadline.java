@@ -4,9 +4,9 @@ public class LawHeadline {
 
 
     public LawHeadline(int d, String h) {
-		depth = d;
-		headline = h;
-	}
+        depth = d;
+        headline = h;
+    }
 
     public String headline;
     public int depth;
