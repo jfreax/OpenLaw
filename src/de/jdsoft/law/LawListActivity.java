@@ -7,13 +7,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -66,6 +69,8 @@ public class LawListActivity extends SherlockFragmentActivity implements
     protected boolean mTwoPane;
     private LawHeadlineFragment headlineFragment = null;
     private LawListFragment lawListFragment;
+    private Scroller mScroller;
+    private OnSwipeTouchListener touchListender;
 
 
     public LawListActivity() {
@@ -118,6 +123,43 @@ public class LawListActivity extends SherlockFragmentActivity implements
             // Do not show loading animation on start
             LinearLayout loading = (LinearLayout) findViewById(R.id.loading);
             loading.setVisibility(View.GONE);
+
+            // Register gesture listener
+            LinearLayout twoPaneFrame = (LinearLayout) findViewById(R.id.main_twopane);
+            if (Build.VERSION.SDK_INT < 11) {
+                mScroller = new Scroller(this);
+            } else {
+                mScroller = new Scroller(this, null, true);
+            }
+
+            touchListender = new OnSwipeTouchListener(this, mScroller) {
+
+                @Override
+                public boolean onSwipeLeft() {
+                    Log.e("OpenLaw", "Left");
+                    return true;
+                }
+
+                @Override
+                public boolean onSwipeRight() {
+                    Log.e("OpenLaw", "Right");
+                    return true;
+                }
+
+                @Override
+                public boolean onSwipeBottom() {
+                    // TODO Auto-generated method stub
+                    return true;
+                }
+                @Override
+                public boolean onSwipeTop() {
+                    // TODO Auto-generated method stub
+                    return true;
+                }
+
+            };
+            twoPaneFrame.setOnTouchListener(touchListender);
+
         }
 
         final com.actionbarsherlock.app.ActionBar actionbar = getSupportActionBar();
@@ -341,6 +383,13 @@ public class LawListActivity extends SherlockFragmentActivity implements
         }
         return false;
     }
+/*
+    @Override
+    public boolean onInterceptTouchEvent (MotionEvent ev) {
+        touchListender.onTouch(null, ev);
+
+        return true;
+    }*/
 
 
     // Handle button clicks
